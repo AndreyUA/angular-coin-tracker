@@ -1,15 +1,22 @@
 <header>
   <nav>
-    <a routerLink="">home page</a>
-    <hr />
-    <a [routerLink]="['auth', 'register']">register page</a>
-    <hr />
-    <a [routerLink]="['auth', 'login']">login page</a>
-    <hr />
-    <a routerLink="family">family page</a>
-    <hr />
-    <a routerLink="table">table page</a>
-    <hr />
-    <a routerLink="progress">progress page</a>
+    <div class="header_logo">
+      <img src="../../assets/coin.svg" alt="logo" />
+    </div>
+    <div class="header_links">
+      <a
+        routerLink=""
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        >Home</a
+      >
+      <a [routerLink]="['auth', 'register']" routerLinkActive="active"
+        >Register</a
+      >
+      <a [routerLink]="['auth', 'login']" routerLinkActive="active">Login</a>
+      <a routerLink="family" routerLinkActive="active">Account</a>
+      <a routerLink="table" routerLinkActive="active">Table</a>
+      <a routerLink="progress" routerLinkActive="active">Progress</a>
+    </div>
   </nav>
 </header>
