@@ -1,6 +1,6 @@
 <main>
   <div class="register">
-    <h1>Wellcome to Coin Tracker!</h1>
+    <h1 #wellcome></h1>
     <form (ngSubmit)="onSubmit()" class="register_form" #form="ngForm">
       <div class="register_form_block">
         <label for="familyName">Account (family) name</label>
@@ -8,6 +8,7 @@
           required
           [(ngModel)]="user.familyName"
           #familyName="ngModel"
+          #familyNameFocus
           id="familyName"
           name="familyName"
           type="text"
