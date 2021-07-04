@@ -6,6 +6,8 @@ import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
   styleUrls: ['./register-page.component.scss'],
 })
 export class RegisterPageComponent implements AfterViewInit {
+  // This component is using template-driven form
+
   user = {
     familyName: '',
     email: '',
@@ -27,6 +29,7 @@ export class RegisterPageComponent implements AfterViewInit {
 
   typing(): void {
     this.counterTyping++;
+
     if (this.counterTyping === this.wellcomeText.length + 1) {
       this.wellcomeRef.nativeElement.innerHTML = this.typingText;
 
@@ -35,12 +38,16 @@ export class RegisterPageComponent implements AfterViewInit {
     }
 
     this.typingText = this.wellcomeText.slice(0, this.counterTyping);
-
     this.wellcomeRef.nativeElement.innerHTML = this.typingText + '|';
+
+    let timeOut: number = 100;
+
+    if (this.counterTyping % 2 === 0) timeOut = 200;
+    if (this.counterTyping % 3 === 0) timeOut = 300;
 
     setTimeout(() => {
       this.typing();
-    }, 100);
+    }, timeOut);
   }
 
   ngAfterViewInit() {
