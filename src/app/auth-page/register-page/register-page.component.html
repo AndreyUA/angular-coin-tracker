@@ -1,38 +1,77 @@
 <main>
   <div class="register">
     <h1>Wellcome to Coin Tracker!</h1>
-    <form class="register_form">
+    <form (ngSubmit)="onSubmit()" class="register_form" #form="ngForm">
       <div class="register_form_block">
         <label for="familyName">Account (family) name</label>
         <input
+          required
+          [(ngModel)]="user.familyName"
+          #familyName="ngModel"
           id="familyName"
           name="familyName"
           type="text"
           placeholder="Enter your account name"
         />
+        <p
+          class="register_form_block_alert"
+          [hidden]="familyName.valid || familyName.pristine"
+        >
+          Name is required!!!
+        </p>
       </div>
 
       <div class="register_form_block">
         <label for="email">Email</label>
-        <input id="email" type="email" placeholder="Enter your email" />
+        <input
+          required
+          [(ngModel)]="user.email"
+          #email="ngModel"
+          email
+          id="email"
+          name="email"
+          type="email"
+          placeholder="Enter your email"
+        />
+        <p
+          class="register_form_block_alert"
+          [hidden]="email.valid || email.pristine"
+        >
+          Email is required!!!
+        </p>
       </div>
 
       <div class="register_form_block">
         <label for="password">Password</label>
         <input
+          required
+          [(ngModel)]="user.password"
+          #password="ngModel"
           id="password"
+          name="password"
           type="password"
           placeholder="Enter your password"
         />
+        <p
+          class="register_form_block_alert"
+          [hidden]="
+            password.pristine ||
+            password.untouched ||
+            (password.valid && user.password.length > 5)
+          "
+        >
+          Password must be at least 6 characters!!!
+        </p>
       </div>
 
       <div class="register_form_block">
-        <button type="submit">Sign up</button>
+        <button
+          type="submit"
+          [disabled]="!form.valid || user.password.length <= 5"
+        >
+          Sign up
+        </button>
       </div>
     </form>
   </div>
 </main>
-
-<!-- "familyName": "Andrusha, Olusha, Kirusha",
-  "email": "test@gmail.com",
-  "password": "123456" -->

@@ -3,13 +3,17 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-register-page',
   templateUrl: './register-page.component.html',
-  styleUrls: ['./register-page.component.scss']
+  styleUrls: ['./register-page.component.scss'],
 })
-export class RegisterPageComponent implements OnInit {
+export class RegisterPageComponent {
+  user = {
+    familyName: '',
+    email: '',
+    password: '',
+  };
 
-  constructor() { }
-
-  ngOnInit(): void {
+  onSubmit() {
+    console.log('submit!');
+    console.log(this.user);
   }
-
 }
