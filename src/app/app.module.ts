@@ -16,6 +16,7 @@ import { FamilyPageComponent } from './family-page/family-page.component';
 import { TablePageComponent } from './table-page/table-page.component';
 import { ProgressPageComponent } from './progress-page/progress-page.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { StatisticPageComponent } from './statistic-page/statistic-page.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
     TablePageComponent,
     ProgressPageComponent,
     NotFoundComponent,
+    StatisticPageComponent,
   ],
   imports: [BrowserModule, FormsModule, AppRoutingModule],
   providers: [],

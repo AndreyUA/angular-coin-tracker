@@ -9,6 +9,7 @@ import { LoginPageComponent } from './auth-page/login-page/login-page.component'
 import { FamilyPageComponent } from './family-page/family-page.component';
 import { TablePageComponent } from './table-page/table-page.component';
 import { ProgressPageComponent } from './progress-page/progress-page.component';
+import { StatisticPageComponent } from './statistic-page/statistic-page.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 
 const routes: Routes = [
@@ -25,6 +26,7 @@ const routes: Routes = [
   { path: 'family', component: FamilyPageComponent },
   { path: 'table', component: TablePageComponent },
   { path: 'progress', component: ProgressPageComponent },
+  { path: 'statistic', component: StatisticPageComponent },
   { path: 'not-found', component: NotFoundComponent },
   { path: '**', redirectTo: '/not-found' },
 ];
