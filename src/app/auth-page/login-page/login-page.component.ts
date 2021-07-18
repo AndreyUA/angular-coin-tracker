@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+
+import { EmailValidator } from '../email-validator';
 
 @Component({
   selector: 'app-login-page',
@@ -8,7 +11,28 @@ import { Component, OnInit } from '@angular/core';
 export class LoginPageComponent implements OnInit {
   // This component is using reactive form
 
-  constructor() {}
+  loginForm!: FormGroup;
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.loginForm = new FormGroup({
+      email: new FormControl(null, [
+        Validators.required,
+        Validators.email,
+        EmailValidator.invalidEmail,
+      ]),
+      password: new FormControl(null, [
+        Validators.required,
+        Validators.minLength(6),
+      ]),
+    });
+  }
+
+  onSubmit() {
+    console.log(this.loginForm.value);
+    this.loginForm.reset();
+  }
+
+  // TODO:
+  // style this page
+  // implement trigger for password input (password/text)
 }

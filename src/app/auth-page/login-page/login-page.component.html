@@ -1,1 +1,9 @@
-<p>страница для входа в систему</p>
+<main>
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <label for="emain">Email</label>
+    <input formControlName="email" id="email" type="email" />
+    <label for="password">Password</label>
+    <input formControlName="password" id="password" type="password" />
+    <button type="submit">Sing In</button>
+  </form>
+</main>
