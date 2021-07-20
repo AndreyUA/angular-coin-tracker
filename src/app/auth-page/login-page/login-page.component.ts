@@ -37,8 +37,4 @@ export class LoginPageComponent implements OnInit {
     console.log(this.loginForm.value);
     this.loginForm.reset();
   }
-
-  // TODO:
-  // style this page
-  // implement trigger for password input (password/text)
 }

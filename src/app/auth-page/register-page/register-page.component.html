@@ -33,6 +33,7 @@
           name="email"
           type="email"
           placeholder="Enter your email"
+          pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
         />
         <p
           class="register_form_block_alert"
@@ -83,7 +84,9 @@
       <div class="register_form_block">
         <button
           type="submit"
-          [disabled]="!form.valid || user.password.length <= 5"
+          [disabled]="
+            !form.valid || user.password.length <= 5 || email?.errors?.pattern
+          "
         >
           Sign up
         </button>

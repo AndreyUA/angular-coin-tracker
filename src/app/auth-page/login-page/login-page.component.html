@@ -29,7 +29,7 @@
         />
       </div>
       <div class="login_form_block">
-        <button type="submit">Sing In</button>
+        <button type="submit" [disabled]="!loginForm.valid">Sing In</button>
       </div>
     </form>
   </div>
