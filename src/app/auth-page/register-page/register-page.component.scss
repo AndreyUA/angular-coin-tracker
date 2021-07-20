@@ -59,6 +59,20 @@
         font-weight: bold;
         color: crimson;
       }
+
+      .register_form_block_eye {
+        position: absolute;
+        bottom: 0;
+        right: 5px;
+        width: 30px;
+        height: 30px;
+        border: none;
+        background-color: transparent;
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
     }
   }
 }

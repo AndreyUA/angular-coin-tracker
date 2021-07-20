@@ -8,6 +8,12 @@ import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 export class RegisterPageComponent implements AfterViewInit {
   // This component is using template-driven form
 
+  isPasswordVisible: boolean = false;
+
+  passwordVisibilityToggler(): void {
+    this.isPasswordVisible = !this.isPasswordVisible;
+  }
+
   user = {
     familyName: '',
     email: '',
@@ -33,7 +39,6 @@ export class RegisterPageComponent implements AfterViewInit {
     if (this.counterTyping === this.wellcomeText.length + 1) {
       this.wellcomeRef.nativeElement.innerHTML = this.typingText;
 
-      this.familyNameFocusRef.nativeElement.focus();
       return;
     }
 

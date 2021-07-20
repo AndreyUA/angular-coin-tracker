@@ -43,6 +43,21 @@
       </div>
 
       <div class="register_form_block">
+        <button
+          (click)="passwordVisibilityToggler()"
+          class="register_form_block_eye"
+          type="button"
+        >
+          <img
+            [src]="
+              isPasswordVisible
+                ? '../../../assets/visibility-off.svg'
+                : '../../../assets/visibility-on.svg'
+            "
+            alt="pass-visible"
+          />
+        </button>
+
         <label for="password">Password</label>
         <input
           required
@@ -50,7 +65,7 @@
           #password="ngModel"
           id="password"
           name="password"
-          type="password"
+          [type]="!isPasswordVisible ? 'password' : 'text'"
           placeholder="Enter your password"
         />
         <p
