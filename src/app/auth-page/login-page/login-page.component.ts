@@ -11,6 +11,12 @@ import { EmailValidator } from '../email-validator';
 export class LoginPageComponent implements OnInit {
   // This component is using reactive form
 
+  isPasswordVisible: boolean = false;
+
+  passwordVisibilityToggler(): void {
+    this.isPasswordVisible = !this.isPasswordVisible;
+  }
+
   loginForm!: FormGroup;
 
   ngOnInit(): void {
