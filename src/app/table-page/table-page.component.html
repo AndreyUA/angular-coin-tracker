@@ -13,6 +13,31 @@
 <hr />
 <p>еще здесь будет добавление расходов</p>
 <p>
-  как-то сделать пагинацию самых свежих операций, модальное окошко для оформлени
-  операции, может еще что-то
+  как-то сделать пагинацию самых свежих операций, модальное окошко для
+  оформления операции, может еще что-то
 </p>
+<hr />
+<hr />
+<hr />
+
+<main>
+  <div class="table_header">
+    <p>Total: {{ total }}</p>
+    <p>Spend: {{ spend }}</p>
+    <p>Left: {{ left }}</p>
+  </div>
+
+  <div class="table_form">
+    <p>тут будет форма для добавления транзакций</p>
+  </div>
+
+  <div class="table_display">
+    <p class="table_display_paragraph" *ngFor="let transaction of transactions">
+      <span>{{ transaction.person }}</span>
+      <span> --> </span>
+      <span>{{ transaction.money }}</span>
+      <span> at </span>
+      <span>{{ transaction.date }}</span>
+    </p>
+  </div>
+</main>
