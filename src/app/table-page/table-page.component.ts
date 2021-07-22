@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 const MOCK_DATA = [
   {
@@ -53,7 +54,14 @@ export class TablePageComponent implements OnInit {
 
   transactions: Array<ITransaction> | null = null;
 
+  transactionsForm!: FormGroup;
+
   ngOnInit() {
+    this.transactionsForm = new FormGroup({
+      money: new FormControl(null, Validators.required),
+      person: new FormControl(null, Validators.required),
+    });
+
     this.total = 10000;
 
     this.transactions = MOCK_DATA;
@@ -69,5 +77,15 @@ export class TablePageComponent implements OnInit {
     }
 
     this.left = this.total - this.spend;
+  }
+
+  onSubmit() {
+    const newTransaction: ITransaction = {
+      person: this.transactionsForm.value.person,
+      money: this.transactionsForm.value.money,
+      date: new Date(),
+    };
+
+    this.transactions?.unshift(newTransaction);
   }
 }

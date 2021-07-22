@@ -28,7 +28,13 @@
   </div>
 
   <div class="table_form">
-    <p>тут будет форма для добавления транзакций</p>
+    <form [formGroup]="transactionsForm" (ngSubmit)="onSubmit()">
+      <label for="summ">Сумма</label>
+      <input formControlName="money" type="number" name="summ" id="summ" />
+      <label for="person">Кто это</label>
+      <input formControlName="person" type="text" name="person" id="person" />
+      <button type="submit">Отправить</button>
+    </form>
   </div>
 
   <div class="table_display">
