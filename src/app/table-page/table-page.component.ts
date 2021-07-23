@@ -58,6 +58,8 @@ export class TablePageComponent implements OnInit {
 
   transactionsForm!: FormGroup;
 
+  person: string | null = null;
+
   constructor(
     private store: Store<{ transactions: Array<ITransaction> | [] }>
   ) {
@@ -76,16 +78,23 @@ export class TablePageComponent implements OnInit {
     this.left = this.total - this.spend;
   }
 
-  onSubmit() {
-    const newTransaction: ITransaction = {
-      person: this.transactionsForm.value.person,
-      money: this.transactionsForm.value.money,
-      date: new Date(),
-    };
+  onSubmit(): void {
+    if (this.person) {
+      const newTransaction: ITransaction = {
+        person: this.person,
+        money: this.transactionsForm.value.money,
+        date: new Date(),
+      };
+      this.store.dispatch(addTransaction({ transaction: newTransaction }));
 
-    this.store.dispatch(addTransaction({ transaction: newTransaction }));
+      this.calcaluateLeft();
 
-    this.calcaluateLeft();
+      console.log('success!');
+    } else {
+      console.log('fail!');
+
+      return;
+    }
   }
 
   ngOnInit() {
@@ -93,10 +102,11 @@ export class TablePageComponent implements OnInit {
 
     this.transactionsForm = new FormGroup({
       money: new FormControl(null, Validators.required),
-      person: new FormControl(null, Validators.required),
     });
 
     this.total = 10000;
+
+    this.person = localStorage.getItem('person');
 
     this.calcaluateLeft();
   }

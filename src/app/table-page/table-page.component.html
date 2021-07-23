@@ -31,9 +31,13 @@
     <form [formGroup]="transactionsForm" (ngSubmit)="onSubmit()">
       <label for="summ">Сумма</label>
       <input formControlName="money" type="number" name="summ" id="summ" />
-      <label for="person">Кто это</label>
-      <input formControlName="person" type="text" name="person" id="person" />
-      <button type="submit">Отправить</button>
+      <button
+        [disabled]="transactionsForm.value.money <= 0 || !person"
+        type="submit"
+      >
+        Отправить
+      </button>
+      <p *ngIf="!person">Choose who are you.</p>
     </form>
   </div>
 
