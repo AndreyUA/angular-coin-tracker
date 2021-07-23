@@ -37,7 +37,7 @@
     </form>
   </div>
 
-  <div class="table_display">
+  <div *ngIf="transactions.length > 0" class="table_display">
     <p class="table_display_paragraph" *ngFor="let transaction of transactions">
       <span>{{ transaction.person }}</span>
       <span> --> </span>

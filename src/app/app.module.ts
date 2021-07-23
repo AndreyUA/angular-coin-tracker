@@ -2,6 +2,11 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+// Store
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { budgetReducer } from './state/transaction/transaction.reducer';
+
 // Modules
 import { AppRoutingModule } from './app-routing.module';
 
@@ -32,7 +37,14 @@ import { StatisticPageComponent } from './statistic-page/statistic-page.componen
     NotFoundComponent,
     StatisticPageComponent,
   ],
-  imports: [BrowserModule, FormsModule, ReactiveFormsModule, AppRoutingModule],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
+    AppRoutingModule,
+    StoreModule.forRoot({ transactions: budgetReducer }),
+    StoreDevtoolsModule.instrument({ maxAge: false }),
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

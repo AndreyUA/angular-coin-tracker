@@ -1,7 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
-const MOCK_DATA = [
+import { select, Store } from '@ngrx/store';
+import { ITransaction } from '../state/transaction/transaction.reducer';
+import {
+  setAllTransactions,
+  addTransaction,
+} from '../state/transaction/transaction.actions';
+import { getTransactions } from '../state/transaction/index';
+
+const MOCK_DATA: Array<ITransaction> = [
   {
     person: 'Папа',
     money: 600,
@@ -34,48 +42,37 @@ const MOCK_DATA = [
   },
 ];
 
-interface ITransaction {
-  person: string;
-  money: number;
-  date: Date;
-}
-
 @Component({
   selector: 'app-table-page',
   templateUrl: './table-page.component.html',
   styleUrls: ['./table-page.component.scss'],
 })
 export class TablePageComponent implements OnInit {
+  transactions: Array<ITransaction> | [] = [];
+
   total: number = 0;
 
   spend: number = 0;
 
   left: number = 0;
 
-  transactions: Array<ITransaction> | null = null;
-
   transactionsForm!: FormGroup;
 
-  ngOnInit() {
-    this.transactionsForm = new FormGroup({
-      money: new FormControl(null, Validators.required),
-      person: new FormControl(null, Validators.required),
-    });
+  constructor(
+    private store: Store<{ transactions: Array<ITransaction> | [] }>
+  ) {
+    this.store.pipe(select(getTransactions)).subscribe((transactions) => {
+      this.spend = 0;
 
-    this.total = 10000;
+      this.transactions = transactions;
 
-    this.transactions = MOCK_DATA;
-
-    if (this.transactions) {
-      let sum: number = 0;
-
-      this.transactions.forEach((transaction) => {
-        sum += transaction.money;
+      transactions.forEach((transaction: ITransaction) => {
+        this.spend += transaction.money;
       });
+    });
+  }
 
-      this.spend = sum;
-    }
-
+  calcaluateLeft(): void {
     this.left = this.total - this.spend;
   }
 
@@ -86,6 +83,21 @@ export class TablePageComponent implements OnInit {
       date: new Date(),
     };
 
-    this.transactions?.unshift(newTransaction);
+    this.store.dispatch(addTransaction({ transaction: newTransaction }));
+
+    this.calcaluateLeft();
+  }
+
+  ngOnInit() {
+    this.store.dispatch(setAllTransactions({ transactions: MOCK_DATA }));
+
+    this.transactionsForm = new FormGroup({
+      money: new FormControl(null, Validators.required),
+      person: new FormControl(null, Validators.required),
+    });
+
+    this.total = 10000;
+
+    this.calcaluateLeft();
   }
 }
