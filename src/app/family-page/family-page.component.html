@@ -1,3 +1,46 @@
 <p>страница редактирования семейного аккаунта</p>
 <p>смотрим, редактируем, добавляем и удаляем членов семьи</p>
 <p>выбираем каким членом семьи будет пользователь и сохраняем в localstorage</p>
+<hr />
+<hr />
+<main *ngIf="family">
+  <h1>Wellcome {{ family.familyName }}</h1>
+
+  <div class="account_form_changePerson">
+    <form
+      [formGroup]="changePersonForm"
+      (ngSubmit)="onSubmitChangePersonHandler()"
+    >
+      <label for="changePerson">Change person</label>
+      <select
+        formControlName="changePerson"
+        name="changePerson"
+        id="changePerson"
+      >
+        <option value="default">Choose who are you</option>
+        <option *ngFor="let person of family.persons" [value]="person.name">
+          {{ person.name }}
+        </option>
+      </select>
+      <button
+        [disabled]="changePersonForm.value.changePerson === 'default'"
+        type="submit"
+      >
+        Change person
+      </button>
+    </form>
+  </div>
+
+  <div class="account_form_addPerson">
+    <form [formGroup]="addPersonForm" (ngSubmit)="onSubmitAddPersonHandler()">
+      <label for="addPerson">Add person</label>
+      <input
+        formControlName="addPerson"
+        type="text"
+        name="addPerson"
+        id="addPerson"
+      />
+      <button type="submit">Add person</button>
+    </form>
+  </div>
+</main>
