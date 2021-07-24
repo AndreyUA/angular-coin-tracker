@@ -11,3 +11,7 @@ export const addTransaction = createAction(
   '[Transaction action] Add transaction',
   props<{ transaction: ITransaction }>()
 );
+
+export const resetAllTransactions = createAction(
+  '[Transaction action] Reset transactions'
+);

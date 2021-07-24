@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { select, Store } from '@ngrx/store';
@@ -6,6 +6,7 @@ import { ITransaction } from '../state/transaction/transaction.reducer';
 import {
   setAllTransactions,
   addTransaction,
+  resetAllTransactions,
 } from '../state/transaction/transaction.actions';
 import { getTransactions } from '../state/transaction/index';
 
@@ -48,6 +49,8 @@ const MOCK_DATA: Array<ITransaction> = [
   styleUrls: ['./table-page.component.scss'],
 })
 export class TablePageComponent implements OnInit {
+  @ViewChild('inputRef', { static: false }) inputRef!: ElementRef;
+
   transactions: Array<ITransaction> | [] = [];
 
   total: number = 0;
@@ -89,15 +92,16 @@ export class TablePageComponent implements OnInit {
 
       this.calcaluateLeft();
 
-      console.log('success!');
-    } else {
-      console.log('fail!');
+      this.transactionsForm.reset();
 
+      this.inputRef.nativeElement.blur();
+    } else {
       return;
     }
   }
 
   ngOnInit() {
+    this.store.dispatch(resetAllTransactions());
     this.store.dispatch(setAllTransactions({ transactions: MOCK_DATA }));
 
     this.transactionsForm = new FormGroup({

@@ -1,6 +1,10 @@
 import { Action, createReducer, on } from '@ngrx/store';
 
-import { setAllTransactions, addTransaction } from './transaction.actions';
+import {
+  setAllTransactions,
+  addTransaction,
+  resetAllTransactions,
+} from './transaction.actions';
 
 export interface ITransaction {
   person: string;
@@ -16,7 +20,10 @@ export const _budgetReducer = createReducer(
     ...state,
     ...transactions,
   ]),
-  on(addTransaction, (state, { transaction }) => [transaction, ...state])
+  on(addTransaction, (state, { transaction }) =>
+    [transaction, ...state].slice(0, 10)
+  ),
+  on(resetAllTransactions, () => [])
 );
 
 export function budgetReducer(state: any, action: Action) {

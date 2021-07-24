@@ -17,6 +17,10 @@
   оформления операции, может еще что-то
 </p>
 <hr />
+<p>
+  есть какой-то баг: записываешь число, а после редактирования последней цифры
+  что-то не так. PS похоже, баг именно в числовых рассчетах
+</p>
 <hr />
 <hr />
 
@@ -30,7 +34,13 @@
   <div class="table_form">
     <form [formGroup]="transactionsForm" (ngSubmit)="onSubmit()">
       <label for="summ">Сумма</label>
-      <input formControlName="money" type="number" name="summ" id="summ" />
+      <input
+        #inputRef
+        formControlName="money"
+        type="number"
+        name="summ"
+        id="summ"
+      />
       <button
         [disabled]="transactionsForm.value.money <= 0 || !person"
         type="submit"
