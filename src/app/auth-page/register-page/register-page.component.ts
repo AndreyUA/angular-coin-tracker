@@ -1,5 +1,7 @@
 import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 
+import { ApiService } from 'src/app/api.service';
+
 @Component({
   selector: 'app-register-page',
   templateUrl: './register-page.component.html',
@@ -9,6 +11,8 @@ export class RegisterPageComponent implements AfterViewInit {
   // This component is using template-driven form
 
   isPasswordVisible: boolean = false;
+
+  constructor(private apiService: ApiService) {}
 
   passwordVisibilityToggler(): void {
     this.isPasswordVisible = !this.isPasswordVisible;
@@ -21,8 +25,11 @@ export class RegisterPageComponent implements AfterViewInit {
   };
 
   onSubmit() {
-    console.log('submit!');
-    console.log(this.user);
+    this.apiService.createNewFamily(
+      this.user.familyName,
+      this.user.email,
+      this.user.password
+    );
   }
 
   // Typing features

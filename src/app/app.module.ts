@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 // Store
 import { StoreModule } from '@ngrx/store';
@@ -38,6 +39,7 @@ import { StatisticPageComponent } from './statistic-page/statistic-page.componen
     StatisticPageComponent,
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
