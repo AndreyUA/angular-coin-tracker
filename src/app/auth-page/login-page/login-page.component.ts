@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
+import { ApiService } from 'src/app/api.service';
+
 import { EmailValidator } from '../email-validator';
 
 @Component({
@@ -12,6 +14,8 @@ export class LoginPageComponent implements OnInit {
   // This component is using reactive form
 
   isPasswordVisible: boolean = false;
+
+  constructor(private apiService: ApiService) {}
 
   passwordVisibilityToggler(): void {
     this.isPasswordVisible = !this.isPasswordVisible;
@@ -34,7 +38,11 @@ export class LoginPageComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.loginForm.value);
+    this.apiService.loginFamily(
+      this.loginForm.value.email,
+      this.loginForm.value.password
+    );
+
     this.loginForm.reset();
   }
 }

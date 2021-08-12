@@ -27,4 +27,24 @@ export class ApiService {
         }
       );
   }
+
+  loginFamily(email: string, password: string) {
+    const family = {
+      email,
+      password,
+    };
+
+    this.httpClient
+      .post<{ token: string }>(`${environment.apiUrl}/api/login`, family)
+      .subscribe(
+        (response) => {
+          // TODO: dispatch it to NgRx
+          console.log(response);
+        },
+        (error) => {
+          // TODO: dispatch it to NgRx
+          console.log(error);
+        }
+      );
+  }
 }
