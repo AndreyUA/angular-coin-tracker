@@ -1,15 +1,18 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 // Store
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+
 import { budgetReducer } from './state/transaction/transaction.reducer';
+import { familyReducer } from './state/family/family.reducer';
 
 // Modules
 import { AppRoutingModule } from './app-routing.module';
+import { AuthInterceptorService } from './auth-interceptor';
 
 // Components
 import { AppComponent } from './app.component';
@@ -44,10 +47,19 @@ import { StatisticPageComponent } from './statistic-page/statistic-page.componen
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    StoreModule.forRoot({ transactions: budgetReducer }),
+    StoreModule.forRoot({
+      transactions: budgetReducer,
+      family: familyReducer,
+    }),
     StoreDevtoolsModule.instrument({ maxAge: false }),
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

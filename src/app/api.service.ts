@@ -7,6 +7,22 @@ import { environment } from 'src/environments/environment';
 export class ApiService {
   constructor(private httpClient: HttpClient) {}
 
+  // TODO: add family interface OR error interface
+  getAccountInfo() {
+    this.httpClient
+    .get<any>(`${environment.apiUrl}/api/login`)
+    .subscribe(
+      (response) => {
+        // TODO: dispatch it to NgRx
+        console.log(response)
+      },
+      (error) => {
+        // TODO: dispatch it to NgRx
+        console.log(error);
+      }
+    )
+  }
+
   createNewFamily(familyName: string, email: string, password: string) {
     const newFamily = {
       familyName,
