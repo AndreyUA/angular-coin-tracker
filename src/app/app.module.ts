@@ -13,6 +13,7 @@ import { familyReducer } from './state/family/family.reducer';
 // Modules
 import { AppRoutingModule } from './app-routing.module';
 import { AuthInterceptorService } from './auth-interceptor';
+import { AuthGuard } from './auth-guard.service';
 
 // Components
 import { AppComponent } from './app.component';
@@ -54,6 +55,7 @@ import { StatisticPageComponent } from './statistic-page/statistic-page.componen
     StoreDevtoolsModule.instrument({ maxAge: false }),
   ],
   providers: [
+    AuthGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,

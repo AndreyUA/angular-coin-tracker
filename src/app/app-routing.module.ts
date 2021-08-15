@@ -1,6 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+// Services
+import { AuthGuard } from './auth-guard.service';
+
 // Components
 import { HomePageComponent } from './home-page/home-page.component';
 import { AuthPageComponent } from './auth-page/auth-page.component';
@@ -23,10 +26,18 @@ const routes: Routes = [
       { path: 'login', component: LoginPageComponent },
     ],
   },
-  { path: 'family', component: FamilyPageComponent },
-  { path: 'table', component: TablePageComponent },
-  { path: 'progress', component: ProgressPageComponent },
-  { path: 'statistic', component: StatisticPageComponent },
+  { path: 'family', component: FamilyPageComponent, canActivate: [AuthGuard] },
+  { path: 'table', component: TablePageComponent, canActivate: [AuthGuard] },
+  {
+    path: 'progress',
+    component: ProgressPageComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'statistic',
+    component: StatisticPageComponent,
+    canActivate: [AuthGuard],
+  },
   { path: 'not-found', component: NotFoundComponent },
   { path: '**', redirectTo: '/not-found' },
 ];
