@@ -2,13 +2,13 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { select, Store } from '@ngrx/store';
-import { ITransaction } from '../state/transaction/transaction.reducer';
+import { ITransaction } from 'src/app/state/transaction/transaction.reducer';
 import {
   setAllTransactions,
   addTransaction,
   resetAllTransactions,
-} from '../state/transaction/transaction.actions';
-import { getTransactions } from '../state/transaction/index';
+} from 'src/app/state/transaction/transaction.actions';
+import { getTransactions } from 'src/app/state/transaction/index';
 
 const MOCK_DATA: Array<ITransaction> = [
   {

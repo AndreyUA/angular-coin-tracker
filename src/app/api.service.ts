@@ -1,26 +1,34 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
+// Store
+import { Store } from '@ngrx/store';
+import { setFamily, resetFamily } from './state/family/family.actions';
+import { IFamily } from './state/family/family.reducer';
+
+// ENV
 import { environment } from 'src/environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class ApiService {
-  constructor(private httpClient: HttpClient) {}
+  constructor(
+    private httpClient: HttpClient,
+    private store: Store<{ family: IFamily } | {}>
+  ) {}
 
   // TODO: add family interface OR error interface
   getAccountInfo() {
-    this.httpClient
-    .get<any>(`${environment.apiUrl}/api/login`)
-    .subscribe(
+    this.store.dispatch(resetFamily());
+
+    this.httpClient.get<any>(`${environment.apiUrl}/api/login`).subscribe(
       (response) => {
-        // TODO: dispatch it to NgRx
-        console.log(response)
+        this.store.dispatch(setFamily({ family: response }));
       },
       (error) => {
         // TODO: dispatch it to NgRx
         console.log(error);
       }
-    )
+    );
   }
 
   createNewFamily(familyName: string, email: string, password: string) {
@@ -34,8 +42,9 @@ export class ApiService {
       .post<{ token: string }>(`${environment.apiUrl}/api/register`, newFamily)
       .subscribe(
         (response) => {
-          // TODO: dispatch it to NgRx
-          console.log(response);
+          localStorage.setItem('token', response.token);
+
+          this.getAccountInfo();
         },
         (error) => {
           // TODO: dispatch it to NgRx
@@ -54,8 +63,9 @@ export class ApiService {
       .post<{ token: string }>(`${environment.apiUrl}/api/login`, family)
       .subscribe(
         (response) => {
-          // TODO: dispatch it to NgRx
-          console.log(response);
+          localStorage.setItem('token', response.token);
+
+          this.getAccountInfo();
         },
         (error) => {
           // TODO: dispatch it to NgRx

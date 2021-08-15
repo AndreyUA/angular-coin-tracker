@@ -23,9 +23,9 @@ export const _familyReducer = createReducer(
   initialState,
   on(setFamily, (state, { family }) => ({
     ...state,
-    family,
+    ...family,
   })),
-  on(resetFamily, (): any => {})
+  on(resetFamily, (): any => ({}))
 );
 
 export function familyReducer(state: any, action: Action) {
