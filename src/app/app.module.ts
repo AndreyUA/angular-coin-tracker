@@ -14,6 +14,7 @@ import { familyReducer } from './state/family/family.reducer';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthInterceptorService } from './auth-interceptor';
 import { AuthGuard } from './auth-guard.service';
+import { UserGuard } from './user-guard.service';
 
 // Components
 import { AppComponent } from './app.component';
@@ -56,6 +57,7 @@ import { StatisticPageComponent } from './statistic-page/statistic-page.componen
   ],
   providers: [
     AuthGuard,
+    UserGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,
