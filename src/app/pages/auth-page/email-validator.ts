@@ -1,6 +1,6 @@
 import { FormControl } from '@angular/forms';
 
-import { emailRegExp } from '../utils/regexp';
+import { emailRegExp } from '../../utils/regexp';
 
 export class EmailValidator {
   static invalidEmail(control: FormControl): { [s: string]: boolean } | null {

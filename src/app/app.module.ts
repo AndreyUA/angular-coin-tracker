@@ -18,16 +18,16 @@ import { UserGuard } from './user-guard.service';
 
 // Components
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './header/header.component';
-import { HomePageComponent } from './home-page/home-page.component';
-import { AuthPageComponent } from './auth-page/auth-page.component';
-import { RegisterPageComponent } from './auth-page/register-page/register-page.component';
-import { LoginPageComponent } from './auth-page/login-page/login-page.component';
-import { FamilyPageComponent } from './family-page/family-page.component';
-import { TablePageComponent } from './table-page/table-page.component';
-import { ProgressPageComponent } from './progress-page/progress-page.component';
-import { NotFoundComponent } from './not-found/not-found.component';
-import { StatisticPageComponent } from './statistic-page/statistic-page.component';
+import { HeaderComponent } from './components/header/header.component';
+import { HomePageComponent } from './pages/home-page/home-page.component';
+import { AuthPageComponent } from './pages/auth-page/auth-page.component';
+import { RegisterPageComponent } from './pages/auth-page/register-page/register-page.component';
+import { LoginPageComponent } from './pages/auth-page/login-page/login-page.component';
+import { FamilyPageComponent } from './pages/family-page/family-page.component';
+import { TablePageComponent } from './pages/table-page/table-page.component';
+import { ProgressPageComponent } from './pages/progress-page/progress-page.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { StatisticPageComponent } from './pages/statistic-page/statistic-page.component';
 
 @NgModule({
   declarations: [
