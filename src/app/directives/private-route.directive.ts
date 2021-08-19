@@ -1,4 +1,4 @@
-import { Directive, ElementRef, OnInit, DoCheck } from '@angular/core';
+import { Directive, Input, ElementRef, OnInit, DoCheck } from '@angular/core';
 
 // Store
 import { Store, select } from '@ngrx/store';
@@ -12,6 +12,8 @@ import { IFamily } from '../state/family/family.reducer';
 })
 export class PrivateRoute implements OnInit, DoCheck {
   constructor(private elementRef: ElementRef, private store: Store) {}
+
+  @Input() isPrivate: boolean = true;
 
   isVisible!: boolean;
 
@@ -27,8 +29,14 @@ export class PrivateRoute implements OnInit, DoCheck {
   }
 
   ngDoCheck() {
-    this.elementRef.nativeElement.style.display = this.isVisible
-      ? 'flex'
-      : 'none';
+    if (this.isPrivate) {
+      this.elementRef.nativeElement.style.display = this.isVisible
+        ? 'flex'
+        : 'none';
+    } else {
+      this.elementRef.nativeElement.style.display = this.isVisible
+        ? 'none'
+        : 'false';
+    }
   }
 }

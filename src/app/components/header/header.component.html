@@ -10,14 +10,31 @@
         [routerLinkActiveOptions]="{ exact: true }"
         >Home</a
       >
-      <a [routerLink]="['auth', 'register']" routerLinkActive="active"
+      <a
+        appPrivateRoute
+        [isPrivate]="false"
+        [routerLink]="['auth', 'register']"
+        routerLinkActive="active"
         >Register</a
       >
-      <a [routerLink]="['auth', 'login']" routerLinkActive="active">Login</a>
-      <a appPrivateRoute routerLink="family" routerLinkActive="active">Account</a>
+      <a
+        appPrivateRoute
+        [isPrivate]="false"
+        [routerLink]="['auth', 'login']"
+        routerLinkActive="active"
+        >Login</a
+      >
+      <a appPrivateRoute routerLink="family" routerLinkActive="active"
+        >Account</a
+      >
       <a appPrivateRoute routerLink="table" routerLinkActive="active">Table</a>
-      <a appPrivateRoute routerLink="progress" routerLinkActive="active">Progress</a>
-      <a appPrivateRoute routerLink="statistic" routerLinkActive="active">Statistic</a>
+      <a appPrivateRoute routerLink="progress" routerLinkActive="active"
+        >Progress</a
+      >
+      <a appPrivateRoute routerLink="statistic" routerLinkActive="active"
+        >Statistic</a
+      >
+      <button appPrivateRoute>Logout</button>
     </div>
   </nav>
 </header>
