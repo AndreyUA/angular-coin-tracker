@@ -6,7 +6,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 // Store
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-
 import { budgetReducer } from './state/transaction/transaction.reducer';
 import { familyReducer } from './state/family/family.reducer';
 
@@ -15,6 +14,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AuthInterceptorService } from './auth-interceptor';
 import { AuthGuard } from './auth-guard.service';
 import { UserGuard } from './user-guard.service';
+
+// Directives
+import { PrivateRoute } from './directives/private-route.directive';
 
 // Components
 import { AppComponent } from './app.component';
@@ -42,6 +44,7 @@ import { StatisticPageComponent } from './pages/statistic-page/statistic-page.co
     ProgressPageComponent,
     NotFoundComponent,
     StatisticPageComponent,
+    PrivateRoute,
   ],
   imports: [
     HttpClientModule,
