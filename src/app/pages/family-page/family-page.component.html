@@ -5,11 +5,12 @@
 <p>выбираем цветовую тему</p>
 <hr />
 <hr />
-<main *ngIf="family">
+<main>
   <h1>Wellcome {{ family.familyName }}</h1>
 
   <div class="account_form_changePerson">
     <form
+      *ngIf="family.persons.length > 0; else elseBlock"
       [formGroup]="changePersonForm"
       (ngSubmit)="onSubmitChangePersonHandler()"
     >
@@ -31,6 +32,9 @@
         Change person
       </button>
     </form>
+    <ng-template #elseBlock>
+      <p>Please, add person to your family!</p>
+    </ng-template>
   </div>
 
   <div class="account_form_addPerson">

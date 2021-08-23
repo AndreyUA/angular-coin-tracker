@@ -19,7 +19,6 @@ export class PrivateRoute implements OnInit, DoCheck {
 
   ngOnInit() {
     this.store.pipe(select(getFamily)).subscribe((family: IFamily) => {
-      console.log(family._id);
       if (family._id) {
         this.isVisible = true;
       } else {

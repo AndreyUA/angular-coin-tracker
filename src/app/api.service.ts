@@ -73,4 +73,22 @@ export class ApiService {
         }
       );
   }
+
+  addPersonToFamily(name: string) {
+    const newPerson = {
+      name,
+    };
+
+    this.httpClient
+      .patch<any>(`${environment.apiUrl}/api/family`, newPerson)
+      .subscribe(
+        (response) => {
+          this.store.dispatch(setFamily({ family: response }));
+        },
+        (error) => {
+          // TODO: dispatch it to NgRx
+          console.log(error);
+        }
+      );
+  }
 }

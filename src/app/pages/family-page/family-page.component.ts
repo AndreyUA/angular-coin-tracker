@@ -1,29 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validator, Validators } from '@angular/forms';
 
-const MOCK_FAMILY1 = {
-  familyName: 'Andrusha, Olusha, Kirusha TEST1',
-  persons: [],
-};
+// Store
+import { Store, select } from '@ngrx/store';
+import { getFamily } from 'src/app/state/family';
 
-const MOCK_FAMILY2 = {
-  familyName: 'Andrusha, Olusha, Kirusha TEST2',
-  persons: [
-    {
-      name: 'Папа',
-    },
-    {
-      name: 'Мама',
-    },
-  ],
-};
+// Services
+import { ApiService } from 'src/app/api.service';
 
 interface IPerson {
+  _id: string;
   name: string;
+  date: Date;
 }
 interface IFamily {
   familyName: string;
-  persons?: Array<IPerson>;
+  persons: Array<IPerson>;
 }
 @Component({
   selector: 'app-family-page',
@@ -37,7 +29,7 @@ export class FamilyPageComponent implements OnInit {
 
   changePersonForm!: FormGroup;
 
-  constructor() {}
+  constructor(private store: Store, private apiService: ApiService) {}
 
   onSubmitChangePersonHandler() {
     localStorage.setItem('person', this.changePersonForm.value.changePerson);
@@ -45,12 +37,15 @@ export class FamilyPageComponent implements OnInit {
   }
 
   onSubmitAddPersonHandler() {
-    this.family.persons?.push({ name: this.addPersonForm.value.addPerson });
+    this.apiService.addPersonToFamily(this.addPersonForm.value.addPerson);
+    // this.family.persons?.push({ name: this.addPersonForm.value.addPerson });
     this.addPersonForm.reset();
   }
 
   ngOnInit(): void {
-    this.family = MOCK_FAMILY2;
+    this.store.pipe(select(getFamily)).subscribe((family: IFamily) => {
+      this.family = family;
+    });
 
     this.addPersonForm = new FormGroup({
       addPerson: new FormControl(null, Validators.required),
