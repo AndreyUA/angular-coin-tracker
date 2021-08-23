@@ -42,6 +42,13 @@ export class FamilyPageComponent implements OnInit {
     this.addPersonForm.reset();
   }
 
+  deletePersonHandler() {
+    // TODO: only reset form, add api request!
+    this.changePersonForm = new FormGroup({
+      changePerson: new FormControl('default'),
+    });
+  }
+
   ngOnInit(): void {
     this.store.pipe(select(getFamily)).subscribe((family: IFamily) => {
       this.family = family;
@@ -51,7 +58,16 @@ export class FamilyPageComponent implements OnInit {
       addPerson: new FormControl(null, Validators.required),
     });
 
-    if (localStorage.getItem('person')) {
+    const personFromLocalStorage = localStorage.getItem('person');
+
+    if (
+      // Check if person exist in localStorage
+      personFromLocalStorage &&
+      // and if existing person exist in this family
+      this.family.persons.findIndex(
+        (person) => person.name.toString() === personFromLocalStorage
+      ) !== -1
+    ) {
       this.changePersonForm = new FormGroup({
         changePerson: new FormControl(localStorage.getItem('person')),
       });

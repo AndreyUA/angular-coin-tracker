@@ -1,14 +1,19 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { select, Store } from '@ngrx/store';
+// Store
+import { Store, select } from '@ngrx/store';
 import { ITransaction } from 'src/app/state/transaction/transaction.reducer';
 import {
   setAllTransactions,
   addTransaction,
   resetAllTransactions,
 } from 'src/app/state/transaction/transaction.actions';
-import { getTransactions } from 'src/app/state/transaction/index';
+import { getTransactions } from 'src/app/state/transaction';
+import { getFamily } from 'src/app/state/family';
+
+// Interfaces
+import { IFamily } from 'src/app/state/family/family.reducer';
 
 const MOCK_DATA: Array<ITransaction> = [
   {
@@ -63,19 +68,11 @@ export class TablePageComponent implements OnInit {
 
   person: string | null = null;
 
+  family!: IFamily;
+
   constructor(
     private store: Store<{ transactions: Array<ITransaction> | [] }>
-  ) {
-    this.store.pipe(select(getTransactions)).subscribe((transactions) => {
-      this.spend = 0;
-
-      this.transactions = transactions;
-
-      transactions.forEach((transaction: ITransaction) => {
-        this.spend += transaction.money;
-      });
-    });
-  }
+  ) {}
 
   calcaluateLeft(): void {
     this.left = this.total - this.spend;
@@ -104,13 +101,39 @@ export class TablePageComponent implements OnInit {
     this.store.dispatch(resetAllTransactions());
     this.store.dispatch(setAllTransactions({ transactions: MOCK_DATA }));
 
+    // TODO: make MULTIPLE selector!!!
+    this.store.pipe(select(getTransactions)).subscribe((transactions) => {
+      this.spend = 0;
+
+      this.transactions = transactions;
+
+      transactions.forEach((transaction: ITransaction) => {
+        this.spend += transaction.money;
+      });
+    });
+
+    this.store.pipe(select(getFamily)).subscribe((family) => {
+      this.family = family;
+    });
+
     this.transactionsForm = new FormGroup({
       money: new FormControl(null, Validators.required),
     });
 
     this.total = 10000;
 
-    this.person = localStorage.getItem('person');
+    const personFromLocalStorage = localStorage.getItem('person');
+
+    if (
+      // Check if person exist in localStorage
+      personFromLocalStorage &&
+      // and if existing person exist in this family
+      this.family.persons.findIndex(
+        (person) => person.name.toString() === personFromLocalStorage
+      ) !== -1
+    ) {
+      this.person = localStorage.getItem('person');
+    }
 
     this.calcaluateLeft();
   }
