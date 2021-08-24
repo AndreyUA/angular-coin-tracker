@@ -1,10 +1,11 @@
 import { createAction, props } from '@ngrx/store';
 
-import { IBudget } from './budgets.reducer';
+// Interfaces
+import { IBudget, IBudgetInfo } from './budgets.reducer';
 
 export const setAllBudgets = createAction(
   '[Budgets action] Set all budgets',
-  props<{ allBudgets: Array<string> }>()
+  props<{ allBudgets: Array<IBudgetInfo> }>()
 );
 
 export const setCurrentBudget = createAction(

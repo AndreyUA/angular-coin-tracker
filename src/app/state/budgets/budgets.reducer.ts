@@ -12,6 +12,11 @@ export interface IBudget {
   _v: number;
 }
 
+export interface IBudgetInfo {
+  id: string;
+  name: string;
+}
+
 export interface ITransaction {
   date: Date;
   money: number;

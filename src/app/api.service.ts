@@ -10,6 +10,9 @@ import { setAllBudgets } from './state/budgets/budgets.action';
 // ENV
 import { environment } from 'src/environments/environment';
 
+// Interfaces
+import { IBudgetInfo } from 'src/app/state/budgets/budgets.reducer';
+
 @Injectable({ providedIn: 'root' })
 export class ApiService {
   constructor(
@@ -94,10 +97,13 @@ export class ApiService {
   }
 
   getAllBudgets() {
-    this.httpClient.get<Array<string>>(`${environment.apiUrl}/api/budget/all`)
+    this.httpClient
+      .get<Array<IBudgetInfo> | []>(
+        `${environment.apiUrl}/api/budget/all`
+      )
       .subscribe(
         (response) => {
-          this.store.dispatch(setAllBudgets({ allBudgets: response }))
+          this.store.dispatch(setAllBudgets({ allBudgets: response }));
         },
         (error) => {
           // TODO: dispatch it to NgRx

@@ -46,8 +46,8 @@
         id="changeBudget"
       >
         <option value="default">Choose one of your budgets!</option>
-        <option *ngFor="let budget of budgets" [value]="budget">
-          {{ budget }}
+        <option *ngFor="let budget of budgets" [value]="budget.id">
+          {{ budget.name }}
         </option>
       </select>
       <button

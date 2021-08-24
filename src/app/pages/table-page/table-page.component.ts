@@ -18,6 +18,7 @@ import { ApiService } from 'src/app/api.service';
 
 // Interfaces
 import { IFamily } from 'src/app/state/family/family.reducer';
+import { IBudgetInfo } from 'src/app/state/budgets/budgets.reducer';
 
 const MOCK_DATA: Array<ITransaction> = [
   {
@@ -61,7 +62,7 @@ export class TablePageComponent implements OnInit {
   @ViewChild('inputRef', { static: false }) inputRef!: ElementRef;
 
   // TODO: add interface
-  budgets: Array<string> | [] = [];
+  budgets: Array<IBudgetInfo> | [] = [];
 
   transactions: Array<ITransaction> | [] = [];
 
@@ -138,7 +139,7 @@ export class TablePageComponent implements OnInit {
 
     this.store
       .pipe(select(getArrayOfBudgets))
-      .subscribe((budgets: Array<string>) => {
+      .subscribe((budgets: Array<IBudgetInfo>) => {
         this.budgets = budgets;
 
         // Check budgets and render correct form
@@ -148,7 +149,7 @@ export class TablePageComponent implements OnInit {
           budgets?.length &&
           budgetFromLocalStorage &&
           this.budgets?.findIndex(
-            (budget: string) => budget === budgetFromLocalStorage
+            (budget: IBudgetInfo) => budget.id === budgetFromLocalStorage
           ) !== -1
         ) {
           this.changeBudgetForm = new FormGroup({
