@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import { setFamily, resetFamily } from './state/family/family.actions';
 import { IFamily } from './state/family/family.reducer';
+import { setAllBudgets } from './state/budgets/budgets.action';
 
 // ENV
 import { environment } from 'src/environments/environment';
@@ -93,12 +94,13 @@ export class ApiService {
   }
 
   getAllBudgets() {
-    this.httpClient.get(`${environment.apiUrl}/api/budget/all`)
+    this.httpClient.get<Array<string>>(`${environment.apiUrl}/api/budget/all`)
       .subscribe(
         (response) => {
-          console.log(response);
+          this.store.dispatch(setAllBudgets({ allBudgets: response }))
         },
         (error) => {
+          // TODO: dispatch it to NgRx
           console.log(error);
         }
       );

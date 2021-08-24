@@ -11,6 +11,7 @@ import {
 } from 'src/app/state/transaction/transaction.actions';
 import { getTransactions } from 'src/app/state/transaction';
 import { getFamily } from 'src/app/state/family';
+import { getArrayOfBudgets } from 'src/app/state/budgets';
 
 // Services
 import { ApiService } from 'src/app/api.service';
@@ -60,7 +61,7 @@ export class TablePageComponent implements OnInit {
   @ViewChild('inputRef', { static: false }) inputRef!: ElementRef;
 
   // TODO: add interface
-  budgets: any;
+  budgets: Array<string> | [] = [];
 
   transactions: Array<ITransaction> | [] = [];
 
@@ -71,6 +72,8 @@ export class TablePageComponent implements OnInit {
   left: number = 0;
 
   transactionsForm!: FormGroup;
+
+  changeBudgetForm!: FormGroup;
 
   person: string | null = null;
 
@@ -104,8 +107,15 @@ export class TablePageComponent implements OnInit {
     }
   }
 
+  handleBudgetSubmit(): void {
+    localStorage.setItem('budget', this.changeBudgetForm.value.changeBudget);
+
+    // TODO: request to server for choosen budget
+    console.log('submit!');
+  }
+
   ngOnInit() {
-    // TODO: only for tests
+    // Fetch array of budgets
     this.apiService.getAllBudgets();
 
     this.store.dispatch(resetAllTransactions());
@@ -125,6 +135,31 @@ export class TablePageComponent implements OnInit {
     this.store.pipe(select(getFamily)).subscribe((family) => {
       this.family = family;
     });
+
+    this.store
+      .pipe(select(getArrayOfBudgets))
+      .subscribe((budgets: Array<string>) => {
+        this.budgets = budgets;
+
+        // Check budgets and render correct form
+        const budgetFromLocalStorage = localStorage.getItem('budget');
+
+        if (
+          budgets?.length &&
+          budgetFromLocalStorage &&
+          this.budgets?.findIndex(
+            (budget: string) => budget === budgetFromLocalStorage
+          ) !== -1
+        ) {
+          this.changeBudgetForm = new FormGroup({
+            changeBudget: new FormControl(budgetFromLocalStorage),
+          });
+        } else {
+          this.changeBudgetForm = new FormGroup({
+            changeBudget: new FormControl('default'),
+          });
+        }
+      });
 
     this.transactionsForm = new FormGroup({
       money: new FormControl(null, Validators.required),

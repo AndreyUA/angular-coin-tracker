@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validator, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 // Store
 import { Store, select } from '@ngrx/store';
@@ -38,7 +38,6 @@ export class FamilyPageComponent implements OnInit {
 
   onSubmitAddPersonHandler() {
     this.apiService.addPersonToFamily(this.addPersonForm.value.addPerson);
-    // this.family.persons?.push({ name: this.addPersonForm.value.addPerson });
     this.addPersonForm.reset();
   }
 

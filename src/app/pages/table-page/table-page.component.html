@@ -24,10 +24,42 @@
 <hr />
 <h1>TODO:</h1>
 <p>получаем список бюджетов, выбираем их</p>
+<p>НУЖНО БУДЕТ ДОБАВИТЬ ПОЛЯ ЗАГРУЗКИ В КАЖДЫЙ ИЗ ЧАСТЕЙ РЕДАКСА!!!</p>
+<p>
+  а еще добавить тут и на сервере создание
+  <strong> именованных бюджетов! </strong>
+</p>
 <hr />
 <hr />
 
 <main>
+  <div class="table_budget">
+    <form
+      *ngIf="budgets && budgets.length > 0; else elseBlock"
+      [formGroup]="changeBudgetForm"
+      (ngSubmit)="handleBudgetSubmit()"
+    >
+      <label for="changeBudget">Choose budget</label>
+      <select
+        formControlName="changeBudget"
+        name="changeBudget"
+        id="changeBudget"
+      >
+        <option value="default">Choose one of your budgets!</option>
+        <option *ngFor="let budget of budgets" [value]="budget">
+          {{ budget }}
+        </option>
+      </select>
+      <button
+        [disabled]="changeBudgetForm.value.changeBudget === 'default'"
+        type="submit"
+      >
+        Choose budget
+      </button>
+    </form>
+    <ng-template #elseBlock>Create a budget!</ng-template>
+  </div>
+
   <div class="table_header">
     <p>Total: {{ total }}</p>
     <p>Spend: {{ spend }}</p>

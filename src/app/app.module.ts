@@ -8,6 +8,7 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { budgetReducer } from './state/transaction/transaction.reducer';
 import { familyReducer } from './state/family/family.reducer';
+import { budgetsReducer } from './state/budgets/budgets.reducer';
 
 // Modules
 import { AppRoutingModule } from './app-routing.module';
@@ -57,6 +58,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
     StoreModule.forRoot({
       transactions: budgetReducer,
       family: familyReducer,
+      budgets: budgetsReducer,
     }),
     StoreDevtoolsModule.instrument({ maxAge: false }),
   ],
