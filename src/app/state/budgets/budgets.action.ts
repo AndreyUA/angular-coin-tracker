@@ -10,5 +10,5 @@ export const setAllBudgets = createAction(
 
 export const setCurrentBudget = createAction(
   '[Budgets action] Set current budget',
-  props<{ currentBudget: IBudget }>()
+  props<{ currentBudget: IBudget | {} }>()
 );

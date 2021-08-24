@@ -27,9 +27,12 @@ export interface ITransaction {
 const initialState:
   | {}
   | {
-      allBudgets: Array<string>;
+      allBudgets: Array<string> | [];
       currentBudget: IBudget | {};
-    } = {};
+    } = {
+  allBudgets: [],
+  currentBudget: {},
+};
 
 export const _budgetsReducer = createReducer(
   initialState,

@@ -5,13 +5,16 @@ import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import { setFamily, resetFamily } from './state/family/family.actions';
 import { IFamily } from './state/family/family.reducer';
-import { setAllBudgets } from './state/budgets/budgets.action';
+import {
+  setAllBudgets,
+  setCurrentBudget,
+} from './state/budgets/budgets.action';
 
 // ENV
 import { environment } from 'src/environments/environment';
 
 // Interfaces
-import { IBudgetInfo } from 'src/app/state/budgets/budgets.reducer';
+import { IBudget, IBudgetInfo } from 'src/app/state/budgets/budgets.reducer';
 
 @Injectable({ providedIn: 'root' })
 export class ApiService {
@@ -98,9 +101,7 @@ export class ApiService {
 
   getAllBudgets() {
     this.httpClient
-      .get<Array<IBudgetInfo> | []>(
-        `${environment.apiUrl}/api/budget/all`
-      )
+      .get<Array<IBudgetInfo> | []>(`${environment.apiUrl}/api/budget/all`)
       .subscribe(
         (response) => {
           this.store.dispatch(setAllBudgets({ allBudgets: response }));
@@ -108,6 +109,28 @@ export class ApiService {
         (error) => {
           // TODO: dispatch it to NgRx
           console.log(error);
+        }
+      );
+  }
+
+  getBudget(id: string) {
+    this.httpClient
+      .get<IBudget | null>(`${environment.apiUrl}/api/budget/${id}`)
+      .subscribe(
+        (response) => {
+          console.log(response);
+
+          if (response) {
+            this.store.dispatch(setCurrentBudget({ currentBudget: response }));
+          } else {
+            this.store.dispatch(setCurrentBudget({ currentBudget: {} }));
+          }
+        },
+        (error) => {
+          // TODO: dispatch it to NgRx
+          console.log(error);
+
+          this.store.dispatch(setCurrentBudget({ currentBudget: {} }));
         }
       );
   }

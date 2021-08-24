@@ -111,8 +111,13 @@ export class TablePageComponent implements OnInit {
   handleBudgetSubmit(): void {
     localStorage.setItem('budget', this.changeBudgetForm.value.changeBudget);
 
+    this.fetchCurrentBudget(this.changeBudgetForm.value.changeBudget);
     // TODO: request to server for choosen budget
     console.log('submit!');
+  }
+
+  fetchCurrentBudget(id: string): void {
+    this.apiService.getBudget(id);
   }
 
   ngOnInit() {
@@ -155,6 +160,9 @@ export class TablePageComponent implements OnInit {
           this.changeBudgetForm = new FormGroup({
             changeBudget: new FormControl(budgetFromLocalStorage),
           });
+
+          // Get current budget if it is correct
+          this.fetchCurrentBudget(budgetFromLocalStorage);
         } else {
           this.changeBudgetForm = new FormGroup({
             changeBudget: new FormControl('default'),
@@ -182,5 +190,7 @@ export class TablePageComponent implements OnInit {
     }
 
     this.calcaluateLeft();
+
+
   }
 }
