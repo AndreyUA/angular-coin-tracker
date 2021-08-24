@@ -1,6 +1,6 @@
 import { Action, createReducer, on } from '@ngrx/store';
 
-import { setAllBudgets, setCurrentBudget } from './budgets.action';
+import { setAllBudgets, setCurrentBudget, addBudget } from './budgets.action';
 
 export interface IBudget {
   _id: string;
@@ -10,6 +10,7 @@ export interface IBudget {
   total: number;
   transactions: Array<ITransaction>;
   _v: number;
+  name: string;
 }
 
 export interface IBudgetInfo {
@@ -24,12 +25,10 @@ export interface ITransaction {
   _id: string;
 }
 
-const initialState:
-  | {}
-  | {
-      allBudgets: Array<string> | [];
-      currentBudget: IBudget | {};
-    } = {
+const initialState: {
+  allBudgets: Array<IBudgetInfo> | [];
+  currentBudget: IBudget | {};
+} = {
   allBudgets: [],
   currentBudget: {},
 };
@@ -43,6 +42,10 @@ export const _budgetsReducer = createReducer(
   on(setCurrentBudget, (state, { currentBudget }) => ({
     ...state,
     currentBudget,
+  })),
+  on(addBudget, (state, { newBudget }) => ({
+    ...state,
+    allBudgets: [...state.allBudgets, newBudget],
   }))
 );
 

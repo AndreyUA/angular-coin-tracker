@@ -8,6 +8,7 @@ import { IFamily } from './state/family/family.reducer';
 import {
   setAllBudgets,
   setCurrentBudget,
+  addBudget,
 } from './state/budgets/budgets.action';
 
 // ENV
@@ -145,9 +146,14 @@ export class ApiService {
       .post<IBudget>(`${environment.apiUrl}/api/budget`, newBudget)
       .subscribe(
         (response) => {
-          // TODO: add it to redux and other
-          // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-          console.log(response);
+          this.store.dispatch(
+            addBudget({
+              newBudget: {
+                id: response._id,
+                name: response.name,
+              },
+            })
+          );
         },
         (error) => {
           // TODO: dispatch it to NgRx

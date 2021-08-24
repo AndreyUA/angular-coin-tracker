@@ -8,6 +8,11 @@ export const setAllBudgets = createAction(
   props<{ allBudgets: Array<IBudgetInfo> }>()
 );
 
+export const addBudget = createAction(
+  '[Budget action] Add new budget',
+  props<{ newBudget: IBudgetInfo }>()
+);
+
 export const setCurrentBudget = createAction(
   '[Budgets action] Set current budget',
   props<{ currentBudget: IBudget | {} }>()
