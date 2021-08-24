@@ -12,7 +12,8 @@ import { RegisterPageComponent } from './pages/auth-page/register-page/register-
 import { LoginPageComponent } from './pages/auth-page/login-page/login-page.component';
 import { FamilyPageComponent } from './pages/family-page/family-page.component';
 import { TablePageComponent } from './pages/table-page/table-page.component';
-import { ProgressPageComponent } from './pages/progress-page/progress-page.component';
+import { PlansPageComponent } from './pages/plans-page/plans-page.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { StatisticPageComponent } from './pages/statistic-page/statistic-page.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 
@@ -37,11 +38,8 @@ const routes: Routes = [
   },
   { path: 'family', component: FamilyPageComponent, canActivate: [AuthGuard] },
   { path: 'table', component: TablePageComponent, canActivate: [AuthGuard] },
-  {
-    path: 'progress',
-    component: ProgressPageComponent,
-    canActivate: [AuthGuard],
-  },
+  { path: 'plans', component: PlansPageComponent, canActivate: [AuthGuard] },
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   {
     path: 'statistic',
     component: StatisticPageComponent,

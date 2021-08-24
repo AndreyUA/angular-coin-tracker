@@ -27,9 +27,10 @@ import { RegisterPageComponent } from './pages/auth-page/register-page/register-
 import { LoginPageComponent } from './pages/auth-page/login-page/login-page.component';
 import { FamilyPageComponent } from './pages/family-page/family-page.component';
 import { TablePageComponent } from './pages/table-page/table-page.component';
-import { ProgressPageComponent } from './pages/progress-page/progress-page.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { StatisticPageComponent } from './pages/statistic-page/statistic-page.component';
+import { PlansPageComponent } from './pages/plans-page/plans-page.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -41,10 +42,11 @@ import { StatisticPageComponent } from './pages/statistic-page/statistic-page.co
     LoginPageComponent,
     FamilyPageComponent,
     TablePageComponent,
-    ProgressPageComponent,
     NotFoundComponent,
     StatisticPageComponent,
     PrivateRoute,
+    PlansPageComponent,
+    DashboardComponent,
   ],
   imports: [
     HttpClientModule,
