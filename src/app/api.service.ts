@@ -24,7 +24,7 @@ export class ApiService {
   ) {}
 
   // TODO: add family interface OR error interface
-  getAccountInfo() {
+  getAccountInfo(): void {
     this.store.dispatch(resetFamily());
 
     this.httpClient.get<any>(`${environment.apiUrl}/api/login`).subscribe(
@@ -38,7 +38,7 @@ export class ApiService {
     );
   }
 
-  createNewFamily(familyName: string, email: string, password: string) {
+  createNewFamily(familyName: string, email: string, password: string): void {
     const newFamily = {
       familyName,
       email,
@@ -60,7 +60,7 @@ export class ApiService {
       );
   }
 
-  loginFamily(email: string, password: string) {
+  loginFamily(email: string, password: string): void {
     const family = {
       email,
       password,
@@ -81,7 +81,7 @@ export class ApiService {
       );
   }
 
-  addPersonToFamily(name: string) {
+  addPersonToFamily(name: string): void {
     const newPerson = {
       name,
     };
@@ -99,7 +99,7 @@ export class ApiService {
       );
   }
 
-  getAllBudgets() {
+  getAllBudgets(): void {
     this.httpClient
       .get<Array<IBudgetInfo> | []>(`${environment.apiUrl}/api/budget/all`)
       .subscribe(
@@ -113,7 +113,7 @@ export class ApiService {
       );
   }
 
-  getBudget(id: string) {
+  getBudget(id: string): void {
     this.httpClient
       .get<IBudget | null>(`${environment.apiUrl}/api/budget/${id}`)
       .subscribe(
@@ -131,6 +131,27 @@ export class ApiService {
           console.log(error);
 
           this.store.dispatch(setCurrentBudget({ currentBudget: {} }));
+        }
+      );
+  }
+
+  createNewBudget(name: string, total: number): void {
+    const newBudget = {
+      name,
+      total,
+    };
+
+    this.httpClient
+      .post<IBudget>(`${environment.apiUrl}/api/budget`, newBudget)
+      .subscribe(
+        (response) => {
+          // TODO: add it to redux and other
+          // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+          console.log(response);
+        },
+        (error) => {
+          // TODO: dispatch it to NgRx
+          console.log(error);
         }
       );
   }

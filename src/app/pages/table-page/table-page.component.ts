@@ -76,6 +76,8 @@ export class TablePageComponent implements OnInit {
 
   changeBudgetForm!: FormGroup;
 
+  newBudgetForm!: FormGroup;
+
   person: string | null = null;
 
   family!: IFamily;
@@ -118,6 +120,13 @@ export class TablePageComponent implements OnInit {
 
   fetchCurrentBudget(id: string): void {
     this.apiService.getBudget(id);
+  }
+
+  handleCreateBudgetSubmit(): void {
+    this.apiService.createNewBudget(
+      this.newBudgetForm.value.newBudgetName,
+      this.newBudgetForm.value.newBudgetSumm
+    );
   }
 
   ngOnInit() {
@@ -191,6 +200,9 @@ export class TablePageComponent implements OnInit {
 
     this.calcaluateLeft();
 
-
+    this.newBudgetForm = new FormGroup({
+      newBudgetName: new FormControl(''),
+      newBudgetSumm: new FormControl(''),
+    });
   }
 }

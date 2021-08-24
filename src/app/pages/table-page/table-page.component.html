@@ -57,7 +57,17 @@
         Choose budget
       </button>
     </form>
-    <ng-template #elseBlock>Create a budget!</ng-template>
+    <ng-template #elseBlock>
+      <p>Create a budget!</p>
+      <form [formGroup]="newBudgetForm" (ngSubmit)="handleCreateBudgetSubmit()">
+        <label for="newBudgetName">Budget's name</label>
+        <input formControlName="newBudgetName" type="text" name="newBudgetName" id="newBudgetName" >
+        <label for="newBudgetSumm">Budget's summ</label>
+        <input formControlName="newBudgetSumm" type="number" name="newBudgetSumm" id="newBudgetSumm" >
+        <button type="submit">Create new budget</button>
+      </form>
+
+    </ng-template>
   </div>
 
   <div class="table_header">
