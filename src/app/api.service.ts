@@ -80,13 +80,25 @@ export class ApiService {
     };
 
     this.httpClient
-      .patch<any>(`${environment.apiUrl}/api/family`, newPerson)
+      .patch<IFamily>(`${environment.apiUrl}/api/family`, newPerson)
       .subscribe(
         (response) => {
           this.store.dispatch(setFamily({ family: response }));
         },
         (error) => {
           // TODO: dispatch it to NgRx
+          console.log(error);
+        }
+      );
+  }
+
+  getAllBudgets() {
+    this.httpClient.get(`${environment.apiUrl}/api/budget/all`)
+      .subscribe(
+        (response) => {
+          console.log(response);
+        },
+        (error) => {
           console.log(error);
         }
       );

@@ -12,6 +12,9 @@ import {
 import { getTransactions } from 'src/app/state/transaction';
 import { getFamily } from 'src/app/state/family';
 
+// Services
+import { ApiService } from 'src/app/api.service';
+
 // Interfaces
 import { IFamily } from 'src/app/state/family/family.reducer';
 
@@ -56,6 +59,9 @@ const MOCK_DATA: Array<ITransaction> = [
 export class TablePageComponent implements OnInit {
   @ViewChild('inputRef', { static: false }) inputRef!: ElementRef;
 
+  // TODO: add interface
+  budgets: any;
+
   transactions: Array<ITransaction> | [] = [];
 
   total: number = 0;
@@ -71,7 +77,8 @@ export class TablePageComponent implements OnInit {
   family!: IFamily;
 
   constructor(
-    private store: Store<{ transactions: Array<ITransaction> | [] }>
+    private store: Store<{ transactions: Array<ITransaction> | [] }>,
+    private apiService: ApiService
   ) {}
 
   calcaluateLeft(): void {
@@ -98,6 +105,9 @@ export class TablePageComponent implements OnInit {
   }
 
   ngOnInit() {
+    // TODO: only for tests
+    this.apiService.getAllBudgets();
+
     this.store.dispatch(resetAllTransactions());
     this.store.dispatch(setAllTransactions({ transactions: MOCK_DATA }));
 
