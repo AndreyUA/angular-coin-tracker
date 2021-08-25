@@ -119,8 +119,6 @@ export class ApiService {
       .get<IBudget | null>(`${environment.apiUrl}/api/budget/${id}`)
       .subscribe(
         (response) => {
-          console.log(response);
-
           if (response) {
             this.store.dispatch(setCurrentBudget({ currentBudget: response }));
           } else {
@@ -158,6 +156,29 @@ export class ApiService {
         (error) => {
           // TODO: dispatch it to NgRx
           console.log(error);
+        }
+      );
+  }
+
+  addNewTransAction(id: string, name: string, money: number) {
+    this.httpClient
+      .patch<IBudget>(`${environment.apiUrl}/api/budget/${id}`, {
+        name,
+        money,
+      })
+      .subscribe(
+        (response) => {
+          if (response) {
+            this.store.dispatch(setCurrentBudget({ currentBudget: response }));
+          } else {
+            this.store.dispatch(setCurrentBudget({ currentBudget: {} }));
+          }
+        },
+        (error) => {
+          // TODO: dispatch it to NgRx
+          console.log(error);
+
+          this.store.dispatch(setCurrentBudget({ currentBudget: {} }));
         }
       );
   }

@@ -6,7 +6,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 // Store
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { budgetReducer } from './state/transaction/transaction.reducer';
 import { familyReducer } from './state/family/family.reducer';
 import { budgetsReducer } from './state/budgets/budgets.reducer';
 
@@ -56,7 +55,6 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
     ReactiveFormsModule,
     AppRoutingModule,
     StoreModule.forRoot({
-      transactions: budgetReducer,
       family: familyReducer,
       budgets: budgetsReducer,
     }),

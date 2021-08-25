@@ -3,13 +3,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 // Store
 import { Store, select } from '@ngrx/store';
-import { ITransaction } from 'src/app/state/transaction/transaction.reducer';
-import {
-  setAllTransactions,
-  addTransaction,
-  resetAllTransactions,
-} from 'src/app/state/transaction/transaction.actions';
-import { getTransactions } from 'src/app/state/transaction';
 import { getFamily } from 'src/app/state/family';
 import { getArrayOfBudgets, getCurrentBudget } from 'src/app/state/budgets';
 
@@ -17,41 +10,9 @@ import { getArrayOfBudgets, getCurrentBudget } from 'src/app/state/budgets';
 import { ApiService } from 'src/app/api.service';
 
 // Interfaces
+import { ITransaction } from 'src/app/state/budgets/budgets.reducer';
 import { IFamily } from 'src/app/state/family/family.reducer';
 import { IBudgetInfo, IBudget } from 'src/app/state/budgets/budgets.reducer';
-
-const MOCK_DATA: Array<ITransaction> = [
-  {
-    person: 'Папа',
-    money: 600,
-    date: new Date(),
-  },
-  {
-    person: 'Мама',
-    money: 120,
-    date: new Date(),
-  },
-  {
-    person: 'Мама',
-    money: 200,
-    date: new Date(),
-  },
-  {
-    person: 'Мама',
-    money: 400,
-    date: new Date(),
-  },
-  {
-    person: 'Мама',
-    money: 300,
-    date: new Date(),
-  },
-  {
-    person: 'Мама',
-    money: 535,
-    date: new Date(),
-  },
-];
 
 @Component({
   selector: 'app-table-page',
@@ -88,20 +49,13 @@ export class TablePageComponent implements OnInit {
     private apiService: ApiService
   ) {}
 
-  calcaluateLeft(): void {
-    this.left = this.total - this.spend;
-  }
-
   onSubmit(): void {
     if (this.person) {
-      const newTransaction: ITransaction = {
-        person: this.person,
-        money: this.transactionsForm.value.money,
-        date: new Date(),
-      };
-      this.store.dispatch(addTransaction({ transaction: newTransaction }));
-
-      this.calcaluateLeft();
+      this.apiService.addNewTransAction(
+        (this.currentBudget as IBudget)._id,
+        this.person,
+        this.transactionsForm.value.money
+      );
 
       this.transactionsForm.reset();
 
@@ -115,8 +69,6 @@ export class TablePageComponent implements OnInit {
     localStorage.setItem('budget', this.changeBudgetForm.value.changeBudget);
 
     this.fetchCurrentBudget(this.changeBudgetForm.value.changeBudget);
-    // TODO: request to server for choosen budget
-    console.log('submit!');
   }
 
   fetchCurrentBudget(id: string): void {
@@ -134,22 +86,10 @@ export class TablePageComponent implements OnInit {
     // Fetch array of budgets
     this.apiService.getAllBudgets();
 
-    this.store.dispatch(resetAllTransactions());
-    this.store.dispatch(setAllTransactions({ transactions: MOCK_DATA }));
-
     // TODO: make MULTIPLE selector!!!
-    this.store.pipe(select(getTransactions)).subscribe((transactions) => {
-      this.spend = 0;
-
-      this.transactions = transactions;
-
-      transactions.forEach((transaction: ITransaction) => {
-        this.spend += transaction.money;
-      });
-    });
-
     this.store.pipe(select(getCurrentBudget)).subscribe((budget) => {
       this.currentBudget = {};
+      this.transactions = [];
       this.total = 0;
       this.spend = 0;
       this.left = 0;
@@ -163,6 +103,8 @@ export class TablePageComponent implements OnInit {
             (sum, transaction) => +sum + +transaction.money,
             0
           );
+
+          this.transactions = budget.transactions;
         }
 
         this.left = this.total - this.spend;
@@ -205,8 +147,6 @@ export class TablePageComponent implements OnInit {
       money: new FormControl(null, Validators.required),
     });
 
-    this.total = 10000;
-
     const personFromLocalStorage = localStorage.getItem('person');
 
     if (
@@ -219,8 +159,6 @@ export class TablePageComponent implements OnInit {
     ) {
       this.person = localStorage.getItem('person');
     }
-
-    this.calcaluateLeft();
 
     this.newBudgetForm = new FormGroup({
       newBudgetName: new FormControl(''),
