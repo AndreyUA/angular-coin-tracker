@@ -8,15 +8,9 @@ import { getFamily } from 'src/app/state/family';
 // Services
 import { ApiService } from 'src/app/api.service';
 
-interface IPerson {
-  _id: string;
-  name: string;
-  date: Date;
-}
-interface IFamily {
-  familyName: string;
-  persons: Array<IPerson>;
-}
+// Interfaces
+import { IFamily } from 'src/app/state/family/family.reducer';
+
 @Component({
   selector: 'app-family-page',
   templateUrl: './family-page.component.html',
@@ -49,7 +43,7 @@ export class FamilyPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.store.pipe(select(getFamily)).subscribe((family: IFamily) => {
+    this.store.pipe(select(getFamily)).subscribe((family) => {
       this.family = family;
     });
 

@@ -11,14 +11,14 @@ import {
 } from 'src/app/state/transaction/transaction.actions';
 import { getTransactions } from 'src/app/state/transaction';
 import { getFamily } from 'src/app/state/family';
-import { getArrayOfBudgets } from 'src/app/state/budgets';
+import { getArrayOfBudgets, getCurrentBudget } from 'src/app/state/budgets';
 
 // Services
 import { ApiService } from 'src/app/api.service';
 
 // Interfaces
 import { IFamily } from 'src/app/state/family/family.reducer';
-import { IBudgetInfo } from 'src/app/state/budgets/budgets.reducer';
+import { IBudgetInfo, IBudget } from 'src/app/state/budgets/budgets.reducer';
 
 const MOCK_DATA: Array<ITransaction> = [
   {
@@ -61,10 +61,11 @@ const MOCK_DATA: Array<ITransaction> = [
 export class TablePageComponent implements OnInit {
   @ViewChild('inputRef', { static: false }) inputRef!: ElementRef;
 
-  // TODO: add interface
   budgets: Array<IBudgetInfo> | [] = [];
 
   transactions: Array<ITransaction> | [] = [];
+
+  currentBudget: IBudget | {} = {};
 
   total: number = 0;
 
@@ -147,13 +148,33 @@ export class TablePageComponent implements OnInit {
       });
     });
 
+    this.store.pipe(select(getCurrentBudget)).subscribe((budget) => {
+      this.currentBudget = {};
+      this.total = 0;
+      this.spend = 0;
+      this.left = 0;
+
+      if (Object.keys(budget).length > 0) {
+        this.currentBudget = budget;
+        this.total = budget.total;
+
+        if (budget.transactions.length > 0) {
+          this.spend = budget.transactions.reduce(
+            (sum, transaction) => +sum + +transaction.money,
+            0
+          );
+        }
+
+        this.left = this.total - this.spend;
+      }
+    });
+
     this.store.pipe(select(getFamily)).subscribe((family) => {
       this.family = family;
     });
 
-    this.store
-      .pipe(select(getArrayOfBudgets))
-      .subscribe((budgets: Array<IBudgetInfo>) => {
+    this.store.pipe(select(getArrayOfBudgets)).subscribe((budgets) => {
+      if (budgets.length > 0) {
         this.budgets = budgets;
 
         // Check budgets and render correct form
@@ -177,7 +198,8 @@ export class TablePageComponent implements OnInit {
             changeBudget: new FormControl('default'),
           });
         }
-      });
+      }
+    });
 
     this.transactionsForm = new FormGroup({
       money: new FormControl(null, Validators.required),
