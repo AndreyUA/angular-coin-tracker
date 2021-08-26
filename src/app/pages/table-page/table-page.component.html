@@ -114,7 +114,7 @@
       <span> --> </span>
       <span>{{ transaction.money }}</span>
       <span> at </span>
-      <span>{{ transaction.date }}</span>
+      <span>{{ transaction.date | date:'dd MMM yyyy, ccc, HH:mm' }}</span>
     </p>
   </div>
 </main>

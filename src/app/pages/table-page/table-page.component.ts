@@ -104,7 +104,11 @@ export class TablePageComponent implements OnInit {
             0
           );
 
-          this.transactions = budget.transactions;
+          const transactionsCopy = [...budget.transactions];
+
+          this.transactions = transactionsCopy.sort(
+            (a, b) => new Date(b?.date).getTime() - new Date(a?.date).getTime()
+          );
         }
 
         this.left = this.total - this.spend;
