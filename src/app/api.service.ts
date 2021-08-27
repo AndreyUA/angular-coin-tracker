@@ -160,11 +160,12 @@ export class ApiService {
       );
   }
 
-  addNewTransAction(id: string, name: string, money: number) {
+  addNewTransAction(id: string, name: string, money: number, purchase: string) {
     this.httpClient
       .patch<IBudget>(`${environment.apiUrl}/api/budget/${id}`, {
         name,
         money,
+        purchase
       })
       .subscribe(
         (response) => {

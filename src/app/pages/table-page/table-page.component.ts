@@ -20,7 +20,10 @@ import { IBudgetInfo, IBudget } from 'src/app/state/budgets/budgets.reducer';
   styleUrls: ['./table-page.component.scss'],
 })
 export class TablePageComponent implements OnInit {
-  @ViewChild('inputRef', { static: false }) inputRef!: ElementRef;
+  @ViewChild('inputMoneyRef', { static: false }) inputMoneyRef!: ElementRef;
+
+  @ViewChild('inputPurchaseRef', { static: false })
+  inputPurchaseRef!: ElementRef;
 
   budgets: Array<IBudgetInfo> | [] = [];
 
@@ -54,12 +57,14 @@ export class TablePageComponent implements OnInit {
       this.apiService.addNewTransAction(
         (this.currentBudget as IBudget)._id,
         this.person,
-        this.transactionsForm.value.money
+        this.transactionsForm.value.money,
+        this.transactionsForm.value.purchase
       );
 
       this.transactionsForm.reset();
 
-      this.inputRef.nativeElement.blur();
+      this.inputMoneyRef.nativeElement.blur();
+      this.inputPurchaseRef.nativeElement.blur();
     } else {
       return;
     }
@@ -149,6 +154,7 @@ export class TablePageComponent implements OnInit {
 
     this.transactionsForm = new FormGroup({
       money: new FormControl(null, Validators.required),
+      purchase: new FormControl(null, Validators.required),
     });
 
     const personFromLocalStorage = localStorage.getItem('person');

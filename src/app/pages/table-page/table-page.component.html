@@ -1,37 +1,3 @@
-<p>основная таблица приложения</p>
-<hr />
-<p>видим общую сумму бюджета, смотрим сколько потрачено, сколько осталось</p>
-<p>в планах интересный вывод сколько осталось:</p>
-<p>
-  1) проценты, полоса прогресса, можно ей дать цветовое оформление в зависимости
-  от прогресса
-</p>
-<p>
-  2) также, возможно, какие-то эмоции и смайлы для отображения сколько осталось
-  и тд
-</p>
-<hr />
-<p>еще здесь будет добавление расходов</p>
-<p>
-  как-то сделать пагинацию самых свежих операций, модальное окошко для
-  оформления операции, может еще что-то
-</p>
-<hr />
-<p>
-  есть какой-то баг: записываешь число, а после редактирования последней цифры
-  что-то не так. PS похоже, баг именно в числовых рассчетах
-</p>
-<hr />
-<h1>TODO:</h1>
-<p>получаем список бюджетов, выбираем их</p>
-<p>НУЖНО БУДЕТ ДОБАВИТЬ ПОЛЯ ЗАГРУЗКИ В КАЖДЫЙ ИЗ ЧАСТЕЙ РЕДАКСА!!!</p>
-<p>
-  а еще добавить тут и на сервере создание
-  <strong> именованных бюджетов! </strong>
-</p>
-<hr />
-<hr />
-
 <main>
   <div class="table_budget">
     <form
@@ -92,11 +58,19 @@
     <form [formGroup]="transactionsForm" (ngSubmit)="onSubmit()">
       <label for="summ">Сумма</label>
       <input
-        #inputRef
+        #inputMoneyRef
         formControlName="money"
         type="number"
         name="summ"
         id="summ"
+      />
+      <label for="purchase">На что потрачено</label>
+      <input
+        #inputPurchaseRef
+        formControlName="purchase"
+        type="text"
+        name="purchase"
+        id="purchase"
       />
       <button
         [disabled]="transactionsForm.value.money <= 0 || !person"
@@ -111,10 +85,11 @@
   <div *ngIf="transactions.length > 0" class="table_display">
     <p class="table_display_paragraph" *ngFor="let transaction of transactions">
       <span>{{ transaction.person }}</span>
+      <span> ({{ transaction.purchase }}) </span>
       <span> --> </span>
-      <span>{{ transaction.money }}</span>
+      <span>{{ transaction.money }} UAH</span>
       <span> at </span>
-      <span>{{ transaction.date | date:'dd MMM yyyy, ccc, HH:mm' }}</span>
+      <span>{{ transaction.date | date: "dd MMM yyyy, ccc, HH:mm" }}</span>
     </p>
   </div>
 </main>

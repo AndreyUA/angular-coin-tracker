@@ -22,6 +22,7 @@ export interface ITransaction {
   date: Date;
   money: number;
   person: string;
+  purchase: string;
   _id: string;
 }
 
