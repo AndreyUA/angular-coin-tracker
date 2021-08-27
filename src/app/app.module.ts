@@ -16,7 +16,8 @@ import { AuthGuard } from './auth-guard.service';
 import { UserGuard } from './user-guard.service';
 
 // Directives
-import { PrivateRoute } from './directives/private-route.directive';
+import { PrivateRouteDirective } from './directives/private-route.directive';
+import { PublicRouteDirective } from './directives/public-route.directive';
 
 // Components
 import { AppComponent } from './app.component';
@@ -44,7 +45,8 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
     TablePageComponent,
     NotFoundComponent,
     StatisticPageComponent,
-    PrivateRoute,
+    PrivateRouteDirective,
+    PublicRouteDirective,
     PlansPageComponent,
     DashboardComponent,
   ],

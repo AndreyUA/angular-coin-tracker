@@ -8,17 +8,17 @@ import { getFamily } from '../state/family/index';
 import { IFamily } from '../state/family/family.reducer';
 
 @Directive({
-  selector: '[appPrivateRoute]',
+  selector: '[appPublicRoute]',
 })
-export class PrivateRouteDirective implements OnInit {
+export class PublicRouteDirective implements OnInit {
   constructor(private elementRef: ElementRef, private store: Store) {}
 
   ngOnInit() {
     this.store.pipe(select(getFamily)).subscribe((family: IFamily) => {
       if (family._id) {
-        this.elementRef.nativeElement.style.display = 'flex';
-      } else {
         this.elementRef.nativeElement.style.display = 'none';
+      } else {
+        this.elementRef.nativeElement.style.display = 'flex';
       }
     });
   }

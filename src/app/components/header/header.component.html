@@ -11,15 +11,13 @@
         >Home</a
       >
       <a
-        appPrivateRoute
-        [isPrivate]="false"
+        appPublicRoute
         [routerLink]="['auth', 'register']"
         routerLinkActive="active"
         >Register</a
       >
       <a
-        appPrivateRoute
-        [isPrivate]="false"
+        appPublicRoute
         [routerLink]="['auth', 'login']"
         routerLinkActive="active"
         >Login</a
@@ -35,7 +33,7 @@
       <a appPrivateRoute routerLink="statistic" routerLinkActive="active"
         >Statistic</a
       >
-      <button appPrivateRoute>Logout</button>
+      <button appPrivateRoute (click)="logoutHandler()">Logout</button>
     </div>
   </nav>
 </header>

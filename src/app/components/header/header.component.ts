@@ -1,15 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 
+// Store
+import { Store } from '@ngrx/store';
+import { resetFamily } from 'src/app/state/family/family.actions';
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
+  constructor(private store: Store) {}
 
-  constructor() { }
+  logoutHandler() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("person");
+    localStorage.removeItem("budget");
 
-  ngOnInit(): void {
+    this.store.dispatch(resetFamily());
   }
 
+  ngOnInit(): void {}
 }
