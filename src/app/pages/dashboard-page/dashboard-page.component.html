@@ -1,1 +1,5 @@
-<p>просто стена для сообщений</p>
+<div *ngIf="posts.length > 0" >
+  <p *ngFor="let post of posts" >
+    <span>{{ post.text }}</span>
+  </p>
+</div>

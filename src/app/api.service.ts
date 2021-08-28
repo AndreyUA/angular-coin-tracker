@@ -4,18 +4,20 @@ import { HttpClient } from '@angular/common/http';
 // Store
 import { Store } from '@ngrx/store';
 import { setFamily, resetFamily } from './state/family/family.actions';
-import { IFamily } from './state/family/family.reducer';
 import {
   setAllBudgets,
   setCurrentBudget,
   addBudget,
 } from './state/budgets/budgets.action';
+import { setAllPosts, resetPosts } from './state/posts/posts.actions';
 
 // ENV
 import { environment } from 'src/environments/environment';
 
 // Interfaces
-import { IBudget, IBudgetInfo } from 'src/app/state/budgets/budgets.reducer';
+import { IFamily } from './state/family/family.reducer';
+import { IBudget, IBudgetInfo } from './state/budgets/budgets.reducer';
+import { IPost } from './state/posts/posts.reducer';
 
 @Injectable({ providedIn: 'root' })
 export class ApiService {
@@ -185,16 +187,18 @@ export class ApiService {
   }
 
   getAllposts() {
-    // TODO: add response type
-    this.httpClient.get<any>(`${environment.apiUrl}/api/post/all`).subscribe(
-      (response) => {
-        // TODO: dispatch it to NgRx
-        console.log(response);
-      },
-      (error) => {
-        // TODO: dispatch it to NgRx
-        console.log(error);
-      }
-    );
+    this.store.dispatch(resetPosts());
+
+    this.httpClient
+      .get<Array<IPost>>(`${environment.apiUrl}/api/post/all`)
+      .subscribe(
+        (response) => {
+          this.store.dispatch(setAllPosts({ posts: response }));
+        },
+        (error) => {
+          // TODO: dispatch it to NgRx
+          console.log(error);
+        }
+      );
   }
 }
