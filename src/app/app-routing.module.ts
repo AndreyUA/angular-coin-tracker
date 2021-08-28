@@ -13,7 +13,7 @@ import { LoginPageComponent } from './pages/auth-page/login-page/login-page.comp
 import { FamilyPageComponent } from './pages/family-page/family-page.component';
 import { TablePageComponent } from './pages/table-page/table-page.component';
 import { PlansPageComponent } from './pages/plans-page/plans-page.component';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component';
 import { StatisticPageComponent } from './pages/statistic-page/statistic-page.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 
@@ -39,7 +39,11 @@ const routes: Routes = [
   { path: 'family', component: FamilyPageComponent, canActivate: [AuthGuard] },
   { path: 'table', component: TablePageComponent, canActivate: [AuthGuard] },
   { path: 'plans', component: PlansPageComponent, canActivate: [AuthGuard] },
-  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+  {
+    path: 'dashboard',
+    component: DashboardPageComponent,
+    canActivate: [AuthGuard],
+  },
   {
     path: 'statistic',
     component: StatisticPageComponent,

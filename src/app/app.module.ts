@@ -31,7 +31,7 @@ import { TablePageComponent } from './pages/table-page/table-page.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { StatisticPageComponent } from './pages/statistic-page/statistic-page.component';
 import { PlansPageComponent } from './pages/plans-page/plans-page.component';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +48,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
     PrivateRouteDirective,
     PublicRouteDirective,
     PlansPageComponent,
-    DashboardComponent,
+    DashboardPageComponent,
   ],
   imports: [
     HttpClientModule,

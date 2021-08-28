@@ -165,7 +165,7 @@ export class ApiService {
       .patch<IBudget>(`${environment.apiUrl}/api/budget/${id}`, {
         name,
         money,
-        purchase
+        purchase,
       })
       .subscribe(
         (response) => {
@@ -182,5 +182,19 @@ export class ApiService {
           this.store.dispatch(setCurrentBudget({ currentBudget: {} }));
         }
       );
+  }
+
+  getAllposts() {
+    // TODO: add response type
+    this.httpClient.get<any>(`${environment.apiUrl}/api/post/all`).subscribe(
+      (response) => {
+        // TODO: dispatch it to NgRx
+        console.log(response);
+      },
+      (error) => {
+        // TODO: dispatch it to NgRx
+        console.log(error);
+      }
+    );
   }
 }
