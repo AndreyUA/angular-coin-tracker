@@ -7,4 +7,9 @@ export const setAllPosts = createAction(
   props<{ posts: Array<IPost> }>()
 );
 
+export const addNewPost = createAction(
+  '[Posts action] Add new post',
+  props<{ post: IPost }>()
+);
+
 export const resetPosts = createAction('[Posts action] Reset all posts');

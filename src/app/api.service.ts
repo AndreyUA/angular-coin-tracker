@@ -9,7 +9,11 @@ import {
   setCurrentBudget,
   addBudget,
 } from './state/budgets/budgets.action';
-import { setAllPosts, resetPosts } from './state/posts/posts.actions';
+import {
+  setAllPosts,
+  resetPosts,
+  addNewPost,
+} from './state/posts/posts.actions';
 
 // ENV
 import { environment } from 'src/environments/environment';
@@ -194,6 +198,22 @@ export class ApiService {
       .subscribe(
         (response) => {
           this.store.dispatch(setAllPosts({ posts: response }));
+        },
+        (error) => {
+          // TODO: dispatch it to NgRx
+          console.log(error);
+        }
+      );
+  }
+
+  addNewPost(name: string, text: string) {
+    const newPost = { name, text };
+
+    this.httpClient
+      .post<IPost>(`${environment.apiUrl}/api/post`, newPost)
+      .subscribe(
+        (response) => {
+          this.store.dispatch(addNewPost({ post: response }));
         },
         (error) => {
           // TODO: dispatch it to NgRx

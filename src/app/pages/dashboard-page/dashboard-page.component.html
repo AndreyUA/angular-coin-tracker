@@ -1,5 +1,22 @@
-<div *ngIf="posts.length > 0" >
-  <p *ngFor="let post of posts" >
+<div>
+  <form [formGroup]="postsForm" (ngSubmit)="onSubmit()">
+    <label for="text">Text:</label>
+    <input
+      formControlName="text"
+      #textInput
+      type="text"
+      name="text"
+      id="text"
+    />
+    <button [disabled]="!postsForm.valid" type="submit">Submit</button>
+  </form>
+</div>
+<hr />
+<hr />
+<div *ngIf="posts.length > 0">
+  <p *ngFor="let post of posts">
+    <span>{{ post.name }}: </span>
     <span>{{ post.text }}</span>
+    <span> at {{ post.date | date: "dd MMM yyyy, ccc, HH:mm" }}</span>
   </p>
 </div>
