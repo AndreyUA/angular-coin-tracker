@@ -1,6 +1,11 @@
 import { Action, createReducer, on } from '@ngrx/store';
 
-import { setAllPosts, resetPosts, addNewPost } from './posts.actions';
+import {
+  setAllPosts,
+  resetPosts,
+  addNewPost,
+  removePost,
+} from './posts.actions';
 
 export interface IPost {
   date: string;
@@ -29,6 +34,10 @@ const _postsReducer = createReducer(
   on(addNewPost, (state, { post }) => ({
     ...state,
     allPosts: [post, ...state.allPosts],
+  })),
+  on(removePost, (state, { postId }) => ({
+    ...state,
+    allPosts: state.allPosts.filter((post) => post._id !== postId),
   })),
   on(resetPosts, (): any => ({ allPosts: [] }))
 );

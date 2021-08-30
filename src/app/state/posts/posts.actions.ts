@@ -12,4 +12,9 @@ export const addNewPost = createAction(
   props<{ post: IPost }>()
 );
 
+export const removePost = createAction(
+  '[Posts action] Remove post',
+  props<{ postId: string }>()
+);
+
 export const resetPosts = createAction('[Posts action] Reset all posts');

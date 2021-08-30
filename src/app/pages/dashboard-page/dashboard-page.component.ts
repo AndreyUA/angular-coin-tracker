@@ -42,6 +42,10 @@ export class DashboardPageComponent implements OnInit {
     }
   }
 
+  removeHandler(id: string) {
+    this.apiService.deletePost(id);
+  }
+
   ngOnInit(): void {
     this.familyPersonName = localStorage.getItem('person');
 

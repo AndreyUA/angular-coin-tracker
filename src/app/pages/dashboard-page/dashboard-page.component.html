@@ -18,5 +18,6 @@
     <span>{{ post.name }}: </span>
     <span>{{ post.text }}</span>
     <span> at {{ post.date | date: "dd MMM yyyy, ccc, HH:mm" }}</span>
+    <button (click)="removeHandler(post._id)">remove post</button>
   </p>
 </div>

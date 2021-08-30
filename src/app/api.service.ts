@@ -13,6 +13,7 @@ import {
   setAllPosts,
   resetPosts,
   addNewPost,
+  removePost,
 } from './state/posts/posts.actions';
 
 // ENV
@@ -214,6 +215,23 @@ export class ApiService {
       .subscribe(
         (response) => {
           this.store.dispatch(addNewPost({ post: response }));
+        },
+        (error) => {
+          // TODO: dispatch it to NgRx
+          console.log(error);
+        }
+      );
+  }
+
+  deletePost(id: string) {
+    this.httpClient
+      .delete<{ msg: string }>(`${environment.apiUrl}/api/post/${id}`)
+      .subscribe(
+        (response) => {
+          // TODO: dispath it to alerts in NgRx
+          console.log(response);
+
+          this.store.dispatch(removePost({ postId: id }));
         },
         (error) => {
           // TODO: dispatch it to NgRx
