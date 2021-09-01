@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 // Services
 import { ApiService } from 'src/app/api.service';
+import { SocketioService } from 'src/app/socketio.service';
 
 // Store
 import { Store, select } from '@ngrx/store';
@@ -28,7 +29,11 @@ export class DashboardPageComponent implements OnInit {
 
   postsForm!: FormGroup;
 
-  constructor(private apiService: ApiService, private store: Store) {}
+  constructor(
+    private apiService: ApiService,
+    private store: Store,
+    private socketioService: SocketioService
+  ) {}
 
   onSubmit() {
     if (this.familyPersonName !== null) {
@@ -36,6 +41,11 @@ export class DashboardPageComponent implements OnInit {
         this.familyPersonName,
         this.postsForm.value.text
       );
+
+      this.socketioService.sendPost({
+        text: this.postsForm.value.text,
+        name: this.familyPersonName,
+      });
 
       this.textInput.nativeElement.blur();
       this.postsForm.reset();
