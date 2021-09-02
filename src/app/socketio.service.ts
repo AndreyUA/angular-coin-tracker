@@ -11,17 +11,20 @@ export class SocketioService {
 
   constructor() {}
 
-  setupSocketConnection() {
+  setupSocketConnection(familyId: string) {
     this.socket = io(environment.apiUrl);
 
+    this.socket.emit('join_family_channel', familyId)
+
     this.socket.on('receivePost', (data: any) => {
+      // TODO: put it on UI
       console.log(data);
     });
   }
 
   // TODO: add types
-  sendPost(postBody: any) {
-    this.socket.emit('sendPost', postBody);
+  sendPost(familyId: string, postBody: any) {
+    this.socket.emit('sendPost', familyId, postBody);
   }
 
   disconnectSocketConnection() {

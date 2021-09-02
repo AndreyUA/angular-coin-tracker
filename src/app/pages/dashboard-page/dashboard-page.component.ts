@@ -8,9 +8,11 @@ import { SocketioService } from 'src/app/socketio.service';
 // Store
 import { Store, select } from '@ngrx/store';
 import { getPosts } from 'src/app/state/posts';
+import { getFamily } from 'src/app/state/family';
 
 // Interfaces
 import { IPost } from 'src/app/state/posts/posts.reducer';
+import { IFamily } from 'src/app/state/family/family.reducer';
 
 // Custom validators
 import { DashboardValidator } from './dashboard-validator';
@@ -27,6 +29,8 @@ export class DashboardPageComponent implements OnInit {
 
   familyPersonName: string | null = null;
 
+  familyId: string | null = null;
+
   postsForm!: FormGroup;
 
   constructor(
@@ -42,10 +46,12 @@ export class DashboardPageComponent implements OnInit {
         this.postsForm.value.text
       );
 
-      this.socketioService.sendPost({
-        text: this.postsForm.value.text,
-        name: this.familyPersonName,
-      });
+      // TODO: think what to send
+      if (this.familyId)
+        this.socketioService.sendPost(this.familyId, {
+          text: this.postsForm.value.text,
+          name: this.familyPersonName,
+        });
 
       this.textInput.nativeElement.blur();
       this.postsForm.reset();
@@ -61,8 +67,12 @@ export class DashboardPageComponent implements OnInit {
 
     this.apiService.getAllposts();
 
-    this.store.pipe(select(getPosts)).subscribe((posts) => {
+    this.store.pipe(select(getPosts)).subscribe((posts: Array<IPost>) => {
       this.posts = posts;
+    });
+
+    this.store.pipe(select(getFamily)).subscribe((family: IFamily) => {
+      this.familyId = family._id;
     });
 
     this.postsForm = new FormGroup({

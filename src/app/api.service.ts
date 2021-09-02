@@ -39,11 +39,11 @@ export class ApiService {
   getAccountInfo(): void {
     this.store.dispatch(resetFamily());
 
-    this.httpClient.get<any>(`${environment.apiUrl}/api/login`).subscribe(
+    this.httpClient.get<IFamily>(`${environment.apiUrl}/api/login`).subscribe(
       (response) => {
         this.store.dispatch(setFamily({ family: response }));
 
-        this.socketioService.setupSocketConnection();
+        this.socketioService.setupSocketConnection(response._id);
       },
       (error) => {
         // TODO: dispatch it to NgRx
