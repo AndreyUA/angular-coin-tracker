@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
+// Services
+import { SocketioService } from './socketio.service';
+
 // Store
 import { Store } from '@ngrx/store';
 import { setFamily, resetFamily } from './state/family/family.actions';
@@ -28,7 +31,8 @@ import { IPost } from './state/posts/posts.reducer';
 export class ApiService {
   constructor(
     private httpClient: HttpClient,
-    private store: Store<{ family: IFamily } | {}>
+    private store: Store<{ family: IFamily } | {}>,
+    private socketioService: SocketioService
   ) {}
 
   // TODO: add family interface OR error interface
@@ -38,6 +42,8 @@ export class ApiService {
     this.httpClient.get<any>(`${environment.apiUrl}/api/login`).subscribe(
       (response) => {
         this.store.dispatch(setFamily({ family: response }));
+
+        this.socketioService.setupSocketConnection();
       },
       (error) => {
         // TODO: dispatch it to NgRx

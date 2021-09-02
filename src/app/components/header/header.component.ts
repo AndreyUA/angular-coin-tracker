@@ -4,13 +4,16 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { resetFamily } from 'src/app/state/family/family.actions';
 
+// Services
+import { SocketioService } from 'src/app/socketio.service';
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  constructor(private store: Store) {}
+  constructor(private store: Store, private socketioService: SocketioService) {}
 
   logoutHandler() {
     localStorage.removeItem("token");
@@ -18,6 +21,7 @@ export class HeaderComponent implements OnInit {
     localStorage.removeItem("budget");
 
     this.store.dispatch(resetFamily());
+    this.socketioService.disconnectSocketConnection();
   }
 
   ngOnInit(): void {}

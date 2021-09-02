@@ -17,9 +17,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.apiService.getAccountInfo();
-
-    // TODO: try to move this logic to PROTECTED route
-    this.socketioService.setupSocketConnection();
   }
 
   ngOnDestroy() {
