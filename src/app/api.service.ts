@@ -198,8 +198,6 @@ export class ApiService {
   }
 
   getAllposts() {
-    this.store.dispatch(resetPosts());
-
     this.httpClient
       .get<Array<IPost>>(`${environment.apiUrl}/api/post/all`)
       .subscribe(

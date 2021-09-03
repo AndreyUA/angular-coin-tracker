@@ -8,6 +8,7 @@ import { SocketioService } from 'src/app/socketio.service';
 // Store
 import { Store, select } from '@ngrx/store';
 import { getPosts } from 'src/app/state/posts';
+import { resetPosts } from 'src/app/state/posts/posts.actions';
 import { getFamily } from 'src/app/state/family';
 
 // Interfaces
@@ -41,12 +42,16 @@ export class DashboardPageComponent implements OnInit {
 
   onSubmit() {
     if (this.familyPersonName !== null) {
-      if (this.familyId)
+      if (this.familyId) {
         // TODO: think about ERRORS
         this.socketioService.sendPost(this.familyId, {
           text: this.postsForm.value.text,
           name: this.familyPersonName,
         });
+
+        this.apiService.getAllposts();
+      }
+
 
       this.textInput.nativeElement.blur();
       this.postsForm.reset();
@@ -59,6 +64,8 @@ export class DashboardPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.familyPersonName = localStorage.getItem('person');
+
+    this.store.dispatch(resetPosts());
 
     this.apiService.getAllposts();
 
