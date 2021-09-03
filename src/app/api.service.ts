@@ -213,22 +213,6 @@ export class ApiService {
       );
   }
 
-  addNewPost(name: string, text: string) {
-    const newPost = { name, text };
-
-    this.httpClient
-      .post<IPost>(`${environment.apiUrl}/api/post`, newPost)
-      .subscribe(
-        (response) => {
-          this.store.dispatch(addNewPost({ post: response }));
-        },
-        (error) => {
-          // TODO: dispatch it to NgRx
-          console.log(error);
-        }
-      );
-  }
-
   deletePost(id: string) {
     this.httpClient
       .delete<{ msg: string }>(`${environment.apiUrl}/api/post/${id}`)

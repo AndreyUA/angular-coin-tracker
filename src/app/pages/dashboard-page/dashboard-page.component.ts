@@ -41,13 +41,8 @@ export class DashboardPageComponent implements OnInit {
 
   onSubmit() {
     if (this.familyPersonName !== null) {
-      this.apiService.addNewPost(
-        this.familyPersonName,
-        this.postsForm.value.text
-      );
-
-      // TODO: think what to send
       if (this.familyId)
+        // TODO: think about ERRORS
         this.socketioService.sendPost(this.familyId, {
           text: this.postsForm.value.text,
           name: this.familyPersonName,
