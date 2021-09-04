@@ -3,7 +3,7 @@ import { io, Socket } from 'socket.io-client';
 
 // Store
 import { Store } from '@ngrx/store';
-import { addNewPost } from 'src/app/state/posts/posts.actions';
+import { addNewPost, removePost } from 'src/app/state/posts/posts.actions';
 
 // Interfaces
 import { IPost } from 'src/app/state/posts/posts.reducer';
@@ -23,15 +23,22 @@ export class SocketioService {
 
     this.socket.emit('join_family_channel', familyId);
 
-
     this.socket.on('receivePost', (data: IPost) => {
       this.store.dispatch(addNewPost({ post: data }));
+    });
+
+    this.socket.on('receiveDeletedPost', (msgId: string) => {
+      this.store.dispatch(removePost({ postId: msgId }));
     });
   }
 
   // TODO: add types
   sendPost(familyId: string, postBody: { text: string; name: string }) {
     this.socket.emit('sendPost', familyId, postBody);
+  }
+
+  deletePost(familyId: string, msgId: string) {
+    this.socket.emit('removePost', familyId, msgId);
   }
 
   disconnectSocketConnection() {

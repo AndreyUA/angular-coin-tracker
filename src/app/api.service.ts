@@ -213,13 +213,15 @@ export class ApiService {
 
   deletePost(id: string) {
     this.httpClient
-      .delete<{ msg: string }>(`${environment.apiUrl}/api/post/${id}`)
+      .delete<IPost>(`${environment.apiUrl}/api/post/${id}`)
       .subscribe(
         (response) => {
           // TODO: dispath it to alerts in NgRx
           console.log(response);
 
-          this.store.dispatch(removePost({ postId: id }));
+          this.socketioService.deletePost(response.family, response._id);
+
+          this.store.dispatch(removePost({ postId: response._id }));
         },
         (error) => {
           // TODO: dispatch it to NgRx
