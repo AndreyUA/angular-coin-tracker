@@ -9,7 +9,9 @@ import { addNewPost, removePost } from 'src/app/state/posts/posts.actions';
 // Interfaces
 import { IPost } from 'src/app/state/posts/posts.reducer';
 
+// Other
 import { environment } from 'src/environments/environment';
+import { notify } from './utils/notification';
 
 @Injectable({
   providedIn: 'root',
@@ -26,6 +28,8 @@ export class SocketioService {
     this.socket.emit('join_family_channel', familyId);
 
     this.socket.on('receivePost', (data: IPost) => {
+      notify('New post created.');
+
       this.snotifyService.success('New post created.', {
         timeout: 2000,
         showProgressBar: true,
@@ -37,6 +41,8 @@ export class SocketioService {
     });
 
     this.socket.on('receiveDeletedPost', (msgId: string) => {
+      notify('Post removed.');
+
       this.snotifyService.warning('Post removed.', {
         timeout: 2000,
         showProgressBar: true,
