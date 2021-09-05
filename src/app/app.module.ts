@@ -3,6 +3,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
+// Another libraries
+import { SnotifyModule, SnotifyService, ToastDefaults } from 'ng-snotify';
+
 // Store
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -63,6 +66,7 @@ import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.co
       posts: postsReducer,
     }),
     StoreDevtoolsModule.instrument({ maxAge: false }),
+    SnotifyModule,
   ],
   providers: [
     AuthGuard,
@@ -72,6 +76,8 @@ import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.co
       useClass: AuthInterceptorService,
       multi: true,
     },
+    { provide: 'SnotifyToastConfig', useValue: ToastDefaults },
+    SnotifyService,
   ],
   bootstrap: [AppComponent],
 })

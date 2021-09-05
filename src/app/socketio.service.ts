@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { io, Socket } from 'socket.io-client';
+import { SnotifyService } from 'ng-snotify';
 
 // Store
 import { Store } from '@ngrx/store';
@@ -16,18 +17,33 @@ import { environment } from 'src/environments/environment';
 export class SocketioService {
   socket!: Socket;
 
-  constructor(private store: Store) {}
+  constructor(private store: Store, private snotifyService: SnotifyService) {}
 
+  // Connect for receiving socket's messages
   setupSocketConnection(familyId: string) {
     this.socket = io(environment.apiUrl);
 
     this.socket.emit('join_family_channel', familyId);
 
     this.socket.on('receivePost', (data: IPost) => {
+      this.snotifyService.success('New post created.', {
+        timeout: 2000,
+        showProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+      });
+
       this.store.dispatch(addNewPost({ post: data }));
     });
 
     this.socket.on('receiveDeletedPost', (msgId: string) => {
+      this.snotifyService.warning('Post removed.', {
+        timeout: 2000,
+        showProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+      });
+
       this.store.dispatch(removePost({ postId: msgId }));
     });
   }
