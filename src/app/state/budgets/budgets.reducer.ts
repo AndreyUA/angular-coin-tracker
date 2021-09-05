@@ -26,6 +26,7 @@ export interface ITransaction {
   _id: string;
 }
 
+// TODO: add isFetching
 const initialState: {
   allBudgets: Array<IBudgetInfo> | [];
   currentBudget: IBudget | {};

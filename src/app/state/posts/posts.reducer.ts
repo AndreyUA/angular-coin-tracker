@@ -21,6 +21,7 @@ export interface IPosts {
   allPosts: [] | Array<IPost>;
 }
 
+// TODO: add isFetching
 const initialState: IPosts = {
   allPosts: [],
 };

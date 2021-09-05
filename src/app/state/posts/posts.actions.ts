@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 
+// Interfaces
 import { IPost } from './posts.reducer';
 
 export const setAllPosts = createAction(

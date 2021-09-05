@@ -1,41 +1,45 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
-interface ITodo {
-  content: string;
-  id?: string;
-  isFinished?: boolean;
-  isRemoved?: boolean;
-}
+// Store
+import { Store, select } from '@ngrx/store';
+import { getTodos, getTodosIsFetching } from 'src/app/state/todo';
+import { ITodo } from 'src/app/state/todo/todo.reducer';
+import { setAllTodos, addNewTodo } from 'src/app/state/todo/todo.actions';
 
 const MOCK_TODO = [
   {
     content: 'Финики',
-    id: '3123234534535423421',
+    _id: '3123234534535423421',
+    date: '1251851351561531',
     isFinished: false,
     isRemoved: false,
   },
   {
     content: 'Пюре Кирюне',
-    id: '3123234534535423421',
+    _id: '3123234534535423421',
+    date: '1251851351561531',
     isFinished: false,
     isRemoved: false,
   },
   {
     content: 'Йогурт',
-    id: '3123234534535423421',
+    _id: '3123234534535423421',
+    date: '1251851351561531',
     isFinished: false,
     isRemoved: false,
   },
   {
     content: 'Рис, гречка, булгур',
-    id: '3123234534535423421',
+    _id: '3123234534535423421',
+    date: '1251851351561531',
     isFinished: false,
     isRemoved: false,
   },
   {
     content: 'Шоколадка',
-    id: '3123234534535423421',
+    _id: '3123234534535423421',
+    date: '1251851351561531',
     isFinished: false,
     isRemoved: false,
   },
@@ -49,16 +53,20 @@ const MOCK_TODO = [
 export class PlansPageComponent implements OnInit {
   @ViewChild('todoInput', { static: false }) todoInput!: ElementRef;
 
+  isTodosFetching!: boolean;
+
   todos: Array<ITodo> = MOCK_TODO;
 
   todoForm!: FormGroup;
 
-  constructor() {}
+  constructor(private store: Store) {}
 
   onSubmit() {
     console.log(this.todoForm.value.todo);
 
-    this.todos.unshift({ content: this.todoForm.value.todo })
+    this.store.dispatch(
+      addNewTodo({ todo: { content: this.todoForm.value.todo } })
+    );
 
     this.todoInput.nativeElement.blur();
     this.todoForm.reset();
@@ -66,7 +74,19 @@ export class PlansPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.todoForm = new FormGroup({
-      todo: new FormControl(null, Validators.required)
-    })
+      todo: new FormControl(null, Validators.required),
+    });
+
+    this.store.dispatch(setAllTodos({ todos: MOCK_TODO }));
+
+    this.store.pipe(select(getTodos)).subscribe((todos: Array<ITodo>) => {
+      this.todos = todos;
+    });
+
+    this.store
+      .pipe(select(getTodosIsFetching))
+      .subscribe((isFetching: boolean) => {
+        this.isTodosFetching = isFetching;
+      });
   }
 }

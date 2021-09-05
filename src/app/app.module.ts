@@ -12,6 +12,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { familyReducer } from './state/family/family.reducer';
 import { budgetsReducer } from './state/budgets/budgets.reducer';
 import { postsReducer } from './state/posts/posts.reducer';
+import { todosReducer } from './state/todo/todo.reducer';
 
 // Modules
 import { AppRoutingModule } from './app-routing.module';
@@ -64,6 +65,7 @@ import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.co
       family: familyReducer,
       budgets: budgetsReducer,
       posts: postsReducer,
+      todos: todosReducer,
     }),
     StoreDevtoolsModule.instrument({ maxAge: false }),
     SnotifyModule,

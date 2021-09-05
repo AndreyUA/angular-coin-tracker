@@ -17,6 +17,7 @@ export interface IFamily {
   __v: any;
 }
 
+// TODO: add isFetching
 const initialState: {} | IFamily = {};
 
 export const _familyReducer = createReducer(
