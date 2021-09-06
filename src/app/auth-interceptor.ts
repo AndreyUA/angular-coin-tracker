@@ -4,13 +4,13 @@ import {
   HttpRequest,
 } from '@angular/common/http';
 
+import { createBearerToken } from 'src/app/utils/headerToken';
+
 export class AuthInterceptorService implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler) {
-    const token = localStorage.getItem('token');
-
-    if (token) {
+    if (createBearerToken().length > 7) {
       const modifiedRequest = req.clone({
-        headers: req.headers.append('Authorization', `Bearer ${token}`),
+        headers: req.headers.append('Authorization', createBearerToken()),
       });
 
       return next.handle(modifiedRequest);
