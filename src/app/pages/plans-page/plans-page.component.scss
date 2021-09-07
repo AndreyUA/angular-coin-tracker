@@ -25,7 +25,10 @@
       &:last-child {
         margin: 0;
       }
+
+      .todo_list_content-done {
+        text-decoration: line-through;
+      }
     }
   }
 }
-

@@ -15,9 +15,21 @@
 
   <div class="todo_list">
     <div *ngFor="let todo of todos" class="todo_list_block">
-      <div class="todo_list_checkbox">&#10004;</div>
-      <p class="todo_list_content">{{ todo.content }}</p>
-      <div class="todo_list_remove">&#10008;</div>
+      <button class="todo_list_checkbox" (click)="finishTodoHandler(todo._id!)">
+        &#10004;
+      </button>
+      <p
+        *ngIf="todo.isFinished; else notFinished"
+        class="todo_list_content-done"
+      >
+        {{ todo.content }}
+      </p>
+      <ng-template #notFinished>
+        <p class="todo_list_content">{{ todo.content }}</p>
+      </ng-template>
+      <button class="todo_list_remove" (click)="deleteTodoHandler(todo._id!)">
+        &#10008;
+      </button>
     </div>
   </div>
 </div>

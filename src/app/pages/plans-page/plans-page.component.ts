@@ -5,40 +5,45 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store, select } from '@ngrx/store';
 import { getTodos, getTodosIsFetching } from 'src/app/state/todo';
 import { ITodo } from 'src/app/state/todo/todo.reducer';
-import { setAllTodos, addNewTodo } from 'src/app/state/todo/todo.actions';
+import {
+  setAllTodos,
+  addNewTodo,
+  finishTodo,
+  deleteTodo,
+} from 'src/app/state/todo/todo.actions';
 
 const MOCK_TODO = [
   {
     content: 'Финики',
-    _id: '3123234534535423421',
+    _id: '111',
     date: '1251851351561531',
     isFinished: false,
     isRemoved: false,
   },
   {
     content: 'Пюре Кирюне',
-    _id: '3123234534535423421',
+    _id: '222',
     date: '1251851351561531',
     isFinished: false,
     isRemoved: false,
   },
   {
     content: 'Йогурт',
-    _id: '3123234534535423421',
+    _id: '333',
     date: '1251851351561531',
     isFinished: false,
     isRemoved: false,
   },
   {
     content: 'Рис, гречка, булгур',
-    _id: '3123234534535423421',
+    _id: '444',
     date: '1251851351561531',
     isFinished: false,
     isRemoved: false,
   },
   {
     content: 'Шоколадка',
-    _id: '3123234534535423421',
+    _id: '555',
     date: '1251851351561531',
     isFinished: false,
     isRemoved: false,
@@ -60,6 +65,14 @@ export class PlansPageComponent implements OnInit {
   todoForm!: FormGroup;
 
   constructor(private store: Store) {}
+
+  finishTodoHandler(id: string) {
+    this.store.dispatch(finishTodo({ todoId: id }));
+  }
+
+  deleteTodoHandler(id: string) {
+    this.store.dispatch(deleteTodo({ todoId: id }));
+  }
 
   onSubmit() {
     console.log(this.todoForm.value.todo);

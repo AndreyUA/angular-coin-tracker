@@ -17,3 +17,13 @@ export const addNewTodo = createAction(
   '[Todos action] Add new todo',
   props<{ todo: ITodo }>()
 );
+
+export const finishTodo = createAction(
+  '[Todos action] Finish todo',
+  props<{ todoId: string }>()
+);
+
+export const deleteTodo = createAction(
+  '[Todos action] Delete todo',
+  props<{ todoId: string }>()
+);

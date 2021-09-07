@@ -1,6 +1,12 @@
 import { Action, createReducer, on } from '@ngrx/store';
 
-import { setAllTodos, addNewTodo, setFetching } from './todo.actions';
+import {
+  setAllTodos,
+  addNewTodo,
+  setFetching,
+  finishTodo,
+  deleteTodo,
+} from './todo.actions';
 
 // TODO: all fields are REQUIRED!!!
 export interface ITodo {
@@ -34,7 +40,33 @@ const _todosReducer = createReducer(
   on(addNewTodo, (state, { todo }) => ({
     ...state,
     todos: [todo, ...state.todos],
-  }))
+  })),
+  on(finishTodo, (state, { todoId }) => {
+    // TODO: make it simple!
+    const newTodosArray = state.todos.map(
+      (todo: ITodo, index: number): ITodo => {
+        if (todo._id === todoId) {
+          const clone = { ...todo };
+          clone.isFinished = !state.todos[index].isFinished;
+
+          return clone;
+        }
+
+        return todo;
+      }
+    );
+
+    return {
+      ...state,
+      todos: [...newTodosArray],
+    };
+  }),
+  on(deleteTodo, (state, { todoId }) => {
+    return {
+      ...state,
+      todos: state.todos.filter((todo) => todo._id !== todoId),
+    };
+  })
 );
 
 export function todosReducer(state: any, action: Action) {
