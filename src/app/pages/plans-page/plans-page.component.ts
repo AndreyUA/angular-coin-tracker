@@ -12,6 +12,9 @@ import {
   deleteTodo,
 } from 'src/app/state/todo/todo.actions';
 
+// Services
+import { ApiService } from 'src/app/api.service';
+
 const MOCK_TODO = [
   {
     content: 'Финики',
@@ -64,7 +67,7 @@ export class PlansPageComponent implements OnInit {
 
   todoForm!: FormGroup;
 
-  constructor(private store: Store) {}
+  constructor(private store: Store, private apiService: ApiService) {}
 
   finishTodoHandler(id: string) {
     this.store.dispatch(finishTodo({ todoId: id }));
@@ -89,6 +92,8 @@ export class PlansPageComponent implements OnInit {
     this.todoForm = new FormGroup({
       todo: new FormControl(null, Validators.required),
     });
+
+    this.apiService.getAllTodos();
 
     this.store.dispatch(setAllTodos({ todos: MOCK_TODO }));
 

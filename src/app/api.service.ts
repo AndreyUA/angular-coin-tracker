@@ -26,6 +26,7 @@ import { environment } from 'src/environments/environment';
 import { IFamily } from './state/family/family.reducer';
 import { IBudget, IBudgetInfo } from './state/budgets/budgets.reducer';
 import { IPost } from './state/posts/posts.reducer';
+import { ITodo } from './state/todo/todo.reducer';
 
 @Injectable({ providedIn: 'root' })
 export class ApiService {
@@ -222,6 +223,20 @@ export class ApiService {
           this.socketioService.deletePost(response.family, response._id);
 
           this.store.dispatch(removePost({ postId: response._id }));
+        },
+        (error) => {
+          // TODO: dispatch it to NgRx
+          console.log(error);
+        }
+      );
+  }
+
+  getAllTodos() {
+    this.httpClient
+      .get<Array<ITodo>>(`${environment.apiUrl}/api/todo/all`)
+      .subscribe(
+        (response) => {
+          console.log(response);
         },
         (error) => {
           // TODO: dispatch it to NgRx

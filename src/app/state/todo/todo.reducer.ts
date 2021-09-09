@@ -11,6 +11,7 @@ import {
 // TODO: all fields are REQUIRED!!!
 export interface ITodo {
   content: string;
+  family?: string;
   _id?: string;
   date?: string;
   isFinished?: boolean;
