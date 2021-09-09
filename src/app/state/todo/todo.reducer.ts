@@ -37,12 +37,13 @@ const _todosReducer = createReducer(
     ...state,
     todos: todos,
   })),
+  // TODO: remove it and use setAllTodos
   on(addNewTodo, (state, { todo }) => ({
     ...state,
     todos: [todo, ...state.todos],
   })),
+  // TODO: remove it and use setAllTodos
   on(finishTodo, (state, { todoId }) => {
-    // TODO: make it simple!
     const newTodosArray = state.todos.map(
       (todo: ITodo, index: number): ITodo => {
         if (todo._id === todoId) {
@@ -61,6 +62,7 @@ const _todosReducer = createReducer(
       todos: [...newTodosArray],
     };
   }),
+  // TODO: remove it and use setAllTodos
   on(deleteTodo, (state, { todoId }) => {
     return {
       ...state,
