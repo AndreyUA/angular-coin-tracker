@@ -13,7 +13,7 @@
     </form>
   </div>
 
-  <div class="todo_list">
+  <div *ngIf="!isTodosFetching && todos.length > 0" class="todo_list">
     <div *ngFor="let todo of todos" class="todo_list_block">
       <button class="todo_list_checkbox" (click)="finishTodoHandler(todo._id!)">
         &#10004;
@@ -34,5 +34,6 @@
   </div>
 </div>
 
+<div *ngIf="!isTodosFetching && todos.length === 0">YOU HAVE NO TODOS!</div>
 
-<app-spinner></app-spinner>
+<app-spinner *ngIf="isTodosFetching"></app-spinner>

@@ -15,44 +15,6 @@ import {
 // Services
 import { ApiService } from 'src/app/api.service';
 
-const MOCK_TODO = [
-  {
-    content: 'Финики',
-    _id: '111',
-    date: '1251851351561531',
-    isFinished: false,
-    isRemoved: false,
-  },
-  {
-    content: 'Пюре Кирюне',
-    _id: '222',
-    date: '1251851351561531',
-    isFinished: false,
-    isRemoved: false,
-  },
-  {
-    content: 'Йогурт',
-    _id: '333',
-    date: '1251851351561531',
-    isFinished: false,
-    isRemoved: false,
-  },
-  {
-    content: 'Рис, гречка, булгур',
-    _id: '444',
-    date: '1251851351561531',
-    isFinished: false,
-    isRemoved: false,
-  },
-  {
-    content: 'Шоколадка',
-    _id: '555',
-    date: '1251851351561531',
-    isFinished: false,
-    isRemoved: false,
-  },
-];
-
 @Component({
   selector: 'app-plans-page',
   templateUrl: './plans-page.component.html',
@@ -63,7 +25,7 @@ export class PlansPageComponent implements OnInit {
 
   isTodosFetching!: boolean;
 
-  todos: Array<ITodo> = MOCK_TODO;
+  todos: Array<ITodo> | [] = [];
 
   todoForm!: FormGroup;
 
@@ -78,11 +40,7 @@ export class PlansPageComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.todoForm.value.todo);
-
-    this.store.dispatch(
-      addNewTodo({ todo: { content: this.todoForm.value.todo } })
-    );
+    this.apiService.addNewTodo({ content: this.todoForm.value.todo });
 
     this.todoInput.nativeElement.blur();
     this.todoForm.reset();
@@ -94,8 +52,6 @@ export class PlansPageComponent implements OnInit {
     });
 
     this.apiService.getAllTodos();
-
-    this.store.dispatch(setAllTodos({ todos: MOCK_TODO }));
 
     this.store.pipe(select(getTodos)).subscribe((todos: Array<ITodo>) => {
       this.todos = todos;

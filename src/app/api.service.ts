@@ -12,12 +12,8 @@ import {
   setCurrentBudget,
   addBudget,
 } from './state/budgets/budgets.action';
-import {
-  setAllPosts,
-  resetPosts,
-  addNewPost,
-  removePost,
-} from './state/posts/posts.actions';
+import { setAllPosts, removePost } from './state/posts/posts.actions';
+import { setFetching, setAllTodos } from './state/todo/todo.actions';
 
 // ENV
 import { environment } from 'src/environments/environment';
@@ -232,13 +228,45 @@ export class ApiService {
   }
 
   getAllTodos() {
+    this.store.dispatch(setFetching({ isFetching: true }));
+
     this.httpClient
       .get<Array<ITodo>>(`${environment.apiUrl}/api/todo/all`)
       .subscribe(
         (response) => {
-          console.log(response);
+          this.store.dispatch(setFetching({ isFetching: false }));
+
+          this.store.dispatch(setAllTodos({ todos: response }));
+          // console.log(response);
         },
         (error) => {
+          this.store.dispatch(setFetching({ isFetching: false }));
+
+          this.store.dispatch(setAllTodos({ todos: [] }));
+
+          // TODO: dispatch it to NgRx
+          console.log(error);
+        }
+      );
+  }
+
+  // TODO: remove it to sockets
+  addNewTodo(todo: ITodo) {
+    this.store.dispatch(setFetching({ isFetching: true }));
+
+    this.httpClient
+      .post<ITodo>(`${environment.apiUrl}/api/todo`, todo)
+      .subscribe(
+        () => {
+          this.store.dispatch(setFetching({ isFetching: false }));
+
+          this.getAllTodos();
+        },
+        (error) => {
+          this.store.dispatch(setFetching({ isFetching: false }));
+
+          this.store.dispatch(setAllTodos({ todos: [] }));
+
           // TODO: dispatch it to NgRx
           console.log(error);
         }
