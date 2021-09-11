@@ -37,6 +37,7 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { StatisticPageComponent } from './pages/statistic-page/statistic-page.component';
 import { PlansPageComponent } from './pages/plans-page/plans-page.component';
 import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component';
+import { SpinnerComponent } from './components/spinner/spinner.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.co
     PublicRouteDirective,
     PlansPageComponent,
     DashboardPageComponent,
+    SpinnerComponent,
   ],
   imports: [
     HttpClientModule,
