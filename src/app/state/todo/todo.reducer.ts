@@ -6,6 +6,7 @@ import {
   setFetching,
   finishTodo,
   deleteTodo,
+  updateTodoList,
 } from './todo.actions';
 
 // TODO: all fields are REQUIRED!!!
@@ -68,6 +69,23 @@ const _todosReducer = createReducer(
     return {
       ...state,
       todos: state.todos.filter((todo) => todo._id !== todoId),
+    };
+  }),
+  on(updateTodoList, (state, { todo }) => {
+    const todoListClone: Array<ITodo> = [...state.todos];
+    const updateIndex: number = todoListClone.findIndex(
+      (todoItem) => todoItem._id === todo._id
+    );
+
+    if (updateIndex > -1) {
+      todoListClone[updateIndex] = todo;
+    } else {
+      todoListClone.unshift(todo);
+    }
+
+    return {
+      ...state,
+      todos: todoListClone,
     };
   })
 );

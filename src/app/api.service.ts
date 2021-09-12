@@ -249,27 +249,4 @@ export class ApiService {
         }
       );
   }
-
-  // TODO: remove it to sockets
-  addNewTodo(todo: ITodo) {
-    this.store.dispatch(setFetching({ isFetching: true }));
-
-    this.httpClient
-      .post<ITodo>(`${environment.apiUrl}/api/todo`, todo)
-      .subscribe(
-        () => {
-          this.store.dispatch(setFetching({ isFetching: false }));
-
-          this.getAllTodos();
-        },
-        (error) => {
-          this.store.dispatch(setFetching({ isFetching: false }));
-
-          this.store.dispatch(setAllTodos({ todos: [] }));
-
-          // TODO: dispatch it to NgRx
-          console.log(error);
-        }
-      );
-  }
 }

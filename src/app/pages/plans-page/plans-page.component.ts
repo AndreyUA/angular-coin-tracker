@@ -11,9 +11,14 @@ import {
   finishTodo,
   deleteTodo,
 } from 'src/app/state/todo/todo.actions';
+import { getFamily } from 'src/app/state/family';
 
 // Services
 import { ApiService } from 'src/app/api.service';
+import { SocketioService } from 'src/app/socketio.service';
+
+// Interfaces
+import { IFamily } from 'src/app/state/family/family.reducer';
 
 @Component({
   selector: 'app-plans-page',
@@ -29,7 +34,13 @@ export class PlansPageComponent implements OnInit {
 
   todoForm!: FormGroup;
 
-  constructor(private store: Store, private apiService: ApiService) {}
+  familyId!: string;
+
+  constructor(
+    private store: Store,
+    private apiService: ApiService,
+    private socketioService: SocketioService
+  ) {}
 
   finishTodoHandler(id: string) {
     this.store.dispatch(finishTodo({ todoId: id }));
@@ -40,10 +51,14 @@ export class PlansPageComponent implements OnInit {
   }
 
   onSubmit() {
-    this.apiService.addNewTodo({ content: this.todoForm.value.todo });
+    this.socketioService.updateTodosList(this.familyId, {
+      content: this.todoForm.value.todo,
+    });
 
     this.todoInput.nativeElement.blur();
     this.todoForm.reset();
+
+    this.apiService.getAllTodos();
   }
 
   ngOnInit(): void {
@@ -62,5 +77,9 @@ export class PlansPageComponent implements OnInit {
       .subscribe((isFetching: boolean) => {
         this.isTodosFetching = isFetching;
       });
+
+    this.store.pipe(select(getFamily)).subscribe((family: IFamily) => {
+      this.familyId = family._id;
+    });
   }
 }

@@ -27,3 +27,8 @@ export const deleteTodo = createAction(
   '[Todos action] Delete todo',
   props<{ todoId: string }>()
 );
+
+export const updateTodoList = createAction(
+  '[Todos action] Update todo by socket message',
+  props<{ todo: ITodo }>()
+);
