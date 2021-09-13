@@ -85,6 +85,10 @@ export class SocketioService {
     this.socket.emit('changeTodoStatus', familyId, todoId);
   }
 
+  deleteTodoStatus(familyId: string, todoId: string) {
+    this.socket.emit('deleteTodoStatus', familyId, todoId);
+  }
+
   disconnectSocketConnection() {
     if (this.socket) {
       this.socket.disconnect();

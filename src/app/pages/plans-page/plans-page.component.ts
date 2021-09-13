@@ -50,6 +50,8 @@ export class PlansPageComponent implements OnInit {
 
   deleteTodoHandler(id: string) {
     this.store.dispatch(deleteTodo({ todoId: id }));
+
+    this.socketioService.deleteTodoStatus(this.familyId, id);
   }
 
   onSubmit() {
@@ -71,7 +73,7 @@ export class PlansPageComponent implements OnInit {
     this.apiService.getAllTodos();
 
     this.store.pipe(select(getTodos)).subscribe((todos: Array<ITodo>) => {
-      this.todos = todos;
+      this.todos = todos.filter((todo: ITodo) => todo.isRemoved !== true);
     });
 
     this.store
