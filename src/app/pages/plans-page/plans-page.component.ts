@@ -44,6 +44,8 @@ export class PlansPageComponent implements OnInit {
 
   finishTodoHandler(id: string) {
     this.store.dispatch(finishTodo({ todoId: id }));
+
+    this.socketioService.changeTodoStatus(this.familyId, id);
   }
 
   deleteTodoHandler(id: string) {
