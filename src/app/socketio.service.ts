@@ -30,7 +30,7 @@ export class SocketioService {
     this.socket.emit('join_family_channel', familyId);
 
     this.socket.on('receivePost', (data: IPost) => {
-      notify('New post created.');
+      this.store.dispatch(addNewPost({ post: data }));
 
       this.snotifyService.success('New post created.', {
         timeout: 2000,
@@ -39,11 +39,11 @@ export class SocketioService {
         pauseOnHover: true,
       });
 
-      this.store.dispatch(addNewPost({ post: data }));
+      notify('New post created.');
     });
 
     this.socket.on('receiveDeletedPost', (msgId: string) => {
-      notify('Post removed.');
+      this.store.dispatch(removePost({ postId: msgId }));
 
       this.snotifyService.warning('Post removed.', {
         timeout: 2000,
@@ -52,11 +52,11 @@ export class SocketioService {
         pauseOnHover: true,
       });
 
-      this.store.dispatch(removePost({ postId: msgId }));
+      notify('Post removed.');
     });
 
     this.socket.on('updateTodos', (todo: ITodo) => {
-      notify('Todo list updated.');
+      this.store.dispatch(updateTodoList({ todo }));
 
       this.snotifyService.success('Todo list updated.', {
         timeout: 2000,
@@ -65,7 +65,7 @@ export class SocketioService {
         pauseOnHover: true,
       });
 
-      this.store.dispatch(updateTodoList({ todo }));
+      notify('Todo list updated.');
     });
   }
 
