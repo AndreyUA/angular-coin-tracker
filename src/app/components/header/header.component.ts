@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { resetFamily } from 'src/app/state/family/family.actions';
 
 // Services
-import { SocketioService } from 'src/app/socketio.service';
+import { SocketioService } from 'src/app/services/socketio.service';
 
 @Component({
   selector: 'app-header',

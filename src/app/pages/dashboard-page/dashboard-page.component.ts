@@ -2,8 +2,8 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 // Services
-import { ApiService } from 'src/app/api.service';
-import { SocketioService } from 'src/app/socketio.service';
+import { ApiService } from 'src/app/services/api.service';
+import { SocketioService } from 'src/app/services/socketio.service';
 
 // Store
 import { Store, select } from '@ngrx/store';

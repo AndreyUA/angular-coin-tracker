@@ -5,15 +5,15 @@ import { SnotifyService } from 'ng-snotify';
 // Store
 import { Store } from '@ngrx/store';
 import { addNewPost, removePost } from 'src/app/state/posts/posts.actions';
-import { updateTodoList } from './state/todo/todo.actions';
+import { updateTodoList } from '../state/todo/todo.actions';
 
 // Interfaces
 import { IPost } from 'src/app/state/posts/posts.reducer';
-import { ITodo } from './state/todo/todo.reducer';
+import { ITodo } from '../state/todo/todo.reducer';
 
 // Other
 import { environment } from 'src/environments/environment';
-import { notify } from './utils/notification';
+import { notify } from '../utils/notification';
 
 @Injectable({
   providedIn: 'root',

@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 // Services
-import { AuthGuard } from './auth-guard.service';
-import { UserGuard } from './user-guard.service';
+import { AuthGuard } from './services/auth-guard.service';
+import { UserGuard } from './services/user-guard.service';
 
 // Components
 import { HomePageComponent } from './pages/home-page/home-page.component';

@@ -1,8 +1,8 @@
 import { Component, OnInit, OnChanges, OnDestroy } from '@angular/core';
 
 // Services
-import { ApiService } from 'src/app/api.service';
-import { SocketioService } from './socketio.service';
+import { ApiService } from 'src/app/services/api.service';
+import { SocketioService } from './services/socketio.service';
 
 @Component({
   selector: 'app-root',

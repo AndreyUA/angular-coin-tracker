@@ -6,23 +6,23 @@ import { SocketioService } from './socketio.service';
 
 // Store
 import { Store } from '@ngrx/store';
-import { setFamily, resetFamily } from './state/family/family.actions';
+import { setFamily, resetFamily } from '../state/family/family.actions';
 import {
   setAllBudgets,
   setCurrentBudget,
   addBudget,
-} from './state/budgets/budgets.action';
-import { setAllPosts, removePost } from './state/posts/posts.actions';
-import { setFetching, setAllTodos } from './state/todo/todo.actions';
+} from '../state/budgets/budgets.action';
+import { setAllPosts, removePost } from '../state/posts/posts.actions';
+import { setFetching, setAllTodos } from '../state/todo/todo.actions';
 
 // ENV
 import { environment } from 'src/environments/environment';
 
 // Interfaces
-import { IFamily } from './state/family/family.reducer';
-import { IBudget, IBudgetInfo } from './state/budgets/budgets.reducer';
-import { IPost } from './state/posts/posts.reducer';
-import { ITodo } from './state/todo/todo.reducer';
+import { IFamily } from '../state/family/family.reducer';
+import { IBudget, IBudgetInfo } from '../state/budgets/budgets.reducer';
+import { IPost } from '../state/posts/posts.reducer';
+import { ITodo } from '../state/todo/todo.reducer';
 
 @Injectable({ providedIn: 'root' })
 export class ApiService {

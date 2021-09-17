@@ -17,8 +17,8 @@ import { todosReducer } from './state/todo/todo.reducer';
 // Modules
 import { AppRoutingModule } from './app-routing.module';
 import { AuthInterceptorService } from './auth-interceptor';
-import { AuthGuard } from './auth-guard.service';
-import { UserGuard } from './user-guard.service';
+import { AuthGuard } from './services/auth-guard.service';
+import { UserGuard } from './services/user-guard.service';
 
 // Directives
 import { PrivateRouteDirective } from './directives/private-route.directive';

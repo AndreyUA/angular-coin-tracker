@@ -7,7 +7,7 @@ import { getFamily } from 'src/app/state/family';
 import { getArrayOfBudgets, getCurrentBudget } from 'src/app/state/budgets';
 
 // Services
-import { ApiService } from 'src/app/api.service';
+import { ApiService } from 'src/app/services/api.service';
 
 // Interfaces
 import { ITransaction } from 'src/app/state/budgets/budgets.reducer';

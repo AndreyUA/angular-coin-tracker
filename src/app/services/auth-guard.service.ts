@@ -9,13 +9,13 @@ import { Observable } from 'rxjs';
 
 // Store
 import { select, Store } from '@ngrx/store';
-import { getFamily } from './state/family';
+import { getFamily } from '../state/family';
 
 // Interfaces
-import { IFamily } from './state/family/family.reducer';
+import { IFamily } from '../state/family/family.reducer';
 
 @Injectable()
-export class UserGuard implements CanActivate {
+export class AuthGuard implements CanActivate {
   constructor(private router: Router, private store: Store) {}
 
   canActivate(
@@ -26,10 +26,10 @@ export class UserGuard implements CanActivate {
 
     this.store.pipe(select(getFamily)).subscribe((family: IFamily) => {
       if (family._id) {
-        this.router.navigate(['/family']);
-        result = false;
-      } else {
         result = true;
+      } else {
+        this.router.navigate(['/auth/login']);
+        result = false;
       }
     });
 

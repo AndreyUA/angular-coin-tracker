@@ -6,7 +6,7 @@ import { Store, select } from '@ngrx/store';
 import { getFamily } from 'src/app/state/family';
 
 // Services
-import { ApiService } from 'src/app/api.service';
+import { ApiService } from 'src/app/services/api.service';
 
 // Interfaces
 import { IFamily } from 'src/app/state/family/family.reducer';

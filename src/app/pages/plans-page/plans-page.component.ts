@@ -14,8 +14,8 @@ import {
 import { getFamily } from 'src/app/state/family';
 
 // Services
-import { ApiService } from 'src/app/api.service';
-import { SocketioService } from 'src/app/socketio.service';
+import { ApiService } from 'src/app/services/api.service';
+import { SocketioService } from 'src/app/services/socketio.service';
 
 // Interfaces
 import { IFamily } from 'src/app/state/family/family.reducer';
