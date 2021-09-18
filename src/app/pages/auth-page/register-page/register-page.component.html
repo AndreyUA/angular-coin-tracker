@@ -1,96 +1,94 @@
-<main>
-  <div class="register">
-    <h1 #wellcome></h1>
-    <form (ngSubmit)="onSubmit()" class="register_form" #form="ngForm">
-      <div class="register_form_block">
-        <label for="familyName">Account (family) name</label>
-        <input
-          required
-          [(ngModel)]="user.familyName"
-          #familyName="ngModel"
-          #familyNameFocus
-          id="familyName"
-          name="familyName"
-          type="text"
-          placeholder="Enter your account name"
-        />
-        <p
-          class="register_form_block_alert"
-          [hidden]="familyName.valid || familyName.pristine"
-        >
-          Name is required!!!
-        </p>
-      </div>
+<div class="register">
+  <h1 #wellcome></h1>
+  <form (ngSubmit)="onSubmit()" class="register_form" #form="ngForm">
+    <div class="register_form_block">
+      <label for="familyName">Account (family) name</label>
+      <input
+        required
+        [(ngModel)]="user.familyName"
+        #familyName="ngModel"
+        #familyNameFocus
+        id="familyName"
+        name="familyName"
+        type="text"
+        placeholder="Enter your account name"
+      />
+      <p
+        class="register_form_block_alert"
+        [hidden]="familyName.valid || familyName.pristine"
+      >
+        Name is required!!!
+      </p>
+    </div>
 
-      <div class="register_form_block">
-        <label for="email">Email</label>
-        <input
-          required
-          [(ngModel)]="user.email"
-          #email="ngModel"
-          email
-          id="email"
-          name="email"
-          type="email"
-          placeholder="Enter your email"
-          pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-        />
-        <p
-          class="register_form_block_alert"
-          [hidden]="email.valid || email.pristine"
-        >
-          Email is required!!!
-        </p>
-      </div>
+    <div class="register_form_block">
+      <label for="email">Email</label>
+      <input
+        required
+        [(ngModel)]="user.email"
+        #email="ngModel"
+        email
+        id="email"
+        name="email"
+        type="email"
+        placeholder="Enter your email"
+        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+      />
+      <p
+        class="register_form_block_alert"
+        [hidden]="email.valid || email.pristine"
+      >
+        Email is required!!!
+      </p>
+    </div>
 
-      <div class="register_form_block">
-        <button
-          (click)="passwordVisibilityToggler()"
-          class="register_form_block_eye"
-          type="button"
-        >
-          <img
-            [src]="
-              isPasswordVisible
-                ? '../../../assets/visibility-off.svg'
-                : '../../../assets/visibility-on.svg'
-            "
-            alt="pass-visible"
-          />
-        </button>
-
-        <label for="password">Password</label>
-        <input
-          required
-          [(ngModel)]="user.password"
-          #password="ngModel"
-          id="password"
-          name="password"
-          [type]="!isPasswordVisible ? 'password' : 'text'"
-          placeholder="Enter your password"
-        />
-        <p
-          class="register_form_block_alert"
-          [hidden]="
-            password.pristine ||
-            password.untouched ||
-            (password.valid && user.password.length > 5)
+    <div class="register_form_block">
+      <button
+        (click)="passwordVisibilityToggler()"
+        class="register_form_block_eye"
+        type="button"
+      >
+        <img
+          [src]="
+            isPasswordVisible
+              ? '../../../assets/visibility-off.svg'
+              : '../../../assets/visibility-on.svg'
           "
-        >
-          Password must be at least 6 characters!!!
-        </p>
-      </div>
+          alt="pass-visible"
+        />
+      </button>
 
-      <div class="register_form_block">
-        <button
-          type="submit"
-          [disabled]="
-            !form.valid || user.password.length <= 5 || email?.errors?.pattern
-          "
-        >
-          Sign up
-        </button>
-      </div>
-    </form>
-  </div>
-</main>
+      <label for="password">Password</label>
+      <input
+        required
+        [(ngModel)]="user.password"
+        #password="ngModel"
+        id="password"
+        name="password"
+        [type]="!isPasswordVisible ? 'password' : 'text'"
+        placeholder="Enter your password"
+      />
+      <p
+        class="register_form_block_alert"
+        [hidden]="
+          password.pristine ||
+          password.untouched ||
+          (password.valid && user.password.length > 5)
+        "
+      >
+        Password must be at least 6 characters!!!
+      </p>
+    </div>
+
+    <div class="register_form_block">
+      <button
+        type="submit"
+        [disabled]="
+          !form.valid || user.password.length <= 5 || email?.errors?.pattern
+        "
+      >
+        Sign up
+      </button>
+    </div>
+  </form>
+</div>

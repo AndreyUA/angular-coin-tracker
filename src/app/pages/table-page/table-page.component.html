@@ -1,8 +1,8 @@
 <hr />
 НУЖНО ДОБАВИТЬ СОКЕТЫ И СЮДА!!!
 <hr />
-<!-- TODO: check main tags!!! -->
-<main *ngIf="!isFetching; else elseSpinner">
+
+<div class="table" *ngIf="!isFetching; else elseSpinner">
   <div class="table_budget">
     <form
       *ngIf="budgets && budgets.length > 0; else elseBlock"
@@ -96,7 +96,7 @@
       <span>{{ transaction.date | date: "dd MMM yyyy, ccc, HH:mm" }}</span>
     </p>
   </div>
-</main>
+</div>
 
 <ng-template #elseSpinner>
   <app-spinner></app-spinner>
