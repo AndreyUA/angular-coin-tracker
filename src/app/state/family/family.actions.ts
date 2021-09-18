@@ -7,4 +7,9 @@ export const setFamily = createAction(
   props<{ family: IFamily }>()
 );
 
+export const setFetching = createAction(
+  '[Family action] Set family fetching',
+  props<{ isFetching: boolean }>()
+);
+
 export const resetFamily = createAction('[Family action] Reset family');

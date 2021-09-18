@@ -1,6 +1,6 @@
 import { Action, createReducer, on } from '@ngrx/store';
 
-import { setFamily, resetFamily } from './family.actions';
+import { setFamily, resetFamily, setFetching } from './family.actions';
 
 export interface IPerson {
   _id: string;
@@ -17,16 +17,30 @@ export interface IFamily {
   __v: any;
 }
 
-// TODO: add isFetching
-const initialState: {} | IFamily = {};
+export interface IFamilyState {
+  family: {} | IFamily;
+  isFetching: boolean;
+}
+
+const initialState: IFamilyState = {
+  family: {},
+  isFetching: false,
+};
 
 export const _familyReducer = createReducer(
   initialState,
   on(setFamily, (state, { family }) => ({
     ...state,
-    ...family,
+    family,
   })),
-  on(resetFamily, (): any => ({}))
+  on(setFetching, (state, { isFetching }) => ({
+    ...state,
+    isFetching,
+  })),
+  on(resetFamily, (state) => ({
+    ...state,
+    family: {},
+  }))
 );
 
 export function familyReducer(state: any, action: Action) {

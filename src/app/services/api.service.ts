@@ -6,7 +6,11 @@ import { SocketioService } from './socketio.service';
 
 // Store
 import { Store } from '@ngrx/store';
-import { setFamily, resetFamily } from '../state/family/family.actions';
+import {
+  setFamily,
+  resetFamily,
+  setFetching,
+} from '../state/family/family.actions';
 import {
   setAllBudgets,
   setCurrentBudget,
@@ -42,14 +46,17 @@ export class ApiService {
   // TODO: add family interface OR error interface
   getAccountInfo(): void {
     this.store.dispatch(resetFamily());
+    this.store.dispatch(setFetching({ isFetching: true }));
 
     this.httpClient.get<IFamily>(`${environment.apiUrl}/api/login`).subscribe(
       (response) => {
+        this.store.dispatch(setFetching({ isFetching: false }));
         this.store.dispatch(setFamily({ family: response }));
 
         this.socketioService.setupSocketConnection(response._id);
       },
       (error) => {
+        this.store.dispatch(setFetching({ isFetching: false }));
         // TODO: dispatch it to NgRx
         console.log(error);
       }
