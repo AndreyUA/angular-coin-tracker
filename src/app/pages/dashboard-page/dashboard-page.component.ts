@@ -7,7 +7,7 @@ import { SocketioService } from 'src/app/services/socketio.service';
 
 // Store
 import { Store, select } from '@ngrx/store';
-import { getPosts } from 'src/app/state/posts';
+import { getPosts, getPostsIsFetching } from 'src/app/state/posts';
 import { resetPosts } from 'src/app/state/posts/posts.actions';
 import { getFamily } from 'src/app/state/family';
 
@@ -25,6 +25,8 @@ import { DashboardValidator } from './dashboard-validator';
 })
 export class DashboardPageComponent implements OnInit {
   @ViewChild('textInput', { static: false }) textInput!: ElementRef;
+
+  isFetching!: boolean;
 
   posts: [] | Array<IPost> = [];
 
@@ -71,6 +73,12 @@ export class DashboardPageComponent implements OnInit {
     this.store.pipe(select(getFamily)).subscribe((family: IFamily) => {
       this.familyId = family._id;
     });
+
+    this.store
+      .pipe(select(getPostsIsFetching))
+      .subscribe((isFetching: boolean) => {
+        this.isFetching = isFetching;
+      });
 
     this.postsForm = new FormGroup({
       text: new FormControl(null, [

@@ -3,6 +3,11 @@ import { createAction, props } from '@ngrx/store';
 // Interfaces
 import { IPost } from './posts.reducer';
 
+export const setFetching = createAction(
+  '[Posts action] Set posts fetching',
+  props<{ isFetching: boolean }>()
+);
+
 export const setAllPosts = createAction(
   '[Posts action] Set all posts',
   props<{ posts: Array<IPost> }>()

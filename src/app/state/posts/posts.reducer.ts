@@ -5,6 +5,7 @@ import {
   resetPosts,
   addNewPost,
   removePost,
+  setFetching,
 } from './posts.actions';
 
 export interface IPost {
@@ -19,15 +20,21 @@ export interface IPost {
 
 export interface IPosts {
   allPosts: [] | Array<IPost>;
+  isFetching: boolean;
 }
 
 // TODO: add isFetching
 const initialState: IPosts = {
   allPosts: [],
+  isFetching: false,
 };
 
 const _postsReducer = createReducer(
   initialState,
+  on(setFetching, (state, { isFetching }) => ({
+    ...state,
+    isFetching,
+  })),
   on(setAllPosts, (state, { posts }) => ({
     ...state,
     allPosts: posts,
