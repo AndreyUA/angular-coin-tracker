@@ -1,6 +1,11 @@
 import { Action, createReducer, on } from '@ngrx/store';
 
-import { setAllBudgets, setCurrentBudget, addBudget } from './budgets.action';
+import {
+  setAllBudgets,
+  setCurrentBudget,
+  addBudget,
+  setIsFetching,
+} from './budgets.action';
 
 export interface IBudget {
   _id: string;
@@ -26,13 +31,17 @@ export interface ITransaction {
   _id: string;
 }
 
-// TODO: add isFetching
-const initialState: {
+export interface IBudgetState {
   allBudgets: Array<IBudgetInfo> | [];
   currentBudget: IBudget | {};
-} = {
+  isFetching: boolean;
+}
+
+// TODO: add isFetching
+const initialState: IBudgetState = {
   allBudgets: [],
   currentBudget: {},
+  isFetching: false,
 };
 
 export const _budgetsReducer = createReducer(
@@ -40,6 +49,10 @@ export const _budgetsReducer = createReducer(
   on(setAllBudgets, (state, { allBudgets }) => ({
     ...state,
     allBudgets,
+  })),
+  on(setIsFetching, (state, { isFetching }) => ({
+    ...state,
+    isFetching,
   })),
   on(setCurrentBudget, (state, { currentBudget }) => ({
     ...state,

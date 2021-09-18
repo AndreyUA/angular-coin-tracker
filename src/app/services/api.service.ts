@@ -15,6 +15,7 @@ import {
   setAllBudgets,
   setCurrentBudget,
   addBudget,
+  setIsFetching as setFetchingBudgets,
 } from '../state/budgets/budgets.action';
 import {
   setAllPosts,
@@ -125,13 +126,17 @@ export class ApiService {
   }
 
   getAllBudgets(): void {
+    this.store.dispatch(setFetchingBudgets({ isFetching: true }));
+
     this.httpClient
       .get<Array<IBudgetInfo> | []>(`${environment.apiUrl}/api/budget/all`)
       .subscribe(
         (response) => {
+          this.store.dispatch(setFetchingBudgets({ isFetching: false }));
           this.store.dispatch(setAllBudgets({ allBudgets: response }));
         },
         (error) => {
+          this.store.dispatch(setFetchingBudgets({ isFetching: false }));
           // TODO: dispatch it to NgRx
           console.log(error);
         }
@@ -139,10 +144,14 @@ export class ApiService {
   }
 
   getBudget(id: string): void {
+    this.store.dispatch(setFetchingBudgets({ isFetching: true }));
+
     this.httpClient
       .get<IBudget | null>(`${environment.apiUrl}/api/budget/${id}`)
       .subscribe(
         (response) => {
+          this.store.dispatch(setFetchingBudgets({ isFetching: false }));
+
           if (response) {
             this.store.dispatch(setCurrentBudget({ currentBudget: response }));
           } else {
@@ -150,6 +159,8 @@ export class ApiService {
           }
         },
         (error) => {
+          this.store.dispatch(setFetchingBudgets({ isFetching: false }));
+
           // TODO: dispatch it to NgRx
           console.log(error);
 

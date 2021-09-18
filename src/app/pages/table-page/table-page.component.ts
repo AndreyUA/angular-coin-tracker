@@ -4,7 +4,11 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 // Store
 import { Store, select } from '@ngrx/store';
 import { getFamily } from 'src/app/state/family';
-import { getArrayOfBudgets, getCurrentBudget } from 'src/app/state/budgets';
+import {
+  getArrayOfBudgets,
+  getCurrentBudget,
+  getBudgetIsFetching,
+} from 'src/app/state/budgets';
 
 // Services
 import { ApiService } from 'src/app/services/api.service';
@@ -24,6 +28,8 @@ export class TablePageComponent implements OnInit {
 
   @ViewChild('inputPurchaseRef', { static: false })
   inputPurchaseRef!: ElementRef;
+
+  isFetching!: boolean;
 
   budgets: Array<IBudgetInfo> | [] = [];
 
@@ -88,6 +94,10 @@ export class TablePageComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.store.pipe(select(getBudgetIsFetching)).subscribe((isFetching) => {
+      this.isFetching = isFetching;
+    });
+
     // Fetch array of budgets
     this.apiService.getAllBudgets();
 

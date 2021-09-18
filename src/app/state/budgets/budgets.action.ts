@@ -3,6 +3,11 @@ import { createAction, props } from '@ngrx/store';
 // Interfaces
 import { IBudget, IBudgetInfo } from './budgets.reducer';
 
+export const setIsFetching = createAction(
+  '[Budgets action] Set budgets fetching',
+  props<{ isFetching: boolean }>()
+);
+
 export const setAllBudgets = createAction(
   '[Budgets action] Set all budgets',
   props<{ allBudgets: Array<IBudgetInfo> }>()
