@@ -23,7 +23,6 @@ export interface IPosts {
   isFetching: boolean;
 }
 
-// TODO: add isFetching
 const initialState: IPosts = {
   allPosts: [],
   isFetching: false,
