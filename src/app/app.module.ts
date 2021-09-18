@@ -41,6 +41,9 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
 import { TodoItemComponent } from './components/todo-item/todo-item.component';
 import { PostItemComponent } from './components/post-item/post-item.component';
 
+// Environment
+import { environment } from 'src/environments/environment';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -73,7 +76,9 @@ import { PostItemComponent } from './components/post-item/post-item.component';
       posts: postsReducer,
       todos: todosReducer,
     }),
-    StoreDevtoolsModule.instrument({ maxAge: false }),
+    !environment.production
+      ? StoreDevtoolsModule.instrument({ maxAge: false })
+      : [],
     SnotifyModule,
   ],
   providers: [
