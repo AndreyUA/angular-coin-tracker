@@ -12,3 +12,23 @@
 .content_non_highlight {
   user-select: none;
 }
+
+.angular_app {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.header {
+  flex: 0 1 auto;
+}
+
+.main {
+  flex: 1 1 auto;
+}
+
+.footer {
+  flex: 0 1 auto;
+}

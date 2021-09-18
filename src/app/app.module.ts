@@ -43,6 +43,7 @@ import { PostItemComponent } from './components/post-item/post-item.component';
 
 // Environment
 import { environment } from 'src/environments/environment';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { environment } from 'src/environments/environment';
     SpinnerComponent,
     TodoItemComponent,
     PostItemComponent,
+    FooterComponent,
   ],
   imports: [
     HttpClientModule,
