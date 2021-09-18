@@ -10,25 +10,5 @@
     align-items: center;
     width: 100%;
     margin-top: 20px;
-
-    .todo_list_block {
-      width: 600px;
-
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
-      border: 1px solid purple;
-      padding: 7px 5px;
-      margin-bottom: 6px;
-
-      &:last-child {
-        margin: 0;
-      }
-
-      .todo_list_content-done {
-        text-decoration: line-through;
-      }
-    }
   }
 }

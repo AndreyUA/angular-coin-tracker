@@ -38,6 +38,7 @@ import { StatisticPageComponent } from './pages/statistic-page/statistic-page.co
 import { PlansPageComponent } from './pages/plans-page/plans-page.component';
 import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
+import { TodoItemComponent } from './components/todo-item/todo-item.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,7 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
     PlansPageComponent,
     DashboardPageComponent,
     SpinnerComponent,
+    TodoItemComponent,
   ],
   imports: [
     HttpClientModule,

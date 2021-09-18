@@ -4,13 +4,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 // Store
 import { Store, select } from '@ngrx/store';
 import { getTodos, getTodosIsFetching } from 'src/app/state/todo';
-import { ITodo } from 'src/app/state/todo/todo.reducer';
-import {
-  setAllTodos,
-  addNewTodo,
-  finishTodo,
-  deleteTodo,
-} from 'src/app/state/todo/todo.actions';
 import { getFamily } from 'src/app/state/family';
 
 // Services
@@ -18,6 +11,7 @@ import { ApiService } from 'src/app/services/api.service';
 import { SocketioService } from 'src/app/services/socketio.service';
 
 // Interfaces
+import { ITodo } from 'src/app/state/todo/todo.reducer';
 import { IFamily } from 'src/app/state/family/family.reducer';
 
 @Component({
@@ -41,18 +35,6 @@ export class PlansPageComponent implements OnInit {
     private apiService: ApiService,
     private socketioService: SocketioService
   ) {}
-
-  finishTodoHandler(id: string) {
-    this.store.dispatch(finishTodo({ todoId: id }));
-
-    this.socketioService.changeTodoStatus(this.familyId, id);
-  }
-
-  deleteTodoHandler(id: string) {
-    this.store.dispatch(deleteTodo({ todoId: id }));
-
-    this.socketioService.deleteTodoStatus(this.familyId, id);
-  }
 
   onSubmit() {
     this.socketioService.updateTodosList(this.familyId, {
