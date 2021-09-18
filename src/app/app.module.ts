@@ -39,6 +39,7 @@ import { PlansPageComponent } from './pages/plans-page/plans-page.component';
 import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { TodoItemComponent } from './components/todo-item/todo-item.component';
+import { PostItemComponent } from './components/post-item/post-item.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { TodoItemComponent } from './components/todo-item/todo-item.component';
     DashboardPageComponent,
     SpinnerComponent,
     TodoItemComponent,
+    PostItemComponent,
   ],
   imports: [
     HttpClientModule,

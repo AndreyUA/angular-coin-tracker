@@ -1,5 +1,5 @@
-<div>
-  <form [formGroup]="postsForm" (ngSubmit)="onSubmit()">
+<div class="dashboard">
+  <form [formGroup]="postsForm" (ngSubmit)="onSubmit()" class="dashboard_form">
     <label for="text">Text:</label>
     <input
       formControlName="text"
@@ -13,11 +13,10 @@
 </div>
 <hr />
 <hr />
-<div *ngIf="posts.length > 0">
-  <p *ngFor="let post of posts">
-    <span>{{ post.name }}: </span>
-    <span>{{ post.text }}</span>
-    <span> at {{ post.date | date: "dd MMM yyyy, ccc, HH:mm" }}</span>
-    <button (click)="removeHandler(post._id)">remove post</button>
-  </p>
+<div *ngIf="posts.length > 0; else elseBlock" class="dashboard_posts">
+  <app-post-item *ngFor="let post of posts" [post]="post"></app-post-item>
 </div>
+
+<ng-template #elseBlock>
+  <p>no posts!</p>
+</ng-template>

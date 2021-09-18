@@ -52,14 +52,9 @@ export class DashboardPageComponent implements OnInit {
         this.apiService.getAllposts();
       }
 
-
       this.textInput.nativeElement.blur();
       this.postsForm.reset();
     }
-  }
-
-  removeHandler(id: string) {
-    this.apiService.deletePost(id);
   }
 
   ngOnInit(): void {
