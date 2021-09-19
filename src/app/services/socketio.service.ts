@@ -5,11 +5,13 @@ import { SnotifyService } from 'ng-snotify';
 // Store
 import { Store } from '@ngrx/store';
 import { addNewPost, removePost } from 'src/app/state/posts/posts.actions';
-import { updateTodoList } from '../state/todo/todo.actions';
+import { updateTodoList } from 'src/app/state/todo/todo.actions';
+import { addBudget } from 'src/app/state/budgets/budgets.action';
 
 // Interfaces
 import { IPost } from 'src/app/state/posts/posts.reducer';
 import { ITodo } from '../state/todo/todo.reducer';
+import { IBudgetInfo } from '../state/budgets/budgets.reducer';
 
 // Other
 import { environment } from 'src/environments/environment';
@@ -67,6 +69,19 @@ export class SocketioService {
 
       notify('Todo list updated.');
     });
+
+    this.socket.on('receivedNewBudget', (budget: IBudgetInfo) => {
+      this.store.dispatch(addBudget({ newBudget: budget }));
+
+      this.snotifyService.success('Added new budget.', {
+        timeout: 2000,
+        showProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+      });
+
+      notify('Added new budget.');
+    });
   }
 
   sendPost(familyId: string, postBody: { text: string; name: string }) {
@@ -87,6 +102,10 @@ export class SocketioService {
 
   deleteTodoStatus(familyId: string, todoId: string) {
     this.socket.emit('deleteTodoStatus', familyId, todoId);
+  }
+
+  createNewBudget(familyId: string, newBudget: IBudgetInfo) {
+    this.socket.emit('createNewBudget', familyId, newBudget);
   }
 
   disconnectSocketConnection() {

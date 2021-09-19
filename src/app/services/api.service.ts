@@ -187,6 +187,11 @@ export class ApiService {
               },
             })
           );
+
+          this.socketioService.createNewBudget(response.family, {
+            id: response._id,
+            name: response.name,
+          });
         },
         (error) => {
           // TODO: dispatch it to NgRx
