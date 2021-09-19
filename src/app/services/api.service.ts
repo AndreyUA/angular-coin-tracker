@@ -211,6 +211,11 @@ export class ApiService {
         (response) => {
           if (response) {
             this.store.dispatch(setCurrentBudget({ currentBudget: response }));
+
+            this.socketioService.createNewTransaction(
+              response.family,
+              response
+            );
           } else {
             this.store.dispatch(setCurrentBudget({ currentBudget: {} }));
           }

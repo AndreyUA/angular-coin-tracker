@@ -3,15 +3,19 @@ import { io, Socket } from 'socket.io-client';
 import { SnotifyService } from 'ng-snotify';
 
 // Store
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import { addNewPost, removePost } from 'src/app/state/posts/posts.actions';
 import { updateTodoList } from 'src/app/state/todo/todo.actions';
-import { addBudget } from 'src/app/state/budgets/budgets.action';
+import {
+  addBudget,
+  setCurrentBudget,
+} from 'src/app/state/budgets/budgets.action';
+import { getCurrentBudget } from 'src/app/state/budgets';
 
 // Interfaces
 import { IPost } from 'src/app/state/posts/posts.reducer';
 import { ITodo } from '../state/todo/todo.reducer';
-import { IBudgetInfo } from '../state/budgets/budgets.reducer';
+import { IBudgetInfo, IBudget } from '../state/budgets/budgets.reducer';
 
 // Other
 import { environment } from 'src/environments/environment';
@@ -22,6 +26,8 @@ import { notify } from '../utils/notification';
 })
 export class SocketioService {
   socket!: Socket;
+
+  currentBudget!: IBudget;
 
   constructor(private store: Store, private snotifyService: SnotifyService) {}
 
@@ -82,6 +88,15 @@ export class SocketioService {
 
       notify('Added new budget.');
     });
+
+    this.socket.on('receivedNewTransaction', (socketBudget: IBudget) => {
+      this.store.pipe(select(getCurrentBudget)).subscribe((budget: IBudget) => {
+        this.currentBudget = budget;
+      });
+
+      if (this.currentBudget._id === socketBudget._id)
+        this.store.dispatch(setCurrentBudget({ currentBudget: socketBudget }));
+    });
   }
 
   sendPost(familyId: string, postBody: { text: string; name: string }) {
@@ -106,6 +121,10 @@ export class SocketioService {
 
   createNewBudget(familyId: string, newBudget: IBudgetInfo) {
     this.socket.emit('createNewBudget', familyId, newBudget);
+  }
+
+  createNewTransaction(familyId: string, budget: IBudget) {
+    this.socket.emit('createNewTransaction', familyId, budget);
   }
 
   disconnectSocketConnection() {
