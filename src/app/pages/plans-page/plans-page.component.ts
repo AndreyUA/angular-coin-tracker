@@ -30,13 +30,29 @@ export class PlansPageComponent implements OnInit {
 
   familyId!: string;
 
+  isModalVisible: boolean = false;
+
   constructor(
     private store: Store,
     private apiService: ApiService,
     private socketioService: SocketioService
   ) {}
 
-  onSubmit() {
+  private handleModal(bool: boolean): void {
+    this.isModalVisible = bool;
+  }
+
+  openModal(): void {
+    this.handleModal(true);
+  }
+
+  closeModal(): void {
+    this.handleModal(false);
+  }
+
+  onSubmit(): void {
+    this.closeModal();
+
     this.socketioService.updateTodosList(this.familyId, {
       content: this.todoForm.value.todo,
     });
