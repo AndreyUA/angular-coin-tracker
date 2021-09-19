@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 // Services
 import { SocketioService } from './socketio.service';
+import { NotificationService } from './notification.service';
 
 // Store
 import { Store } from '@ngrx/store';
@@ -36,15 +37,33 @@ import { IBudget, IBudgetInfo } from '../state/budgets/budgets.reducer';
 import { IPost } from '../state/posts/posts.reducer';
 import { ITodo } from '../state/todo/todo.reducer';
 
+type IErrorsArrayItem = {
+  msg: string;
+};
+
+interface IErrorsArray {
+  errors: Array<IErrorsArrayItem>;
+}
+
+interface IError extends HttpErrorResponse {
+  error: IErrorsArray;
+}
+
 @Injectable({ providedIn: 'root' })
 export class ApiService {
   constructor(
     private httpClient: HttpClient,
     private store: Store<{ family: IFamily } | {}>,
-    private socketioService: SocketioService
+    private socketioService: SocketioService,
+    private notificationService: NotificationService
   ) {}
 
-  // TODO: add family interface OR error interface
+  showErrorMessage(error: IError, alertText: string): void {
+    error.error.errors.forEach((errorObj) =>
+      this.notificationService.errorMessage(alertText, errorObj.msg)
+    );
+  }
+
   getAccountInfo(): void {
     this.store.dispatch(resetFamily());
     this.store.dispatch(setFetching({ isFetching: true }));
@@ -56,10 +75,10 @@ export class ApiService {
 
         this.socketioService.setupSocketConnection(response._id);
       },
-      (error) => {
+      (error: IError) => {
         this.store.dispatch(setFetching({ isFetching: false }));
-        // TODO: dispatch it to NgRx
-        console.log(error);
+
+        this.showErrorMessage(error, 'Authorization failed.');
       }
     );
   }
@@ -79,9 +98,8 @@ export class ApiService {
 
           this.getAccountInfo();
         },
-        (error) => {
-          // TODO: dispatch it to NgRx
-          console.log(error);
+        (error: IError) => {
+          this.showErrorMessage(error, 'Registration failed.');
         }
       );
   }
@@ -100,9 +118,8 @@ export class ApiService {
 
           this.getAccountInfo();
         },
-        (error) => {
-          // TODO: dispatch it to NgRx
-          console.log(error);
+        (error: IError) => {
+          this.showErrorMessage(error, 'Authorization failed.');
         }
       );
   }
@@ -118,9 +135,8 @@ export class ApiService {
         (response) => {
           this.store.dispatch(setFamily({ family: response }));
         },
-        (error) => {
-          // TODO: dispatch it to NgRx
-          console.log(error);
+        (error: IError) => {
+          this.showErrorMessage(error, 'Creating failed.');
         }
       );
   }
@@ -135,10 +151,10 @@ export class ApiService {
           this.store.dispatch(setFetchingBudgets({ isFetching: false }));
           this.store.dispatch(setAllBudgets({ allBudgets: response }));
         },
-        (error) => {
+        (error: IError) => {
           this.store.dispatch(setFetchingBudgets({ isFetching: false }));
-          // TODO: dispatch it to NgRx
-          console.log(error);
+
+          this.showErrorMessage(error, 'Error.');
         }
       );
   }
@@ -158,11 +174,10 @@ export class ApiService {
             this.store.dispatch(setCurrentBudget({ currentBudget: {} }));
           }
         },
-        (error) => {
+        (error: IError) => {
           this.store.dispatch(setFetchingBudgets({ isFetching: false }));
 
-          // TODO: dispatch it to NgRx
-          console.log(error);
+          this.showErrorMessage(error, 'Error.');
 
           this.store.dispatch(setCurrentBudget({ currentBudget: {} }));
         }
@@ -193,9 +208,8 @@ export class ApiService {
             name: response.name,
           });
         },
-        (error) => {
-          // TODO: dispatch it to NgRx
-          console.log(error);
+        (error: IError) => {
+          this.showErrorMessage(error, 'Creating failed.');
         }
       );
   }
@@ -220,11 +234,10 @@ export class ApiService {
             this.store.dispatch(setCurrentBudget({ currentBudget: {} }));
           }
         },
-        (error) => {
-          // TODO: dispatch it to NgRx
-          console.log(error);
-
+        (error: IError) => {
           this.store.dispatch(setCurrentBudget({ currentBudget: {} }));
+
+          this.showErrorMessage(error, 'Creating failed.');
         }
       );
   }
@@ -240,11 +253,10 @@ export class ApiService {
 
           this.store.dispatch(setAllPosts({ posts: response }));
         },
-        (error) => {
+        (error: IError) => {
           this.store.dispatch(setFetchingPosts({ isFetching: false }));
 
-          // TODO: dispatch it to NgRx
-          console.log(error);
+          this.showErrorMessage(error, 'Error.');
         }
       );
   }
@@ -254,16 +266,14 @@ export class ApiService {
       .delete<IPost>(`${environment.apiUrl}/api/post/${id}`)
       .subscribe(
         (response) => {
-          // TODO: dispath it to alerts in NgRx
-          console.log(response);
+          this.notificationService.warningMessage('Post removed.');
 
           this.socketioService.deletePost(response.family, response._id);
 
           this.store.dispatch(removePost({ postId: response._id }));
         },
-        (error) => {
-          // TODO: dispatch it to NgRx
-          console.log(error);
+        (error: IError) => {
+          this.showErrorMessage(error, 'Error.');
         }
       );
   }
@@ -278,15 +288,13 @@ export class ApiService {
           this.store.dispatch(setFetchingTodos({ isFetching: false }));
 
           this.store.dispatch(setAllTodos({ todos: response }));
-          // console.log(response);
         },
-        (error) => {
+        (error: IError) => {
           this.store.dispatch(setFetchingTodos({ isFetching: false }));
 
           this.store.dispatch(setAllTodos({ todos: [] }));
 
-          // TODO: dispatch it to NgRx
-          console.log(error);
+          this.showErrorMessage(error, 'Error.');
         }
       );
   }

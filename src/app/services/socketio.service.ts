@@ -29,6 +29,7 @@ export class SocketioService {
 
   currentBudget!: IBudget;
 
+  // TODO: add NOTIFICATION SERVICE HERE!!!
   constructor(private store: Store, private snotifyService: SnotifyService) {}
 
   // Connect for receiving socket's messages
