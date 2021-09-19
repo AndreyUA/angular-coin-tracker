@@ -1,15 +1,22 @@
 <div class="dashboard">
-  <form [formGroup]="postsForm" (ngSubmit)="onSubmit()" class="dashboard_form">
-    <label for="text">Text:</label>
-    <input
-      formControlName="text"
-      #textInput
-      type="text"
-      name="text"
-      id="text"
-    />
-    <button [disabled]="!postsForm.valid" type="submit">Submit</button>
-  </form>
+  <button (click)="openModal()">add post</button>
+  <app-modal *ngIf="isModalVisible" (handleChange)="closeModal()">
+    <form
+      [formGroup]="postsForm"
+      (ngSubmit)="onSubmit()"
+      class="dashboard_form"
+    >
+      <label for="text">Text:</label>
+      <input
+        formControlName="text"
+        #textInput
+        type="text"
+        name="text"
+        id="text"
+      />
+      <button [disabled]="!postsForm.valid" type="submit">Submit</button>
+    </form>
+  </app-modal>
 </div>
 <hr />
 <hr />

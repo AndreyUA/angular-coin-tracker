@@ -36,13 +36,29 @@ export class DashboardPageComponent implements OnInit {
 
   postsForm!: FormGroup;
 
+  isModalVisible: boolean = false;
+
   constructor(
     private apiService: ApiService,
     private store: Store,
     private socketioService: SocketioService
   ) {}
 
+  private handleModal(bool: boolean): void {
+    this.isModalVisible = bool;
+  }
+
+  openModal(): void {
+    this.handleModal(true);
+  }
+
+  closeModal(): void {
+    this.handleModal(false);
+  }
+
   onSubmit() {
+    this.closeModal();
+
     if (this.familyPersonName !== null) {
       if (this.familyId) {
         // TODO: think about ERRORS
