@@ -94,8 +94,18 @@ export class SocketioService {
         this.currentBudget = budget;
       });
 
-      if (this.currentBudget._id === socketBudget._id)
+      if (this.currentBudget._id === socketBudget._id) {
         this.store.dispatch(setCurrentBudget({ currentBudget: socketBudget }));
+      }
+
+      this.snotifyService.success('Added new transaction.', {
+        timeout: 2000,
+        showProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+      });
+
+      notify('Added new budget.');
     });
   }
 
