@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { io, Socket } from 'socket.io-client';
-import { SnotifyService } from 'ng-snotify';
 
 // Store
 import { Store, select } from '@ngrx/store';
@@ -11,6 +10,9 @@ import {
   setCurrentBudget,
 } from 'src/app/state/budgets/budgets.action';
 import { getCurrentBudget } from 'src/app/state/budgets';
+
+// Services
+import { NotificationService } from './notification.service';
 
 // Interfaces
 import { IPost } from 'src/app/state/posts/posts.reducer';
@@ -30,7 +32,7 @@ export class SocketioService {
   currentBudget!: IBudget;
 
   // TODO: add NOTIFICATION SERVICE HERE!!!
-  constructor(private store: Store, private snotifyService: SnotifyService) {}
+  constructor(private store: Store, private notificationService: NotificationService) {}
 
   // Connect for receiving socket's messages
   setupSocketConnection(familyId: string) {
@@ -41,12 +43,7 @@ export class SocketioService {
     this.socket.on('receivePost', (data: IPost) => {
       this.store.dispatch(addNewPost({ post: data }));
 
-      this.snotifyService.success('New post created.', {
-        timeout: 2000,
-        showProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-      });
+      this.notificationService.successMessage('New post created.');
 
       notify('New post created.');
     });
@@ -54,12 +51,7 @@ export class SocketioService {
     this.socket.on('receiveDeletedPost', (msgId: string) => {
       this.store.dispatch(removePost({ postId: msgId }));
 
-      this.snotifyService.warning('Post removed.', {
-        timeout: 2000,
-        showProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-      });
+      this.notificationService.warningMessage('Post removed.');
 
       notify('Post removed.');
     });
@@ -67,12 +59,7 @@ export class SocketioService {
     this.socket.on('updateTodos', (todo: ITodo) => {
       this.store.dispatch(updateTodoList({ todo }));
 
-      this.snotifyService.success('Todo list updated.', {
-        timeout: 2000,
-        showProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-      });
+      this.notificationService.successMessage('Todo list updated.');
 
       notify('Todo list updated.');
     });
@@ -80,12 +67,7 @@ export class SocketioService {
     this.socket.on('receivedNewBudget', (budget: IBudgetInfo) => {
       this.store.dispatch(addBudget({ newBudget: budget }));
 
-      this.snotifyService.success('Added new budget.', {
-        timeout: 2000,
-        showProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-      });
+      this.notificationService.successMessage('Added new budget.');
 
       notify('Added new budget.');
     });
@@ -99,12 +81,7 @@ export class SocketioService {
         this.store.dispatch(setCurrentBudget({ currentBudget: socketBudget }));
       }
 
-      this.snotifyService.success('Added new transaction.', {
-        timeout: 2000,
-        showProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-      });
+      this.notificationService.successMessage('Added new transaction.');
 
       notify('Added new budget.');
     });

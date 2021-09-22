@@ -7,6 +7,15 @@ import { SnotifyService } from 'ng-snotify';
 export class NotificationService {
   constructor(private snotifyService: SnotifyService) {}
 
+  successMessage(msg: string) {
+    this.snotifyService.success(msg, {
+      timeout: 2000,
+      showProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+    });
+  }
+
   errorMessage(msg: string, error?: string): void {
     this.snotifyService.error(`${msg} ${error ? error : ''}`, {
       timeout: 2000,
