@@ -97,6 +97,8 @@ export class ApiService {
           localStorage.setItem('token', response.token);
 
           this.getAccountInfo();
+
+          this.notificationService.infoMessage('New family created.');
         },
         (error: IError) => {
           this.showErrorMessage(error, 'Registration failed.');
@@ -117,6 +119,8 @@ export class ApiService {
           localStorage.setItem('token', response.token);
 
           this.getAccountInfo();
+
+          this.notificationService.infoMessage('Authorization successfully.');
         },
         (error: IError) => {
           this.showErrorMessage(error, 'Authorization failed.');
@@ -134,6 +138,8 @@ export class ApiService {
       .subscribe(
         (response) => {
           this.store.dispatch(setFamily({ family: response }));
+
+          this.notificationService.infoMessage('New person created.');
         },
         (error: IError) => {
           this.showErrorMessage(error, 'Creating failed.');
@@ -207,6 +213,8 @@ export class ApiService {
             id: response._id,
             name: response.name,
           });
+
+          this.notificationService.infoMessage('New budget created.');
         },
         (error: IError) => {
           this.showErrorMessage(error, 'Creating failed.');
@@ -230,6 +238,8 @@ export class ApiService {
               response.family,
               response
             );
+
+            this.notificationService.infoMessage('New transaction created.');
           } else {
             this.store.dispatch(setCurrentBudget({ currentBudget: {} }));
           }
@@ -266,11 +276,11 @@ export class ApiService {
       .delete<IPost>(`${environment.apiUrl}/api/post/${id}`)
       .subscribe(
         (response) => {
-          this.notificationService.warningMessage('Post removed.');
-
           this.socketioService.deletePost(response.family, response._id);
 
           this.store.dispatch(removePost({ postId: response._id }));
+
+          this.notificationService.warningMessage('Post removed.');
         },
         (error: IError) => {
           this.showErrorMessage(error, 'Error.');
