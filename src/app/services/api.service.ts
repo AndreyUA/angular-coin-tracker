@@ -137,12 +137,31 @@ export class ApiService {
       .patch<IFamily>(`${environment.apiUrl}/api/family`, newPerson)
       .subscribe(
         (response) => {
+          // TODO: add socket here!
+
           this.store.dispatch(setFamily({ family: response }));
 
           this.notificationService.infoMessage('New person created.');
         },
         (error: IError) => {
           this.showErrorMessage(error, 'Creating failed.');
+        }
+      );
+  }
+
+  removePersonFromFamily(id: string): void {
+    this.httpClient
+      .delete<IFamily>(`${environment.apiUrl}/api/family/${id}`)
+      .subscribe(
+        (response) => {
+          // TODO: add socket here!
+
+          this.store.dispatch(setFamily({ family: response }));
+
+          this.notificationService.infoMessage('Person removed.');
+        },
+        (error: IError) => {
+          this.showErrorMessage(error, 'Removing failed.');
         }
       );
   }

@@ -27,7 +27,6 @@ export class FamilyPageComponent implements OnInit {
 
   onSubmitChangePersonHandler() {
     localStorage.setItem('person', this.changePersonForm.value.changePerson);
-    console.log(this.changePersonForm.value.changePerson);
   }
 
   onSubmitAddPersonHandler() {
@@ -36,7 +35,14 @@ export class FamilyPageComponent implements OnInit {
   }
 
   deletePersonHandler() {
-    // TODO: only reset form, add api request!
+    // Person name is unique in every family
+    // So we can find ID by the name
+    const personId = this.family.persons.find(
+      (person) => person.name === this.changePersonForm.value.changePerson
+    )?._id;
+
+    if (personId) this.apiService.removePersonFromFamily(personId);
+
     this.changePersonForm = new FormGroup({
       changePerson: new FormControl('default'),
     });
