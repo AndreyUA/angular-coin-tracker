@@ -9,7 +9,6 @@ import {
   updateTodoList,
 } from './todo.actions';
 
-// TODO: all fields are REQUIRED!!!
 export interface ITodo {
   content: string;
   family?: string;
@@ -39,12 +38,10 @@ const _todosReducer = createReducer(
     ...state,
     todos: todos,
   })),
-  // TODO: remove it and use setAllTodos
   on(addNewTodo, (state, { todo }) => ({
     ...state,
     todos: [todo, ...state.todos],
   })),
-  // TODO: remove it and use setAllTodos
   on(finishTodo, (state, { todoId }) => {
     const newTodosArray = state.todos.map(
       (todo: ITodo, index: number): ITodo => {
@@ -64,7 +61,6 @@ const _todosReducer = createReducer(
       todos: [...newTodosArray],
     };
   }),
-  // TODO: remove it and use setAllTodos
   on(deleteTodo, (state, { todoId }) => {
     return {
       ...state,

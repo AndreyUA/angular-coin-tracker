@@ -37,7 +37,6 @@ export interface IBudgetState {
   isFetching: boolean;
 }
 
-// TODO: add isFetching
 const initialState: IBudgetState = {
   allBudgets: [],
   currentBudget: {},

@@ -101,7 +101,6 @@ export class TablePageComponent implements OnInit {
     // Fetch array of budgets
     this.apiService.getAllBudgets();
 
-    // TODO: make MULTIPLE selector!!!
     this.store.pipe(select(getCurrentBudget)).subscribe((budget) => {
       this.currentBudget = {};
       this.transactions = [];
