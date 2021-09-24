@@ -1,3 +1,11 @@
+## To build docker image run
+
+sudo docker build . -t coin-tracker
+
+## To run docker image run
+
+sudo docker run -d -p 4200:80 coin-tracker
+
 # CoinTrackerClient
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.0.0.
