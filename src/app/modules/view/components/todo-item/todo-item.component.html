@@ -1,17 +1,39 @@
 <div class="todo_list_block">
-  <button class="todo_list_checkbox" (click)="finishTodoHandler(todo._id!)">
-    &#10004;
-  </button>
+  <div class="todo_list_block_control">
+    <button
+      *ngIf="todo.isFinished; else finishedButton"
+      class="todo_list_block_control_checkbox"
+      (click)="finishTodoHandler(todo._id!)"
+    ></button>
+
+    <ng-template #finishedButton>
+      <button
+        class="
+          todo_list_block_control_checkbox todo_list_block_control_checkbox-done
+        "
+        (click)="finishTodoHandler(todo._id!)"
+      >
+        &#10004;
+      </button>
+    </ng-template>
+
+    <button
+      class="todo_list_block_control_remove"
+      (click)="deleteTodoHandler(todo._id!)"
+    >
+      <img src="../../../../../assets/recycle-bin.svg" alt="del" />
+    </button>
+  </div>
   <p
-    *ngIf="todo.isFinished; else notFinished"
-    class="todo_list_content-done"
+    *ngIf="todo.isFinished; else finishedContent"
+    class="todo_list_content_text"
   >
     {{ todo.content }}
   </p>
-  <ng-template #notFinished>
-    <p class="todo_list_content">{{ todo.content }}</p>
+
+  <ng-template #finishedContent>
+    <p class="todo_list_content_text todo_list_content_text-done">
+      {{ todo.content }}
+    </p>
   </ng-template>
-  <button class="todo_list_remove" (click)="deleteTodoHandler(todo._id!)">
-    &#10008;
-  </button>
 </div>

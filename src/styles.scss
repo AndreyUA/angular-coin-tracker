@@ -16,6 +16,8 @@
 .angular_app {
   width: 100vw;
   height: 100vh;
+
+  overflow: hidden;
 }
 
 .view {
@@ -28,12 +30,15 @@
 
 .header {
   flex: 0 1 auto;
+  background-color: var(--primary);
 }
 
 .main {
   flex: 1 1 auto;
+  background-color: var(--primary);
 }
 
 .footer {
   flex: 0 1 auto;
+  background-color: var(--primary);
 }

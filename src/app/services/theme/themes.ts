@@ -24,7 +24,7 @@ export const lightTheme: ITheme = {
   name: ThemesTypes.LIGHT,
   properties: {
     '--main': '#ffffff',
-    '--primary': '#f9faff',
+    '--primary': '#efefef',
     '--secondary': '#1f64fd',
     '--font': '#282e59',
   },
