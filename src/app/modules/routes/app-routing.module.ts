@@ -2,20 +2,20 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 // Services
-import { AuthGuard } from './services/auth-guard.service';
-import { UserGuard } from './services/user-guard.service';
+import { AuthGuard } from '../../services/auth-guard.service';
+import { UserGuard } from '../../services/user-guard.service';
 
 // Components
-import { HomePageComponent } from './pages/home-page/home-page.component';
-import { AuthPageComponent } from './pages/auth-page/auth-page.component';
-import { RegisterPageComponent } from './pages/auth-page/register-page/register-page.component';
-import { LoginPageComponent } from './pages/auth-page/login-page/login-page.component';
-import { FamilyPageComponent } from './pages/family-page/family-page.component';
-import { TablePageComponent } from './pages/table-page/table-page.component';
-import { PlansPageComponent } from './pages/plans-page/plans-page.component';
-import { DashboardPageComponent } from './pages/dashboard-page/dashboard-page.component';
-import { StatisticPageComponent } from './pages/statistic-page/statistic-page.component';
-import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { HomePageComponent } from '../view/pages/home-page/home-page.component';
+import { AuthPageComponent } from '../view/pages/auth-page/auth-page.component';
+import { RegisterPageComponent } from '../view/pages/auth-page/register-page/register-page.component';
+import { LoginPageComponent } from '../view/pages/auth-page/login-page/login-page.component';
+import { FamilyPageComponent } from '../view/pages/family-page/family-page.component';
+import { TablePageComponent } from '../view/pages/table-page/table-page.component';
+import { PlansPageComponent } from '../view/pages/plans-page/plans-page.component';
+import { DashboardPageComponent } from '../view/pages/dashboard-page/dashboard-page.component';
+import { StatisticPageComponent } from '../view/pages/statistic-page/statistic-page.component';
+import { NotFoundComponent } from '../view/pages/not-found/not-found.component';
 
 const routes: Routes = [
   { path: '', component: HomePageComponent },
