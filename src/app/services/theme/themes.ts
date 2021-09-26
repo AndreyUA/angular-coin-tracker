@@ -13,17 +13,19 @@ export enum ThemesTypes {
 export const darkTheme: ITheme = {
   name: ThemesTypes.DARK,
   properties: {
-    '--main': 'purple',
-    '--primary': 'black',
-    '--secondary': 'grey',
+    '--main': '#031956',
+    '--primary': '#344fa1',
+    '--secondary': '#eb2cfe',
+    '--font': '#f3fbfd',
   },
 };
 
 export const lightTheme: ITheme = {
   name: ThemesTypes.LIGHT,
   properties: {
-    '--main': 'white',
-    '--primary': 'white',
-    '--secondary': 'white',
+    '--main': '#ffffff',
+    '--primary': '#f9faff',
+    '--secondary': '#1f64fd',
+    '--font': '#282e59',
   },
 };
