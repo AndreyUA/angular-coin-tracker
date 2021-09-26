@@ -1,7 +1,7 @@
 <div class="todo_list_block">
   <div class="todo_list_block_control">
     <button
-      *ngIf="todo.isFinished; else finishedButton"
+      *ngIf="!todo.isFinished; else finishedButton"
       class="todo_list_block_control_checkbox"
       (click)="finishTodoHandler(todo._id!)"
     ></button>
@@ -25,7 +25,7 @@
     </button>
   </div>
   <p
-    *ngIf="todo.isFinished; else finishedContent"
+    *ngIf="!todo.isFinished; else finishedContent"
     class="todo_list_content_text"
   >
     {{ todo.content }}
