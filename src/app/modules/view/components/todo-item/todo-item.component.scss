@@ -15,6 +15,7 @@
 
     display: flex;
     width: 66px;
+    min-width: 66px;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
@@ -27,7 +28,7 @@
       border-radius: 50%;
       outline: none;
       border-width: 0;
-      border: 4px solid var(--secondary);
+      border: 3px solid var(--secondary);
     }
 
     .todo_list_block_control_checkbox-done {
@@ -44,12 +45,7 @@
       border-radius: 50%;
       outline: none;
       border-width: 0;
-      border: 4px solid var(--primary);
-
-      img {
-        width: 20px;
-        height: 20px;
-      }
+      border: 3px solid var(--primary);
     }
   }
 

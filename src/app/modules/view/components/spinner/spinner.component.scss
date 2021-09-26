@@ -25,7 +25,7 @@
   top: 8px;
   left: 8px;
   border-radius: 50%;
-  box-shadow: 0 2.5px 0 0 #c307d0;
+  box-shadow: 0 2.5px 0 0 var(--secondary);
   transform-origin: 42px 43.25px;
 }
 .loadingio-spinner-eclipse-m5nkytxd37t {
@@ -33,7 +33,7 @@
   height: 100px;
   display: inline-block;
   overflow: hidden;
-  background: #ffffff;
+  background: var(--primary);
 }
 .ldio-ct265u5082h {
   width: 100%;

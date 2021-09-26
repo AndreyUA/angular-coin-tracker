@@ -21,6 +21,7 @@ import { PrivateRouteDirective } from 'src/app/directives/private-route.directiv
 import { PublicRouteDirective } from 'src/app/directives/public-route.directive';
 
 // Components
+import { ViewComponent } from './view.component';
 import { HeaderComponent } from './components/header/header.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { AuthPageComponent } from './pages/auth-page/auth-page.component';
@@ -37,7 +38,7 @@ import { TodoItemComponent } from './components/todo-item/todo-item.component';
 import { PostItemComponent } from './components/post-item/post-item.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { ModalComponent } from './components/modal/modal.component';
-import { ViewComponent } from './view.component';
+import { RecycleComponent } from './components/recycle/recycle.component';
 
 // Environment
 import { environment } from 'src/environments/environment';
@@ -63,6 +64,7 @@ import { environment } from 'src/environments/environment';
     PrivateRouteDirective,
     PublicRouteDirective,
     ViewComponent,
+    RecycleComponent,
   ],
   exports: [ViewComponent],
   imports: [
