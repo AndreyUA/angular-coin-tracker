@@ -4,5 +4,35 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: purple;
+
+  .modal_wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid var(--secondary);
+    border-radius: 5px;
+    z-index: 2;
+    background-color: var(--primary);
+    width: 300px;
+    padding: 20px;
+
+    .modal_wrapper_content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  .modal_back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+    background-color: var(--black);
+    opacity: 0.6;
+  }
 }

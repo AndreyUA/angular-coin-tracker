@@ -1,4 +1,10 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Output,
+  EventEmitter,
+  HostListener,
+} from '@angular/core';
 
 @Component({
   selector: 'app-modal',
@@ -7,6 +13,13 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class ModalComponent implements OnInit {
   @Output() handleChange = new EventEmitter();
+
+  @HostListener('document:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if (event.key === 'Escape') {
+      this.closeModal();
+    }
+  }
 
   closeModal(): void {
     this.handleChange.emit();

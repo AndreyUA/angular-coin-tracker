@@ -17,6 +17,7 @@ export const darkTheme: ITheme = {
     '--primary': '#344fa1',
     '--secondary': '#eb2cfe',
     '--font': '#f3fbfd',
+    '--black': '#000',
   },
 };
 
@@ -27,5 +28,6 @@ export const lightTheme: ITheme = {
     '--primary': '#efefef',
     '--secondary': '#1f64fd',
     '--font': '#282e59',
+    '--black': '#000',
   },
 };

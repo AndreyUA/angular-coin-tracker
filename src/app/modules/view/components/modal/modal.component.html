@@ -1,6 +1,9 @@
-<div class="modal">
-  <button (click)="closeModal()">close</button>
-  <div class="modal_content">
-    <ng-content></ng-content>
+<div (keypress)="handleKeyboardEvent($event)" class="modal">
+  <div class="modal_wrapper">
+    <button (click)="closeModal()">close</button>
+    <div class="modal_wrapper_content">
+      <ng-content></ng-content>
+    </div>
   </div>
+  <div class="modal_back" (click)="closeModal()"></div>
 </div>
