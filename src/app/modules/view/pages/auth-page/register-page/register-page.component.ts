@@ -34,6 +34,7 @@ export class RegisterPageComponent implements AfterViewInit {
 
   // Typing features
   @ViewChild('wellcome') wellcomeRef!: ElementRef;
+  // TODO: check it! Is it realy used?
   @ViewChild('familyNameFocus') familyNameFocusRef!: ElementRef;
 
   wellcomeText: string = 'Wellcome to Coin Tracker!';
