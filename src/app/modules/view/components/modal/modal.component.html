@@ -1,5 +1,5 @@
 <div (keypress)="handleKeyboardEvent($event)" class="modal">
-  <div class="modal_wrapper">
+  <div #modalRef class="modal_wrapper">
     <button (click)="closeModal()">close</button>
     <div class="modal_wrapper_content">
       <ng-content></ng-content>
