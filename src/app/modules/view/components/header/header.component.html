@@ -4,8 +4,12 @@
       <img src="../../assets/coin.svg" alt="logo" />
     </div>
     <div class="header_links">
-      <button *ngIf="!isDarkTheme" (click)="setDarkTheme()">DARK</button>
-      <button *ngIf="isDarkTheme" (click)="setLightTheme()">LIGHT</button>
+      <button *ngIf="!isDarkTheme" (click)="setDarkTheme()">
+        <img src="../../../../../assets/moon.svg" alt="dark_theme">
+      </button>
+      <button *ngIf="isDarkTheme" (click)="setLightTheme()">
+        <img src="../../../../../assets/sun.svg" alt="light_theme">
+      </button>
       <a
         routerLink=""
         routerLinkActive="active"
