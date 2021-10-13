@@ -39,18 +39,19 @@ export class ThemeService {
     localStorage.setItem('theme', ThemesTypes.LIGHT);
   }
 
-  setDefaultTheme(): void {
+  setDefaultTheme(): boolean {
     const currentTheme = this.getThemeFromLocalStorage();
 
     switch (currentTheme) {
       case ThemesTypes.DARK:
         this.setActiveTheme(darkTheme);
-        break;
+        return true;
       case ThemesTypes.LIGHT:
         this.setActiveTheme(lightTheme);
-        break;
+        return false;
       default:
         this.setDarkTheme();
+        return true;
     }
   }
 }

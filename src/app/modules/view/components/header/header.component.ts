@@ -14,6 +14,8 @@ import { ThemeService } from 'src/app/services/theme/theme.service';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
+  isDarkTheme!: boolean;
+
   constructor(
     private store: Store,
     private socketioService: SocketioService,
@@ -31,13 +33,15 @@ export class HeaderComponent implements OnInit {
 
   setDarkTheme() {
     this.themeService.setDarkTheme();
+    this.isDarkTheme = true;
   }
 
   setLightTheme() {
     this.themeService.setLightTheme();
+    this.isDarkTheme = false;
   }
 
   ngOnInit(): void {
-    this.themeService.setDefaultTheme();
+    this.isDarkTheme = this.themeService.setDefaultTheme();
   }
 }
