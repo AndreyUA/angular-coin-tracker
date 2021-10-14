@@ -14,12 +14,7 @@
     border-radius: 5px;
     z-index: 2;
     background-color: var(--primary);
-    width: 0;
-    height: 0;
-    min-height: 0;
-    padding: 0;
     overflow: hidden;
-    transition: .2s all ease-in-out;
 
     .modal_wrapper_content {
       position: absolute;
@@ -27,12 +22,6 @@
       left: 50%;
       transform: translate(-50%, -50%);
     }
-  }
-
-  .modal_wrapper-opened {
-    width: 460px;
-    min-height: 300px;
-    padding: 20px;
   }
 
   .modal_back {

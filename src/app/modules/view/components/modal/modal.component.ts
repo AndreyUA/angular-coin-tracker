@@ -4,19 +4,47 @@ import {
   Output,
   EventEmitter,
   HostListener,
-  ViewChild,
-  ElementRef,
-  Renderer2,
 } from '@angular/core';
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition,
+} from '@angular/animations';
 
 @Component({
   selector: 'app-modal',
   templateUrl: './modal.component.html',
   styleUrls: ['./modal.component.scss'],
+  animations: [
+    trigger('openClose', [
+      state(
+        'open',
+        style({
+          width: '460px',
+          minHeight: '300px',
+          padding: '20px',
+          opacity: 1,
+        })
+      ),
+      state(
+        'closed',
+        style({
+          width: 0,
+          height: 0,
+          minHeight: 0,
+          padding: 0,
+          opacity: 0,
+        })
+      ),
+      transition('open => closed', [animate('0.2s ease-in-out')]),
+      transition('closed => open', [animate('0.2s ease-in-out')]),
+    ]),
+  ],
 })
 export class ModalComponent implements OnInit {
-  // TODO: check animation
-  @ViewChild('modalRef', { static: true }) private modalRef!: ElementRef;
+  isOpen: boolean = false;
 
   @Output() handleChange = new EventEmitter();
 
@@ -27,25 +55,27 @@ export class ModalComponent implements OnInit {
     }
   }
 
+  private handleOpenWindow(): void {
+    this.isOpen = true;
+  }
+
+  private handleCloseWindow(): void {
+    this.isOpen = false;
+  }
+
   closeModal(): void {
-    this.renderer.removeClass(
-      this.modalRef.nativeElement,
-      'modal_wrapper-opened'
-    );
+    this.handleCloseWindow();
 
     setTimeout(() => {
       this.handleChange.emit();
-    }, 200);
+    }, 300);
   }
 
-  constructor(private renderer: Renderer2) {}
+  constructor() {}
 
   ngOnInit(): void {
     setTimeout(() => {
-      this.renderer.addClass(
-        this.modalRef.nativeElement,
-        'modal_wrapper-opened'
-      );
+      this.handleOpenWindow();
     });
   }
 }
