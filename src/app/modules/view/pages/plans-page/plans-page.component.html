@@ -1,5 +1,5 @@
 <div class="todo">
-  <button (click)="openModal()">Add todo</button>
+  <app-add (click)="openModal()" [text]="'Add todo'"></app-add>
   <app-modal *ngIf="isModalVisible" (handleChange)="closeModal()">
     <div class="todo_form">
       <form [formGroup]="todoForm" (ngSubmit)="onSubmit()">

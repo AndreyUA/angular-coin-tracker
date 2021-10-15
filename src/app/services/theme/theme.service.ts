@@ -54,4 +54,8 @@ export class ThemeService {
         return true;
     }
   }
+
+  getIsDarkTheme(): boolean {
+    return this.getThemeFromLocalStorage() === ThemesTypes.DARK ? true : false;
+  }
 }

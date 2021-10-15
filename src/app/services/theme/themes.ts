@@ -18,6 +18,7 @@ export const darkTheme: ITheme = {
     '--secondary': '#eb2cfe',
     '--font': '#f3fbfd',
     '--black': '#000',
+    '--white': '#fff',
   },
 };
 
@@ -29,5 +30,6 @@ export const lightTheme: ITheme = {
     '--secondary': '#1f64fd',
     '--font': '#282e59',
     '--black': '#000',
+    '--white': '#fff',
   },
 };

@@ -39,6 +39,7 @@ import { PostItemComponent } from './components/post-item/post-item.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { RecycleComponent } from './components/recycle/recycle.component';
+import { AddComponent } from './components/add/add.component';
 
 // Environment
 import { environment } from 'src/environments/environment';
@@ -65,6 +66,7 @@ import { environment } from 'src/environments/environment';
     PublicRouteDirective,
     ViewComponent,
     RecycleComponent,
+    AddComponent,
   ],
   exports: [ViewComponent],
   imports: [
