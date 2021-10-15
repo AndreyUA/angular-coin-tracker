@@ -1,5 +1,5 @@
 <div class="dashboard">
-  <button (click)="openModal()">add post</button>
+  <app-add (click)="openModal()" [text]="'Add post'"></app-add>
   <app-modal *ngIf="isModalVisible" (handleChange)="closeModal()">
     <form
       [formGroup]="postsForm"
