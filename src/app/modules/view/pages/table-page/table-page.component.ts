@@ -18,6 +18,9 @@ import { ITransaction } from 'src/app/state/budgets/budgets.reducer';
 import { IFamily } from 'src/app/state/family/family.reducer';
 import { IBudgetInfo, IBudget } from 'src/app/state/budgets/budgets.reducer';
 
+// Utils
+import { getPersonName } from 'src/app/utils/getPersonName';
+
 @Component({
   selector: 'app-table-page',
   templateUrl: './table-page.component.html',
@@ -166,7 +169,7 @@ export class TablePageComponent implements OnInit {
       purchase: new FormControl(null, Validators.required),
     });
 
-    const personFromLocalStorage = localStorage.getItem('person');
+    const personFromLocalStorage = getPersonName();
 
     if (
       // Check if person exist in localStorage
@@ -176,7 +179,7 @@ export class TablePageComponent implements OnInit {
         (person) => person.name.toString() === personFromLocalStorage
       ) !== -1
     ) {
-      this.person = localStorage.getItem('person');
+      this.person = getPersonName();
     }
 
     this.newBudgetForm = new FormGroup({

@@ -11,6 +11,9 @@ import { ApiService } from 'src/app/services/api.service';
 // Interfaces
 import { IFamily } from 'src/app/state/family/family.reducer';
 
+// Utils
+import { getPersonName } from 'src/app/utils/getPersonName';
+
 @Component({
   selector: 'app-family-page',
   templateUrl: './family-page.component.html',
@@ -57,7 +60,7 @@ export class FamilyPageComponent implements OnInit {
       addPerson: new FormControl(null, Validators.required),
     });
 
-    const personFromLocalStorage = localStorage.getItem('person');
+    const personFromLocalStorage = getPersonName();
 
     if (
       // Check if person exist in localStorage
@@ -68,7 +71,7 @@ export class FamilyPageComponent implements OnInit {
       ) !== -1
     ) {
       this.changePersonForm = new FormGroup({
-        changePerson: new FormControl(localStorage.getItem('person')),
+        changePerson: new FormControl(getPersonName()),
       });
     } else {
       this.changePersonForm = new FormGroup({

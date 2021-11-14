@@ -18,6 +18,9 @@ import { IFamily } from 'src/app/state/family/family.reducer';
 // Custom validators
 import { DashboardValidator } from './dashboard-validator';
 
+// Utils
+import { getPersonName } from 'src/app/utils/getPersonName';
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard-page.component.html',
@@ -76,7 +79,7 @@ export class DashboardPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.familyPersonName = localStorage.getItem('person');
+    this.familyPersonName = getPersonName();
 
     this.store.dispatch(resetPosts());
 
