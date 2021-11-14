@@ -2,5 +2,11 @@
   .footer {
     position: relative;
     height: 50px;
+    padding: 5px;
+
+    p {
+      text-align: center;
+      color: var(--font);
+    }
   }
 }
