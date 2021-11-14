@@ -19,7 +19,14 @@
   </app-modal>
 
   <div *ngIf="posts.length > 0 && !isFetching" class="dashboard_posts">
-    <app-post-item *ngFor="let post of posts" [post]="post"></app-post-item>
+    <app-post-item
+      [ngStyle]="{
+        'justify-content':
+          post.name === familyPersonName ? 'flex-end' : 'flex-start'
+      }"
+      *ngFor="let post of posts"
+      [post]="post"
+    ></app-post-item>
   </div>
 
   <p *ngIf="posts.length === 0 && !isFetching">no posts!</p>

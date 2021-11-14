@@ -1,8 +1,10 @@
 <div class="dashboard_posts_post">
-  <p>
-    <span>{{ post.name }}: </span>
-    <span>{{ post.text }}</span>
-    <span> at {{ post.date | date: "dd MMM yyyy, ccc, HH:mm" }}</span>
-    <button (click)="removeHandler(post._id)">remove post</button>
+  <p class="dashboard_posts_post_name">{{ post.name }}:</p>
+  <p class="dashboard_posts_post_content">{{ post.text }}</p>
+  <p class="dashboard_posts_post_date">
+    at {{ post.date | date: "dd MMM yyyy, ccc, HH:mm" }}
   </p>
+  <button class="dashboard_posts_post_remove" (click)="removeHandler(post._id)">
+    <app-close></app-close>
+  </button>
 </div>
