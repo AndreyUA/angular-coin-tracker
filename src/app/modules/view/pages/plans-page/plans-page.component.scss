@@ -10,5 +10,8 @@
     align-items: center;
     width: 100%;
     margin-top: 20px;
+    max-height: 700px;
+    max-width: 660px;
+    overflow-y: auto;
   }
 }
