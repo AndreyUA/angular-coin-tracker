@@ -17,13 +17,12 @@
       <button [disabled]="!postsForm.valid" type="submit">Submit</button>
     </form>
   </app-modal>
-</div>
-<hr />
-<hr />
-<div *ngIf="posts.length > 0 && !isFetching" class="dashboard_posts">
-  <app-post-item *ngFor="let post of posts" [post]="post"></app-post-item>
-</div>
 
-<p *ngIf="posts.length === 0 && !isFetching">no posts!</p>
+  <div *ngIf="posts.length > 0 && !isFetching" class="dashboard_posts">
+    <app-post-item *ngFor="let post of posts" [post]="post"></app-post-item>
+  </div>
 
-<app-spinner *ngIf="isFetching"></app-spinner>
+  <p *ngIf="posts.length === 0 && !isFetching">no posts!</p>
+
+  <app-spinner *ngIf="isFetching"></app-spinner>
+</div>
