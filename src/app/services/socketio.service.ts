@@ -21,7 +21,6 @@ import { IBudgetInfo, IBudget } from '../state/budgets/budgets.reducer';
 
 // Other
 import { environment } from 'src/environments/environment';
-import { notify } from '../utils/notification';
 
 @Injectable({
   providedIn: 'root',
@@ -31,7 +30,10 @@ export class SocketioService {
 
   currentBudget!: IBudget;
 
-  constructor(private store: Store, private notificationService: NotificationService) {}
+  constructor(
+    private store: Store,
+    private notificationService: NotificationService
+  ) {}
 
   // Connect for receiving socket's messages
   setupSocketConnection(familyId: string) {
@@ -43,32 +45,24 @@ export class SocketioService {
       this.store.dispatch(addNewPost({ post: data }));
 
       this.notificationService.successMessage('New post created.');
-
-      notify('New post created.');
     });
 
     this.socket.on('receiveDeletedPost', (msgId: string) => {
       this.store.dispatch(removePost({ postId: msgId }));
 
       this.notificationService.warningMessage('Post removed.');
-
-      notify('Post removed.');
     });
 
     this.socket.on('updateTodos', (todo: ITodo) => {
       this.store.dispatch(updateTodoList({ todo }));
 
       this.notificationService.successMessage('Todo list updated.');
-
-      notify('Todo list updated.');
     });
 
     this.socket.on('receivedNewBudget', (budget: IBudgetInfo) => {
       this.store.dispatch(addBudget({ newBudget: budget }));
 
       this.notificationService.successMessage('Added new budget.');
-
-      notify('Added new budget.');
     });
 
     this.socket.on('receivedNewTransaction', (socketBudget: IBudget) => {
@@ -81,8 +75,6 @@ export class SocketioService {
       }
 
       this.notificationService.successMessage('Added new transaction.');
-
-      notify('Added new budget.');
     });
   }
 
