@@ -1,11 +1,17 @@
 import { Injectable } from '@angular/core';
 import { SnotifyService } from 'ng-snotify';
 
+// Services
+import { SoundAlertService } from './sound-alert.service';
+
 @Injectable({
   providedIn: 'root',
 })
 export class NotificationService {
-  constructor(private snotifyService: SnotifyService) {}
+  constructor(
+    private snotifyService: SnotifyService,
+    private soundAlertService: SoundAlertService
+  ) {}
 
   successMessage(msg: string): void {
     this.snotifyService.success(msg, {
@@ -14,6 +20,8 @@ export class NotificationService {
       closeOnClick: true,
       pauseOnHover: true,
     });
+
+    this.soundAlertService.playSoundAlert();
   }
 
   infoMessage(msg: string): void {
@@ -23,6 +31,8 @@ export class NotificationService {
       closeOnClick: true,
       pauseOnHover: true,
     });
+
+    this.soundAlertService.playSoundAlert();
   }
 
   errorMessage(msg: string, error?: string): void {
@@ -32,6 +42,8 @@ export class NotificationService {
       closeOnClick: true,
       pauseOnHover: true,
     });
+
+    this.soundAlertService.playSoundAlert();
   }
 
   warningMessage(msg: string): void {
@@ -41,5 +53,7 @@ export class NotificationService {
       closeOnClick: true,
       pauseOnHover: true,
     });
+
+    this.soundAlertService.playSoundAlert();
   }
 }
