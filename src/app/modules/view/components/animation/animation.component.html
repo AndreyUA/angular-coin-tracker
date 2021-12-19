@@ -1,0 +1,12 @@
+<div
+  class="animation"
+  (mouseup)="unclickHandler($event)"
+  (mousedown)="clickHandler($event)"
+  (click)="handleTouch($event)"
+>
+  <img
+    [@clickUnclick]="isClicked ? 'click' : 'unclick'"
+    src="../../../../../assets/white_bear.jpg"
+    alt="bear"
+  />
+</div>

@@ -50,9 +50,7 @@ export class ModalComponent implements OnInit {
 
   @HostListener('document:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
-    if (event.key === 'Escape') {
-      this.closeModal();
-    }
+    if (event.key === 'Escape') this.closeModal();
   }
 
   private handleOpenWindow(): void {

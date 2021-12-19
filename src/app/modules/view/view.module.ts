@@ -44,6 +44,7 @@ import { AddComponent } from './components/add/add.component';
 // Environment
 import { environment } from 'src/environments/environment';
 import { CloseComponent } from './components/close/close.component';
+import { AnimationComponent } from './components/animation/animation.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import { CloseComponent } from './components/close/close.component';
     RecycleComponent,
     AddComponent,
     CloseComponent,
+    AnimationComponent,
   ],
   exports: [ViewComponent],
   imports: [

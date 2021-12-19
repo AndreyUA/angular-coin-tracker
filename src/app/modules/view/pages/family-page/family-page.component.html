@@ -8,9 +8,7 @@
 <h1>Wellcome {{ family.familyName }}</h1>
 
 <div class="family">
-  <div class="family_img">
-    <img src="../../../../../assets/white_bear.jpg" alt="bear" />
-  </div>
+  <app-animation></app-animation>
   <div class="account_form_changePerson">
     <form
       *ngIf="family.persons.length > 0; else elseBlock"
