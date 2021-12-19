@@ -32,8 +32,8 @@ enum PositionsLeftAndRightTypes {
           marginTop: '20px',
         })
       ),
-      transition('click => unclick', [animate('0.2s ease-in-out')]),
-      transition('unclick => click', [animate('0.2s ease-in-out')]),
+      transition('click => unclick', [animate('0.1s ease-in-out')]),
+      transition('unclick => click', [animate('0.1s ease-in-out')]),
     ]),
     trigger('moveRightAndLeft', [
       state(
