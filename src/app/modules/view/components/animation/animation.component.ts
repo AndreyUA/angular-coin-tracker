@@ -8,7 +8,8 @@ import {
   AnimationEvent,
 } from '@angular/animations';
 
-enum PositionsType {
+// Types
+enum PositionsLeftAndRightTypes {
   LEFT = 'left',
   RIGHT = 'right',
 }
@@ -35,36 +36,45 @@ enum PositionsType {
       transition('unclick => click', [animate('0.2s ease-in-out')]),
     ]),
     trigger('moveRightAndLeft', [
-      state(PositionsType.RIGHT, style({ marginLeft: '20px' })),
-      state(PositionsType.LEFT, style({ marginRight: '40px' })),
-      transition(`${PositionsType.RIGHT} => ${PositionsType.LEFT}`, [
-        animate('0.6s ease-in-out'),
-      ]),
-      transition(`${PositionsType.LEFT} => ${PositionsType.RIGHT}`, [
-        animate('0.6s ease-in-out'),
-      ]),
+      state(
+        PositionsLeftAndRightTypes.RIGHT,
+        style({ marginLeft: '25px', transform: 'rotate(10deg)' })
+      ),
+      state(
+        PositionsLeftAndRightTypes.LEFT,
+        style({ marginRight: '50px', transform: 'rotate(-10deg)' })
+      ),
+      transition(
+        `${PositionsLeftAndRightTypes.RIGHT} => ${PositionsLeftAndRightTypes.LEFT}`,
+        [animate('1.2s ease-in-out')]
+      ),
+      transition(
+        `${PositionsLeftAndRightTypes.LEFT} => ${PositionsLeftAndRightTypes.RIGHT}`,
+        [animate('1.2s ease-in-out')]
+      ),
     ]),
   ],
 })
 export class AnimationComponent implements AfterViewInit {
   isClicked: boolean = false;
 
-  position: string = PositionsType.LEFT;
+  positionLeftAndRight: PositionsLeftAndRightTypes =
+    PositionsLeftAndRightTypes.LEFT;
 
-  private turnPositionToRight(): void {
-    this.position = PositionsType.RIGHT;
-  }
-
-  private turnPositionToLeft(): void {
-    this.position = PositionsType.LEFT;
+  private turnClickOn(): void {
+    this.isClicked = true;
   }
 
   private turnClickOff(): void {
     this.isClicked = false;
   }
 
-  private turnClickOn(): void {
-    this.isClicked = true;
+  private turnPositionToRight(): void {
+    this.positionLeftAndRight = PositionsLeftAndRightTypes.RIGHT;
+  }
+
+  private turnPositionToLeft(): void {
+    this.positionLeftAndRight = PositionsLeftAndRightTypes.LEFT;
   }
 
   @HostListener('keydown', ['$event'])
@@ -85,13 +95,13 @@ export class AnimationComponent implements AfterViewInit {
     if (event.type === 'touchend') this.turnClickOff();
   }
 
-  onAnimationEnd(event: AnimationEvent): void {
+  onAnimationLeftAndRightEnd(event: AnimationEvent): void {
     this.turnPositionToLeft();
 
-    if (event.toState === PositionsType.LEFT) {
+    if (event.toState === PositionsLeftAndRightTypes.LEFT) {
       setTimeout(() => {
         this.turnPositionToRight();
-      }, 0);
+      });
     }
   }
 
@@ -100,6 +110,6 @@ export class AnimationComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     setTimeout(() => {
       this.turnPositionToRight();
-    }, 0);
+    });
   }
 }

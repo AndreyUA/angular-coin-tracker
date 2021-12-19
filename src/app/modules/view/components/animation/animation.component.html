@@ -6,8 +6,8 @@
 >
   <img
     [@clickUnclick]="isClicked ? 'click' : 'unclick'"
-    [@moveRightAndLeft]="position"
-    (@moveRightAndLeft.done)="onAnimationEnd($event)"
+    [@moveRightAndLeft]="positionLeftAndRight"
+    (@moveRightAndLeft.done)="onAnimationLeftAndRightEnd($event)"
     src="../../../../../assets/white_bear.jpg"
     alt="bear"
   />
