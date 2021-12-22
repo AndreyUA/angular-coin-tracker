@@ -43,6 +43,7 @@ import { AddComponent } from './components/add/add.component';
 import { CloseComponent } from './components/close/close.component';
 import { AnimationComponent } from './components/animation/animation.component';
 import { AddTodoModalComponent } from './components/add-todo-modal/add-todo-modal.component';
+import { PlusComponent } from './components/plus/plus.component';
 
 // Environment
 import { environment } from 'src/environments/environment';
@@ -73,6 +74,7 @@ import { environment } from 'src/environments/environment';
     CloseComponent,
     AnimationComponent,
     AddTodoModalComponent,
+    PlusComponent,
   ],
   exports: [ViewComponent],
   imports: [

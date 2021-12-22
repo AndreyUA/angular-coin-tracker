@@ -1,10 +1,4 @@
 <button class="add_btn">
-  <img
-    *ngIf="isDarkTheme"
-    class="add_btn_pic-light"
-    src="../../../../../assets/plus.svg"
-    alt="add"
-  />
-  <img *ngIf="!isDarkTheme" src="../../../../../assets/plus.svg" alt="add" />
+  <app-plus></app-plus>
   <span>{{ text }}</span>
 </button>
