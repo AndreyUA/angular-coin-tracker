@@ -23,6 +23,8 @@
 
     .todo_form_btn {
       cursor: pointer;
+      display: flex;
+      align-items: center;
       padding: 10px 20px;
       border: none;
       border-radius: 10px;
@@ -30,6 +32,10 @@
       margin-top: 30px;
       font-size: 16px;
       color: var(--font);
+
+      span {
+        margin-left: 10px;
+      }
     }
   }
 }

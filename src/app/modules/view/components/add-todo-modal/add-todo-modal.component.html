@@ -10,7 +10,8 @@
       placeholder="create new todo!"
     ></textarea>
     <button class="todo_form_btn" [disabled]="!todoForm.valid" type="submit">
-      Add todo!
+      <app-plus></app-plus>
+      <span> Add todo! </span>
     </button>
   </form>
 </div>
