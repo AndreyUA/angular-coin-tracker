@@ -1,6 +1,6 @@
 import {
   Component,
-  OnInit,
+  AfterViewInit,
   Input,
   Output,
   EventEmitter,
@@ -14,7 +14,7 @@ import { FormGroup } from '@angular/forms';
   templateUrl: './add-todo-modal.component.html',
   styleUrls: ['./add-todo-modal.component.scss'],
 })
-export class AddTodoModalComponent implements OnInit {
+export class AddTodoModalComponent implements AfterViewInit {
   @ViewChild('todoInput', { static: false }) todoInput!: ElementRef;
 
   @Input() todoForm!: FormGroup;
@@ -29,5 +29,7 @@ export class AddTodoModalComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngAfterViewInit(): void {
+    this.todoInput.nativeElement.focus();
+  }
 }
