@@ -16,6 +16,48 @@
     background-color: var(--primary);
     overflow: hidden;
 
+    .modal_wrapper_close {
+      position: relative;
+      width: 26px;
+      height: 26px;
+      background-color: transparent;
+      border: 1px solid var(--secondary);
+      border-radius: 50%;
+      outline: none;
+      transition: all 0.3s linear;
+
+      &::after,
+      &::before {
+        content: "";
+        position: absolute;
+        top: 6px;
+        width: 2px;
+        height: 12px;
+        background-color: var(--secondary);
+        transition: all 0.3s linear;
+      }
+
+      &::after {
+        left: 11px;
+        transform: rotate(45deg);
+      }
+
+      &::before {
+        right: 11px;
+        transform: rotate(-45deg);
+      }
+
+      &:hover {
+        cursor: pointer;
+        background-color: var(--secondary);
+
+        &::after,
+        &::before {
+          background-color: var(--white);
+        }
+      }
+    }
+
     .modal_wrapper_content {
       position: absolute;
       top: 50%;
