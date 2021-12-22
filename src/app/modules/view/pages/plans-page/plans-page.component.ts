@@ -20,8 +20,6 @@ import { IFamily } from 'src/app/state/family/family.reducer';
   styleUrls: ['./plans-page.component.scss'],
 })
 export class PlansPageComponent implements OnInit {
-  @ViewChild('todoInput', { static: false }) todoInput!: ElementRef;
-
   isTodosFetching!: boolean;
 
   todos: Array<ITodo> | [] = [];
@@ -57,7 +55,6 @@ export class PlansPageComponent implements OnInit {
       content: this.todoForm.value.todo,
     });
 
-    this.todoInput.nativeElement.blur();
     this.todoForm.reset();
 
     this.apiService.getAllTodos();

@@ -40,11 +40,12 @@ import { FooterComponent } from './components/footer/footer.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { RecycleComponent } from './components/recycle/recycle.component';
 import { AddComponent } from './components/add/add.component';
+import { CloseComponent } from './components/close/close.component';
+import { AnimationComponent } from './components/animation/animation.component';
+import { AddTodoModalComponent } from './components/add-todo-modal/add-todo-modal.component';
 
 // Environment
 import { environment } from 'src/environments/environment';
-import { CloseComponent } from './components/close/close.component';
-import { AnimationComponent } from './components/animation/animation.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +72,7 @@ import { AnimationComponent } from './components/animation/animation.component';
     AddComponent,
     CloseComponent,
     AnimationComponent,
+    AddTodoModalComponent,
   ],
   exports: [ViewComponent],
   imports: [
